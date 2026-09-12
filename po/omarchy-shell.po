@@ -151,3 +151,10 @@ msgstr "IP-адрес"
 msgid "LIFE"
 msgstr "Срок службы"
 
+
+msgid "OUTPUT"
+msgstr "Устройства вывода"
+
+msgid "SOURCES"
+msgstr "Источники звука"
+
