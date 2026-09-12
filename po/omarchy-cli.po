@@ -24,10 +24,10 @@ msgid "Shutting down"
 msgstr "Выключение"
 
 msgid "Suspending"
-msgstr "Приостановка"
+msgstr "Режим сна"
 
 msgid "Restarting"
-msgstr "Перезапуск"
+msgstr "Перезагрузка"
 
 msgid "Locking screen"
 msgstr "Блокировка экрана"
