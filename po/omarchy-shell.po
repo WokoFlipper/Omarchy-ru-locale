@@ -158,3 +158,34 @@ msgstr "Устройства вывода"
 msgid "SOURCES"
 msgstr "Источники звука"
 
+
+msgid "Cloudflare"
+msgstr "Cloudflare"
+
+msgid "HughesATT"
+msgstr "HughesATT"
+
+msgid "HughesWiFi"
+msgstr "HughesWiFi"
+
+msgid "Memento Mori"
+msgstr "Memento Mori"
+
+msgid "NumberField"
+msgstr "Поле числа"
+
+msgid "Packet Loss"
+msgstr "Потери пакетов"
+
+msgid "Ping"
+msgstr "Пинг"
+
+msgid "Playing"
+msgstr "Воспроизведение"
+
+msgid "Prepaid credits"
+msgstr "Предоплаченные кредиты"
+
+msgid "Receiving"
+msgstr "Получение"
+
