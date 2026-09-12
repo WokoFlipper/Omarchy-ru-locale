@@ -170,3 +170,34 @@ msgstr "Устройства вывода"
 
 msgid "SOURCES"
 msgstr "Источники звука"
+
+msgid "Downloaded"
+msgstr "Загружено"
+
+msgid "EXIT NODES"
+msgstr "Выходные узлы"
+
+msgid "FEELS"
+msgstr "Ощущается"
+
+msgid "HUMID"
+msgstr "Влажность"
+
+msgid "LIMITS"
+msgstr "Лимиты"
+
+msgid "Scale"
+msgstr "Масштаб"
+
+msgid "Theme tokens"
+msgstr "Токены темы"
+
+msgid "Toggle"
+msgstr "Переключатель"
+
+msgid "ToggleSwitch"
+msgstr "Тумблер"
+
+msgid "Typography"
+msgstr "Типографика"
+
