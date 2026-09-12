@@ -1,0 +1,52 @@
+# Russian translations for omarchy-shell
+msgid ""
+msgstr ""
+"Project-Id-Version: omarchy-shell\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-12\n"
+"PO-Revision-Date: 2026-09-12\n"
+"Last-Translator: WokoFlipper\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Terminal"
+msgstr "Терминал"
+
+msgid "Browser"
+msgstr "Браузер"
+
+msgid "File manager"
+msgstr "Файловый менеджер"
+
+msgid "Editor"
+msgstr "Редактор"
+
+msgid "Music"
+msgstr "Музыка"
+
+msgid "Passwords"
+msgstr "Пароли"
+
+msgid "Calendar"
+msgstr "Календарь"
+
+msgid "Mail"
+msgstr "Почта"
+
+msgid "Volume +"
+msgstr "Громкость +"
+
+msgid "Volume -"
+msgstr "Громкость -"
+
+msgid "Brightness up"
+msgstr "Яркость +"
+
+msgid "Brightness down"
+msgstr "Яркость -"
+
+msgid "Switch layout"
+msgstr "Переключить раскладку"
