@@ -201,3 +201,13 @@ msgstr "Тумблер"
 msgid "Typography"
 msgstr "Типографика"
 
+
+msgid "SCANNING WI-FI…"
+msgstr "Поиск Wi-Fi"
+
+msgid "No machines found on this tailnet."
+msgstr "В этой сети устройства не обнаружены."
+
+msgid "No Mullvad regions found."
+msgstr "Регионы Mullvad не найдены."
+
