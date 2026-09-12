@@ -26,3 +26,88 @@ msgstr "Яркость -"
 
 msgid "Switch layout"
 msgstr "Переключить раскладку"
+
+msgid "Audio"
+msgstr "Аудио"
+
+msgid "Bluetooth"
+msgstr "Bluetooth"
+
+msgid "Battery"
+msgstr "Батарея"
+
+msgid "Display"
+msgstr "Дисплей"
+
+msgid "Media"
+msgstr "Медиа"
+
+msgid "Clock"
+msgstr "Часы"
+
+msgid "Launcher / system menu"
+msgstr "Лаунчер / системное меню"
+
+msgid "Add widget"
+msgstr "Добавить виджет"
+
+msgid "Monitor"
+msgstr "Монитор"
+
+msgid "Hardware"
+msgstr "Оборудование"
+
+msgid "Charging"
+msgstr "Зарядка"
+
+msgid "Charge level + power profile"
+msgstr "Уровень заряда + профиль питания"
+
+msgid "Auto-refresh interval (minutes)"
+msgstr "Интервал автообновления (минуты)"
+
+msgid "Local conditions and forecast"
+msgstr "Местные условия и прогноз"
+
+msgid "Hyprland workspace pills"
+msgstr "Пилюли рабочих столов Hyprland"
+
+msgid "Allow this user to operate this Tailscale profile"
+msgstr "Разрешить этому пользователю управлять профилем Tailscale"
+
+msgid "Authorize Tailscale operator"
+msgstr "Авторизовать оператора Tailscale"
+
+msgid "Back to today"
+msgstr "Вернуться к сегодняшнему дню"
+
+msgid "Battery size"
+msgstr "Размер батареи"
+
+msgid "Brightness + scale"
+msgstr "Яркость + масштаб"
+
+msgid "Charge cycles"
+msgstr "Циклы зарядки"
+
+msgid "Connected"
+msgstr "Подключено"
+
+msgid "Connecting..."
+msgstr "Подключение..."
+
+msgid "CPU, GPU, mem utilization"
+msgstr "Загрузка CPU, GPU, памяти"
+
+msgid "DHCP"
+msgstr "DHCP"
+
+msgid "DISPLAYS"
+msgstr "ДИСПЛЕИ"
+
+msgid "DNS provider"
+msgstr "Провайдер DNS"
+
+msgid "Apply"
+msgstr "Применить"
+
