@@ -193,7 +193,7 @@ msgid "Theme tokens"
 msgstr "Токены темы"
 
 msgid "Toggle"
-msgstr "Переключатель"
+msgstr "Переключатели"
 
 msgid "ToggleSwitch"
 msgstr "Тумблер"
