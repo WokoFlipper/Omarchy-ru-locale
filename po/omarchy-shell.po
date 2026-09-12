@@ -111,3 +111,43 @@ msgstr "Провайдер DNS"
 msgid "Apply"
 msgstr "Применить"
 
+
+msgid "AUTOMATIC"
+msgstr "АВТОМАТИЧЕСКИ"
+
+msgid "BORN"
+msgstr "Дата производства"
+
+msgid "BRIGHTNESS"
+msgstr "ЯРКОСТЬ"
+
+msgid "DNS PROVIDER"
+msgstr "Провайдер DNS"
+
+msgid "Downloaded"
+msgstr "Загружено"
+
+msgid "EXIT NODES"
+msgstr "Выходные узлы"
+
+msgid "FEELS"
+msgstr "Ощущается как"
+
+msgid "Forget network"
+msgstr "Забыть сеть"
+
+msgid "Gateway"
+msgstr "Шлюз"
+
+msgid "HUMID"
+msgstr "Влажность"
+
+msgid "INPUT"
+msgstr "Ввод"
+
+msgid "IP Address"
+msgstr "IP-адрес"
+
+msgid "LIFE"
+msgstr "Срок службы"
+
