@@ -242,3 +242,34 @@ msgstr "Метка введения в стиле small-caps для раздел
 msgid "Styled tooltip — drop into any panel"
 msgstr "Стилизованная подсказка — вставьте в любую панель"
 
+
+msgid "Dropbox"
+msgstr "Dropbox"
+
+msgid "Hide the bar background so the wallpaper shows through."
+msgstr "Скрыть фон панели, чтобы показывались обои"
+
+msgid "Now-playing + transport"
+msgstr "Сейчас играет + управление"
+
+msgid "Omarchy shell – dev gallery"
+msgstr "Omarchy shell – галерея разработчика"
+
+msgid "Output sink + volume"
+msgstr "Выходное устройство + громкость"
+
+msgid "Paired and nearby devices"
+msgstr "Связанные и ближайшие устройства"
+
+msgid "Performance / balanced / saver"
+msgstr "Производительность / сбалансированный / экономия"
+
+msgid "Recent notification history"
+msgstr "История недавних уведомлений"
+
+msgid "StatusNotifierItem icons"
+msgstr "Иконки StatusNotifierItem"
+
+msgid "`rounded: false` overrides the theme auto-detect so the switch reads square even when corners are round. Set `rounded: Style.cornerRadius > 0` (the default) to follow the theme."
+msgstr "`rounded: false` переопределяет автоопределение темы, чтобы переключатель выглядел квадратным даже если углы скруглены. Установите `rounded: Style.cornerRadius > 0` (по умолчанию), чтобы следовать теме."
+
