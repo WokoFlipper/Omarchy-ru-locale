@@ -12,30 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Terminal"
-msgstr "Терминал"
-
-msgid "Browser"
-msgstr "Браузер"
-
-msgid "File manager"
-msgstr "Файловый менеджер"
-
-msgid "Editor"
-msgstr "Редактор"
-
-msgid "Music"
-msgstr "Музыка"
-
-msgid "Passwords"
-msgstr "Пароли"
-
-msgid "Calendar"
-msgstr "Календарь"
-
-msgid "Mail"
-msgstr "Почта"
-
 msgid "Volume +"
 msgstr "Громкость +"
 
