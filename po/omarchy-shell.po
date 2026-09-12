@@ -211,3 +211,34 @@ msgstr "В этой сети устройства не обнаружены."
 msgid "No Mullvad regions found."
 msgstr "Регионы Mullvad не найдены."
 
+
+msgid "No matches for “"
+msgstr "Нет совпадений для “"
+
+msgid "Tailscale CLI is not installed or not on PATH."
+msgstr "Tailscale CLI не установлен или не в PATH."
+
+msgid "Wi-Fi networks"
+msgstr "Сети Wi-Fi"
+
+msgid "Hover the swatch below to see the styled tooltip. Use this whenever a custom button or row needs a hover hint."
+msgstr "Наведите на образец ниже, чтобы увидеть стилизованную подсказку. Используйте это, когда пользовательской кнопке или строке нужна подсказка при наведении."
+
+msgid "Labeled spin box for integer settings. Up/down arrows step the value; the field accepts typed input. Pair with `from`/`to`/`stepSize` to constrain range."
+msgstr "Помеченное поле со стрелками для целочисленных настроек. Стрелки вверх/вниз меняют значение; поле принимает ввод. Сочетайте с `from`/`to`/`stepSize` для ограничения диапазона."
+
+msgid "Live previews of every type exported from qs.Ui. Use this as the visual reference when porting panels or building plugins. j/k or arrows to walk; h/l within rows; Enter to activate; Esc to close."
+msgstr "Живые превью всех типов, экспортированных из qs.Ui. Используйте это как визуальную справку при переносе панелей или создании плагинов. j/k или стрелки для перемещения; h/l внутри строк; Enter для активации; Esc для закрытия."
+
+msgid "Mutually-exclusive row of Buttons. Each chip uses Button's bordered chrome; selected and cursor states come from the same shared Style tokens as every other control. Click to pick or press h/l + Enter."
+msgstr "Взаимоисключающий ряд кнопок. Каждый чип использует рамочный стиль кнопки; выбранное и курсорное состояния берутся из тех же общих токенов стиля, что и у других элементов управления. Кликните для выбора или нажмите h/l + Enter."
+
+msgid "No AI coding subscriptions found.nAgents show up here once you've used them."
+msgstr "Не найдено подписок на ИИ-кодирование. Агенты появятся здесь после их использования."
+
+msgid "Small-caps-style intro label for a section."
+msgstr "Метка введения в стиле small-caps для раздела."
+
+msgid "Styled tooltip — drop into any panel"
+msgstr "Стилизованная подсказка — вставьте в любую панель"
+
