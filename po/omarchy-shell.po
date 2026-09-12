@@ -247,7 +247,7 @@ msgid "Dropbox"
 msgstr "Dropbox"
 
 msgid "Hide the bar background so the wallpaper shows through."
-msgstr "Скрыть фон панели, чтобы показывались обои"
+msgstr "Уровень прозрачности"
 
 msgid "Now-playing + transport"
 msgstr "Сейчас играет + управление"
