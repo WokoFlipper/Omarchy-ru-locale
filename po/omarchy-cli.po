@@ -49,3 +49,19 @@ msgstr "Аутентификация по отпечатку"
 
 msgid "Put your finger on the sensor"
 msgstr "Положите палец на датчик"
+
+msgid "Add a shell plugin from git"
+msgstr "Добавить shell-плагин из git"
+
+msgid "Add branded glyphs to the Omarchy icon font"
+msgstr "Добавить брендовые глифы в иконочный шрифт Omarchy"
+
+msgid "Adjust keyboard backlight brightness using available steps"
+msgstr "Регулировать подсветку клавиатуры с шагом"
+
+msgid "Adjust output volume and show the Omarchy OSD"
+msgstr "Регулировать громкость вывода и показать Omarchy OSD"
+
+msgid "Apply an Omarchy theme"
+msgstr "Применить тему Omarchy"
+
