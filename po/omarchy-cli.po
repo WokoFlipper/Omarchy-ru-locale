@@ -65,3 +65,33 @@ msgstr "Регулировать громкость вывода и показа
 msgid "Apply an Omarchy theme"
 msgstr "Применить тему Omarchy"
 
+
+msgid "Launch Files"
+msgstr "Открыть файлы"
+
+msgid "Launch a TUI command in the default terminal with Omarchy styling"
+msgstr "Запустить TUI-команду в терминале в стиле Omarchy"
+
+msgid "Launch the default coding agent in a terminal"
+msgstr "Запустить агент кодинга в терминале"
+
+msgid "Launch the default coding agent with a prompt"
+msgstr "Запустить агент кодинга с запросом"
+
+msgid "Launch the default editor selected via Omarchy defaults."
+msgstr "Запустить редактор по умолчанию"
+
+msgid "Open the Omarchy background switcher"
+msgstr "Сменить обои"
+
+msgid "Open the Omarchy theme switcher"
+msgstr "Переключить тему"
+
+msgid "Refresh the shell update status"
+msgstr "Проверить статус обновлений"
+
+msgid "Take a screenshot"
+msgstr "Сделать скриншот"
+
+msgid "Update Omarchy and system packages"
+msgstr "Обновить Omarchy"
