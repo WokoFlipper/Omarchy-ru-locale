@@ -333,3 +333,15 @@ msgstr "Следующий месяц"
 
 msgid "Previous month"
 msgstr "Предыдущий месяц"
+
+msgid "Stored"
+msgstr "Сохранено"
+
+msgid "No synced files found."
+msgstr "Нет синхронизированных файлов."
+
+msgid "No tray items reporting."
+msgstr "Нет значков в трее."
+
+msgid "year"
+msgstr "год"
