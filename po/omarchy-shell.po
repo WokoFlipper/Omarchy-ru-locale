@@ -345,3 +345,204 @@ msgstr "Нет значков в трее."
 
 msgid "year"
 msgstr "год"
+
+msgid "1px horizontal rule. Default 0.12 alpha on foreground; tweak via strength."
+msgstr "Горизонтальная линия 1px. По умолчанию прозрачность 0.12 от foreground; настраивается через strength."
+
+msgid "22×22 right-edge action button. Two flavors via hoverColor: default (foreground tint, e.g. confirm) and urgent (red tint, e.g. forget/unpair). Hover and click states are intrinsic; the row that owns it stays responsible for the cursor highlight."
+msgstr "Кнопка действия 22×22 у правого края. Два варианта через hoverColor: обычный (оттенок foreground, напр. подтвердить) и срочный (красный, напр. забыть/отвязать). Состояния наведения и клика встроенные; за подсветку курсора отвечает сама строка."
+
+msgid "A miniature wifi-style row built from CursorSurface + PanelActionButton + PanelToolTip. This is what new panel rows should look like — no inline Rectangle/Text/MouseArea reimplementation."
+msgstr "Миниатюрная строка в стиле Wi-Fi из CursorSurface + PanelActionButton + PanelToolTip. Так должны выглядеть новые строки панелей — без самописных Rectangle/Text/MouseArea."
+
+msgid "Adding a component. Drop the QML in Ui/, add a line to Ui/qmldir, then add a section here using the real type (not a copy). The gallery doubles as a smoke test — if a component starts misbehaving this is the fastest place to see it."
+msgstr "Добавление компонента. Положите QML в Ui/, добавьте строку в Ui/qmldir, затем добавьте секцию здесь с реальным типом (не копией). Галерея заодно smoke-тест — если компонент барахлит, здесь это видно быстрее всего."
+
+msgid "Button"
+msgstr "Button"
+
+msgid "ButtonGroup"
+msgstr "ButtonGroup"
+
+msgid "Center anchor"
+msgstr "Центральный якорь"
+
+msgid "Composed example"
+msgstr "Составной пример"
+
+msgid "Confirm (default flavor)"
+msgstr "Подтвердить (обычный вариант)"
+
+msgid "Conventions"
+msgstr "Соглашения"
+
+msgid "CursorSurface"
+msgstr "CursorSurface"
+
+msgid "Disabled — type a passphrase first"
+msgstr "Отключено — сначала введите парольную фразу"
+
+msgid "Dropdown"
+msgstr "Dropdown"
+
+msgid "Dropdown with an embedded filter input. Type to narrow the list, Down to jump from the search to the first match, Enter to select. Use this for long option lists where plain scrolling is friction."
+msgstr "Dropdown со встроенным фильтром. Печатайте, чтобы сузить список, Down — переход от поиска к первому совпадению, Enter — выбрать. Для длинных списков, где скролл неудобен."
+
+msgid "Focusable (settings form button)"
+msgstr "Фокусируемая (кнопка формы настроек)"
+
+msgid "Forget network (urgent flavor)"
+msgstr "Забыть сеть (срочный вариант)"
+
+msgid "Network"
+msgstr "Сеть"
+
+msgid "Notifications"
+msgstr "Уведомления"
+
+msgid "Omarchy menu"
+msgstr "Меню Omarchy"
+
+msgid "Omarchy shell · dev gallery"
+msgstr "Omarchy shell · галерея разработчика"
+
+msgid "PanelActionButton"
+msgstr "PanelActionButton"
+
+msgid "PanelSectionHeader"
+msgstr "PanelSectionHeader"
+
+msgid "PanelSeparator"
+msgstr "PanelSeparator"
+
+msgid "PanelToolTip"
+msgstr "PanelToolTip"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Popups + editors. Dropdown / SearchableDropdown expose popupOpen plus open() / close() / toggle(); inline TextField uses activeFocus. While any of those own the keys, set PanelKeyCatcher.blocked so the panel's cursor model freezes and the active widget handles input."
+msgstr "Попапы + редакторы. Dropdown / SearchableDropdown дают popupOpen плюс open() / close() / toggle(); встроенный TextField использует activeFocus. Пока кто-то из них владеет клавишами, ставьте PanelKeyCatcher.blocked, чтобы курсорная модель панели замерла и ввод обрабатывал активный виджет."
+
+msgid "Power"
+msgstr "Питание"
+
+msgid "Power profiles"
+msgstr "Профили питания"
+
+msgid "Refresh"
+msgstr "Обновить"
+
+msgid "Search widgets..."
+msgstr "Поиск виджетов…"
+
+msgid "SearchableDropdown"
+msgstr "SearchableDropdown"
+
+msgid "Single cursor. Most reusable panel primitives expose hasCursor: bool and emit hovered(bool); composed rows (including sliders) wrap their content in CursorSurface. The panel root owns cursorActive + focusSection + selectedIndex; each element binds hasCursor: root.cursorActive && root.focusSection === 'X' && root.selectedIndex === N, and onHovered flips cursorActive on while updating the same state. No initial highlight, then one highlight on screen once the keyboard or mouse enters. See plugins/panels/audio/Panel.qml for the canonical recipe."
+msgstr "Единый курсор. Большинство примитивов панелей дают hasCursor: bool и сигнал hovered(bool); составные строки (включая слайдеры) оборачивают содержимое в CursorSurface. Корень панели владеет cursorActive + focusSection + selectedIndex; каждый элемент биндит hasCursor и по onHovered включает cursorActive с обновлением того же состояния. Сначала подсветки нет, затем одна на экране, как только зашли клавиатурой или мышью. Канонический пример — plugins/panels/audio/Panel.qml."
+
+msgid "Single highlight chrome for keyboard+mouse navigable items. Press h/l (anywhere in this window) to move the demo cursor. The middle item is also marked `current` to show how the two states layer."
+msgstr "Единая подсветка для элементов с навигацией клавиатурой+мышью. Жмите h/l (в любом месте окна), чтобы двигать демо-курсор. Средний элемент помечен `current`, чтобы показать наложение двух состояний."
+
+msgid "Single-line input. Inherits Qt Quick Controls TextField, swaps in the kit's focus chrome and selection styling. Toggle `password: true` for masked entry."
+msgstr "Однострочный ввод. Наследует Qt Quick Controls TextField, подменяет оформление фокуса и выделения кита. Включите `password: true` для скрытого ввода."
+
+msgid "Slider"
+msgstr "Ползунок"
+
+msgid "Square switch (forced)"
+msgstr "Квадратный переключатель (принудительно)"
+
+msgid "Style.bar.sizeHorizontal"
+msgstr "Style.bar.sizeHorizontal"
+
+msgid "Style.bar.sizeVertical"
+msgstr "Style.bar.sizeVertical"
+
+msgid "Style.font."
+msgstr "Style.font."
+
+msgid "Style.font.* is the shell-wide type scale. Themes ship a single"
+msgstr "Style.font.* — общешелловая шкала шрифтов. Темы поставляют единый"
+
+msgid "Style.font.baseSize"
+msgstr "Style.font.baseSize"
+
+msgid "Style.font.family"
+msgstr "Style.font.family"
+
+msgid "Style.font.resolvedFamily"
+msgstr "Style.font.resolvedFamily"
+
+msgid "Style.spacing.panelPadding"
+msgstr "Style.spacing.panelPadding"
+
+msgid "Style.spacing.scale"
+msgstr "Style.spacing.scale"
+
+msgid "System tray"
+msgstr "Системный трей"
+
+msgid "TextField"
+msgstr "Текстовое поле"
+
+msgid "The bare switch Toggle puts at the end of its row, for places with no room for a labeled row — a panel hero's trailingControl, for instance. Caller owns `checked` and flips it on `toggled()`. Set `busy` while an operation is in flight to swallow further clicks without disturbing hover or tooltips; services that track a desired state optimistically get an instant knob throw because `checked` is already the optimistic value."
+msgstr "Голый переключатель Toggle в конце строки — для мест, где нет места под строку с подписью, напр. trailingControl hero-зоны панели. Владелец `checked` — вызывающий, переключает по `toggled()`. Ставьте `busy`, пока операция в полёте, чтобы глотать клики, не трогая hover и тултипы; сервисы с оптимистичным состоянием получают мгновенный щелчок, т.к. `checked` уже оптимистичен."
+
+msgid "The kit's only button. State flags compose from shared tokens: hasCursor / hover paints the hover-cursor fill; active/selected add the selected fill; selected borders are off by default; bordered opts into normal/hover-cursor borders; focusable uses the same defaults as hover-cursor. Click below or press h/l to walk the demo cursor."
+msgstr "Единственная кнопка кита. Флаги состояний собираются из общих токенов: hasCursor / hover рисуют заливку hover-курсора; active/selected добавляют заливку selected; рамки selected по умолчанию выключены; bordered включает обычные/hover-рамки; focusable — те же дефолты, что hover-cursor. Кликните ниже или жмите h/l, чтобы водить демо-курсор."
+
+msgid "The second switch is `busy: true` — hover still responds, clicks do not."
+msgstr "Второй переключатель — `busy: true`: hover работает, клики — нет."
+
+msgid "Theme. qs.Commons.Style exposes cornerRadius plus shared normal / hover-cursor / selected / focus state tokens (state colors, fill alphas, border widths, and border alphas), spacing tokens, typography, and bar dimensions. Focus defaults to hover-cursor; selected borders are off by default. Border widths are the theme-level on/off switch for state borders. qs.Commons.Color exposes foreground / background / accent / urgent plus per-surface roles. Components default-bind to these so a caller with no overrides matches the active theme."
+msgstr "Тема. qs.Commons.Style даёт cornerRadius плюс общие токены состояний normal / hover-cursor / selected / focus (цвета, прозрачности заливок, ширины и прозрачности рамок), токены отступов, типографику и размеры панели. Фокус по умолчанию — hover-cursor; рамки selected выключены. Ширины рамок — обще темный вкл/выкл рамок состояний. qs.Commons.Color даёт foreground / background / accent / urgent плюс роли поверхностей. Компоненты биндятся к ним по умолчанию, так что вызывающий без переопределений совпадает с активной темой."
+
+msgid "Themed single-select with a panel-styled popup. Tab to focus the trigger, Enter/Space opens, j/k or arrows walk options, Enter selects. Options can be plain strings or { value, label } objects."
+msgstr "Тематизированный одиночный выбор с попапом в стиле панели. Tab — фокус на триггер, Enter/Space — открыть, j/k или стрелки — ходить по вариантам, Enter — выбрать. Варианты — строки или объекты { value, label }."
+
+msgid "Time + date display"
+msgstr "Время + дата"
+
+msgid "Title + description + switch. Click anywhere on the row to flip; caller updates `checked` in response. Uses the same normal / hover-cursor / focus tokens as Button and the checked switch track uses selected tokens."
+msgstr "Заголовок + описание + переключатель. Клик в любом месте строки переключает; вызывающий обновляет `checked` в ответ. Те же токены normal / hover-cursor / focus, что у Button, трек включённого переключателя — токены selected."
+
+msgid "Transparent bar"
+msgstr "Прозрачная панель"
+
+msgid "Turn Bluetooth off"
+msgstr "Выключить Bluetooth"
+
+msgid "Type something (Enter to start editing, Esc to leave)"
+msgstr "Введите что-нибудь (Enter — редактировать, Esc — выйти)"
+
+msgid "Volume / progress slider. Drag, click anywhere on the track, or scroll the wheel."
+msgstr "Слайдер громкости / прогресса. Тяните, кликайте в любом месте дорожки или крутите колесо."
+
+msgid "Weather"
+msgstr "Погода"
+
+msgid "Wi-Fi + ethernet status"
+msgstr "Статус Wi-Fi + Ethernet"
+
+msgid "Workspaces"
+msgstr "Рабочие столы"
+
+msgid "active"
+msgstr "active"
+
+msgid "bordered + focusable"
+msgstr "bordered + focusable"
+
+msgid "hover me"
+msgstr "hover me"
+
+msgid "icon + active"
+msgstr "icon + active"
+
+msgid "icon only"
+msgstr "icon only"
+
+msgid "idle"
+msgstr "idle"
