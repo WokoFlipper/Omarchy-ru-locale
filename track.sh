@@ -10,6 +10,7 @@ STATE_FILE="$STATE_DIR/state.json"
 SNAP_FILE="$STATE_DIR/site-locales.txt"
 
 POINTS=(
+  "omacom/omarchy|7284|issue"
   "sbelcl/omarchy-language|1|pr"
   "omacom/omarchy-site|251|issue"
   "omacom/omarchy-site|322|pr"
