@@ -95,3 +95,33 @@ msgstr "Сделать скриншот"
 
 msgid "Update Omarchy and system packages"
 msgstr "Обновить Omarchy"
+
+msgid "Start or stop screen recording"
+msgstr "Начать/остановить запись экрана"
+
+msgid "Shut down after closing application windows"
+msgstr "Выключить после закрытия окон"
+
+msgid "Reboot after closing application windows"
+msgstr "Перезагрузить после закрытия окон"
+
+msgid "Lock the computer and turn off the display"
+msgstr "Заблокировать и выключить экран"
+
+msgid "Close all open windows"
+msgstr "Закрыть все окна"
+
+msgid "Switch between audio outputs while preserving the mute status"
+msgstr "Переключить аудиовыход (Mute)"
+
+msgid "Set the current background image"
+msgstr "Выбрать обои"
+
+msgid "Show current background"
+msgstr "Показать текущие обои"
+
+msgid "Show current theme"
+msgstr "Показать текущую тему"
+
+msgid "Cycle to the next background for the current theme"
+msgstr "Следующие обои темы"
