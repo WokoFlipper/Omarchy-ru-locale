@@ -155,3 +155,33 @@ msgstr "Скопировать текст в буфер и вставить"
 
 msgid "Send an Omarchy desktop notification"
 msgstr "Отправить уведомление"
+
+msgid "Toggle nightlight screen temperature"
+msgstr "Ночной свет"
+
+msgid "Toggle notification do-not-disturb mode"
+msgstr "Не беспокоить"
+
+msgid "Toggle microphone mute. Drives the hardware mic-mute LED on laptops that expose one."
+msgstr "Выключить микрофон"
+
+msgid "Toggle idle behavior so the system either idles normally or stays awake"
+msgstr "Не гасить экран"
+
+msgid "Toggle bar visibility without killing the Omarchy shell"
+msgstr "Скрыть/показать панель"
+
+msgid "Toggle the current weather panel"
+msgstr "Погода"
+
+msgid "Enable, disable, or toggle the touchpad"
+msgstr "Вкл/выкл Тачпад"
+
+msgid "Show or set the location used for weather reports"
+msgstr "Локация погоды"
+
+msgid "Show or pin the Wi-Fi band for the active connection"
+msgstr "Диапазон Wi-Fi"
+
+msgid "Show or configure the system DNS provider"
+msgstr "DNS-провайдер"
