@@ -125,3 +125,33 @@ msgstr "Показать текущую тему"
 
 msgid "Cycle to the next background for the current theme"
 msgstr "Следующие обои темы"
+
+msgid "Launch Signal or start its installer when missing."
+msgstr "Запустить Signal"
+
+msgid "Launch Spotify or start its installer when missing."
+msgstr "Запустить Spotify"
+
+msgid "Launch 1Password or start its installer when missing."
+msgstr "Запустить 1Password"
+
+msgid "Launch the clipboard manager"
+msgstr "Открыть менеджер буфера обмена"
+
+msgid "Launch emojis"
+msgstr "Открыть эмодзи"
+
+msgid "Insert an emoji into the focused application"
+msgstr "Вставить эмодзи"
+
+msgid "Open a clipboard history entry"
+msgstr "Открыть запись из истории буфера"
+
+msgid "Copy a file to the clipboard and paste it"
+msgstr "Скопировать файл в буфер и вставить"
+
+msgid "Copy text to the clipboard and type or paste it"
+msgstr "Скопировать текст в буфер и вставить"
+
+msgid "Send an Omarchy desktop notification"
+msgstr "Отправить уведомление"
