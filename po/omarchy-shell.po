@@ -233,7 +233,7 @@ msgstr "Живые превью всех типов, экспортирован�
 msgid "Mutually-exclusive row of Buttons. Each chip uses Button's bordered chrome; selected and cursor states come from the same shared Style tokens as every other control. Click to pick or press h/l + Enter."
 msgstr "Взаимоисключающий ряд кнопок. Каждый чип использует рамочный стиль кнопки; выбранное и курсорное состояния берутся из тех же общих токенов стиля, что и у других элементов управления. Кликните для выбора или нажмите h/l + Enter."
 
-msgid "No AI coding subscriptions found.nAgents show up here once you've used them."
+msgid "No AI coding subscriptions found.\nAgents show up here once you've used them."
 msgstr "Не найдено подписок на ИИ-кодирование. Агенты появятся здесь после их использования."
 
 msgid "Small-caps-style intro label for a section."
