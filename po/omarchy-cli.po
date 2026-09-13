@@ -185,3 +185,18 @@ msgstr "Диапазон Wi-Fi"
 
 msgid "Show or configure the system DNS provider"
 msgstr "DNS-провайдер"
+
+msgid "Sync Omarchy theme to VS Code, VSCodium, and Cursor"
+msgstr "Тема Omarchy в VS Code"
+
+msgid "Upload logs to logs.omarchy.org"
+msgstr "Загрузить логи"
+
+msgid "Display Hyprland keybindings defined in your configuration using an interactive search menu."
+msgstr "Показать горячие клавиши"
+
+msgid "Pick one option from a menu"
+msgstr "Выбрать из меню"
+
+msgid "Prompt for text input from a menu"
+msgstr "Ввести текст"
