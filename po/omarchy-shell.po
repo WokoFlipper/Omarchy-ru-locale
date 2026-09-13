@@ -303,3 +303,33 @@ msgstr "Найти регион"
 
 msgid "Send files"
 msgstr "Отправить файлы…"
+
+msgid "Set DNS to Cloudflare"
+msgstr "Использовать DNS Cloudflare"
+
+msgid "Set DNS to Google"
+msgstr "Использовать DNS Google"
+
+msgid "Set custom DNS servers"
+msgstr "Свои DNS-серверы…"
+
+msgid "Show QR code"
+msgstr "Показать QR-код"
+
+msgid "Use DNS from DHCP"
+msgstr "DNS из DHCP"
+
+msgid "Tray icons"
+msgstr "Иконки трея"
+
+msgid "Connect"
+msgstr "Подключить"
+
+msgid "Forget"
+msgstr "Забыть"
+
+msgid "Next month"
+msgstr "Следующий месяц"
+
+msgid "Previous month"
+msgstr "Предыдущий месяц"
