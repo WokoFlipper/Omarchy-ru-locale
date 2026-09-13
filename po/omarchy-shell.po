@@ -273,3 +273,33 @@ msgstr "Иконки StatusNotifierItem"
 msgid "`rounded: false` overrides the theme auto-detect so the switch reads square even when corners are round. Set `rounded: Style.cornerRadius > 0` (the default) to follow the theme."
 msgstr "`rounded: false` переопределяет автоопределение темы, чтобы переключатель выглядел квадратным даже если углы скруглены. Установите `rounded: Style.cornerRadius > 0` (по умолчанию), чтобы следовать теме."
 
+
+msgid "Copy IP"
+msgstr "Копировать IP"
+
+msgid "Copy gateway"
+msgstr "Копировать шлюз"
+
+msgid "Copy to clipboard"
+msgstr "Копировать в буфер обмена"
+
+msgid "Enter Password"
+msgstr "Введите пароль"
+
+msgid "Passphrase"
+msgstr "Парольная фраза"
+
+msgid "Pending Omarchy Updates"
+msgstr "Ожидающие обновления Omarchy"
+
+msgid "Run a speed test"
+msgstr "Запустить тест скорости"
+
+msgid "Search city"
+msgstr "Найти город"
+
+msgid "Search regions"
+msgstr "Найти регион"
+
+msgid "Send files"
+msgstr "Отправить файлы…"
