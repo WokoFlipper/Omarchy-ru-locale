@@ -10,13 +10,21 @@ Russian localization for [Omarchy](https://github.com/omacom/omarchy).
 - `translations/bindings-ru.tsv` — переводы описаний стандартных биндов Omarchy (204 записи, без личных; локально НЕ применяются — конфликтуют с биндами)
 - `po/omarchy-shell.po` — переводы для omarchy-shell (177 строк, превью)
 - `po/omarchy-cli.po` — переводы для omarchy-cli (61 строка, превью)
-- `track.sh` — скрипт для отслеживания активности в связанных PR и issues (8 точек)
+- `track.sh` — скрипт для отслеживания активности в связанных PR и issues (6 системных точек; сайт закрыт)
+- `bindings-translate` — генератор блока русских описаний биндов (статус/применение/откат)
+- `systemd/locale-track.*` — юниты таймера для track.sh (каждые 30 минут)
+- `SUBMITTING.md` — пошаговая инструкция по отправке
+- `docs/site-decisions.md` — решения по вычитке сайта (#251)
 
 - `translations/ru_RU.tsv` — menu item translations (137 lines, applied via Language plugin, 335 lines live)
 - `translations/bindings-ru.tsv` — translations of default Omarchy binding descriptions (204 entries, no personal ones; do NOT apply locally — they conflict with bindings)
 - `po/omarchy-shell.po` — translations for omarchy-shell (177 lines, preview)
 - `po/omarchy-cli.po` — translations for omarchy-cli (61 lines, preview)
-- `track.sh` — script for tracking activity in related PRs and issues (8 endpoints)
+- `track.sh` — script for tracking activity in related PRs and issues (6 system endpoints; site closed)
+- `bindings-translate` — generator for the Russian bindings block (status/apply/remove)
+- `systemd/locale-track.*` — timer units for track.sh (every 30 minutes)
+- `SUBMITTING.md` — step-by-step submission guide
+- `docs/site-decisions.md` — site proofreading decisions (#251)
 
 > Shell/CLI-переводы — превью: рантайм не выбран (#8765 против #10051), ставить в систему пока нечего.
 >
