@@ -6,13 +6,13 @@ Russian localization for [Omarchy](https://github.com/omacom/omarchy).
 
 ## Содержимое / Contents
 
-- `translations/ru_RU.tsv` — переводы пунктов меню (30 строк, применяются через Language-плагин, 335 строк живо)
+- `translations/ru_RU.tsv` — переводы пунктов меню (137 строк, применяются через Language-плагин, 335 строк живо)
 - `translations/bindings-ru.tsv` — переводы описаний стандартных биндов Omarchy (204 записи, без личных; локально НЕ применяются — конфликтуют с биндами)
 - `po/omarchy-shell.po` — переводы для omarchy-shell (177 строк, превью)
 - `po/omarchy-cli.po` — переводы для omarchy-cli (61 строка, превью)
 - `track.sh` — скрипт для отслеживания активности в связанных PR и issues (8 точек)
 
-- `translations/ru_RU.tsv` — menu item translations (30 lines, applied via Language plugin, 335 lines live)
+- `translations/ru_RU.tsv` — menu item translations (137 lines, applied via Language plugin, 335 lines live)
 - `translations/bindings-ru.tsv` — translations of default Omarchy binding descriptions (204 entries, no personal ones; do NOT apply locally — they conflict with bindings)
 - `po/omarchy-shell.po` — translations for omarchy-shell (177 lines, preview)
 - `po/omarchy-cli.po` — translations for omarchy-cli (61 lines, preview)

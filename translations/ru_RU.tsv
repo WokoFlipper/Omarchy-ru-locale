@@ -1,75 +1,161 @@
-Terminal	Терминал
-Browser	Браузер
-File manager	Файловый менеджер
-Editor	Редактор
-Music	Музыка
-Passwords	Пароли
-Calendar	Календарь
-Mail	Почта
-Terminal (here)	Терминал (здесь)
-Browser (private)	Браузер (приватно)
-File manager (here)	Файловый менеджер (здесь)
-Spotify	Spotify
-1Password	1Password
-HEY Calendar	HEY Календарь
-HEY Mail	HEY Почта
-Omarchy menu	Меню Omarchy
-Keybindings	Горячие клавиши
-System	Система
-Applications	Приложения
-Web apps	Веб-приложения
-Update	Обновление
-Reboot	Перезагрузка
-Power off	Выключение
-Lock	Заблокировать
-Switch user	Переключить пользователя
-Settings	Настройки
-Terminal player	Терминальный плеер
-Clipboard manager	Менеджер буфера обмена
-Emojis	Эмодзи
-Capture screenshot	Захват экрана
-1-Window Ratio	Пропорции окна
-About	О системе
-Add Plugin	Добавить плагин
-Agent	Агент
+# Russian menu labels for the Omarchy menu.
+#
+# English<TAB>Russian. Keyed by the English string rather than by row id, so
+# a word that repeats across the menu is translated once and a row Omarchy
+# adds later using a word already in here translates itself. Anything absent
+# stays English, which is the right answer for product names: Steam, Docker,
+# Tailscale and the language names under Dev are not words to translate.
+#
+# The English string stays searchable -- it is written into each row's
+# description -- so typing "network" still finds Сеть.
+
+# Root
 Apps	Приложения
-Audio	Звук
-Background	Фон
-Battery Percentage	Процент заряда
-Bottom	Снизу
+Learn	Справка
 Capture	Захват
-Channel	Канал
-Chromium Account	Аккаунт Chromium
+Trigger	Действия
+Style	Оформление
+Setup	Настройки
+System	Система
+Go	Перейти
+
+# Common actions
+Toggle	Переключатели
+Install	Установить
+Remove	Удалить
+Update	Обновить
+Restart	Перезапустить
+Restore Default	Восстановить по умолчанию
+Reset to default	Сбросить по умолчанию
+Set one	Создать
+Set From Image	Задать из картинки
+Show all	Показать все
 Clear all	Очистить всё
-Clipboard	Буфер обмена
-Clone Plugin	Клонировать плагин
-Color	Цвет
-Community	Сообщество
-Config	Настройки
-Crash Capture	Логи сбоев
+Share	Поделиться
+Receive	Принять
 Custom	Пользовательский
+Defaults	Приложения по умолчанию
+Config	Конфигурация
+About	О системе
+Community	Сообщество
+Channel	Канал
+Stable	Стабильный
+Shell	Оболочка
+
+# Capture
+Screenshot	Скриншот
+Screenrecord	Запись экрана
+Stop Screenrecording	Остановить запись
+Transcode	Изменить формат
+Crash Capture	Логи сбоев
+Region	Область
+Window	Окно
+Display	Экран
+With no audio	Без звука
+With desktop audio	Системные звуки
+With desktop + microphone audio	Системные звуки и микрофон
+With desktop + microphone audio + webcam	Со звуком, микрофоном и камерой
+
+# Trigger / tools
+Clipboard	Буфер обмена
+Reminder	Напоминание
+Dictation	Диктовка
+Edit Text	Изменить текст
+Text	Текст
+File	Файл
+Folder	Папка
+Password	Пароль
+QR Code	QR-код
+Web App	Веб-приложение
+
+# Style
+Theme	Тема
+Extra Themes	Дополнительные темы
+Background	Обои
+Font	Шрифт
+Color	Цвет
+Transparency	Прозрачность
+Window Gaps	Отступы окон
+Menu Bar	Панель
+Position	Положение
+Top	Сверху
+Bottom	Снизу
+Left	Слева
+Right	Справа
+Battery Percentage	Заряд батареи
+Workspace Layout	Раскладка окон
+1-Window Ratio	Пропорции окна
+high	сильная
+mid	средняя
+low	слабая
+
+# Setup
+Monitors	Мониторы
+Laptop Display	Экран ноутбука
+Mirror Display	Дублировать экран
+Keybindings	Горячие клавиши
+Input	Устройства ввода
+Touchpad	Тачпад
+Trackpad	Трекпад
+Touchpad Haptics	Отклик тачпада
+Touchscreen	Сенсорный экран
+Network	Сеть
+Wi-Fi	Wi-Fi
+Nightlight	Ночной свет
+Screensaver	Заставка
+Stay Awake	Запрет сна
+Notifications	Уведомления
+Timezone	Часовой пояс
+Time	Время
+Security	Безопасность
+Fingerprint	Отпечаток пальца
+Drive Encryption	Шифрование диска
+Passwordless Sudo	Sudo без пароля
+Sudoless Docker	Docker без sudo
+Direct Boot	Прямая загрузка
+Hybrid GPU	Гибридный GPU
+Hardware	Оборудование
+Firmware	Прошивка
+Xbox Controllers	Контроллеры Xbox
+Preinstalls	Предустановленное ПО
 Default Agent	Агент по умолчанию
 Default Browser	Браузер по умолчанию
 Default Editor	Редактор по умолчанию
-Defaults	По умолчанию
 Default Terminal	Терминал по умолчанию
-Development	Разработка
-Dictation	Диктовка
-Direct Boot	Прямая загрузка
-Disable Plugin	Отключить плагин
-Disk Speed Test	Проверка скорости
-Display	Экран
-Docker DB	База данных Docker
-Drive Encryption	Шифрование диска
-Edit Text	Редактировать текст
-Enable Plugin	Включить плагин
-Extra Themes	Дополнительные темы
-File	Файл
-Fingerprint	Отпечаток пальца
-Firmware	Прошивка
-Folder	Папка
-Install	Установить
-Language	Язык
+Browser	Браузер
+Editor	Редактор
+Terminal	Терминал
+Agent	Агент
 Plugins	Плагины
-Security	Безопасность
-Theme	Тема
+Add Plugin	Добавить плагин
+Remove Plugin	Удалить плагин
+Enable Plugin	Включить плагин
+Disable Plugin	Отключить плагин
+Clone Plugin	Клонировать плагин
+Service	Сервисы
+Services	Сервисы
+Speed Test	Тест скорости
+Network Speed Test	Скорость сети
+Disk Speed Test	Проверка скорости
+Process	Процессы
+Package	Пакет
+User	Пользователь
+Audio	Звук
+
+# System
+Lock	Заблокировать
+Unlock	Экран разблокировки
+Logout	Выйти из сеанса
+Suspend	Спящий режим
+Hibernate	Гибернация
+Reboot	Перезагрузка
+Shutdown	Выключение
+Reset Computer	Сброс настроек
+Windows	Окна
+Gaming	Игры
+Development	Разработка
+RetroArch Game Launcher	Игры RetroArch
+Chromium Account	Аккаунт Chromium
+Docker DB	База данных Docker
+Language	Язык
+Log out and back in to finish switching.	Выйдите из системы и войдите снова, чтобы применить изменения
