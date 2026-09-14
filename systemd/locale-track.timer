@@ -1,0 +1,10 @@
+[Unit]
+Description=Check Russian locale PRs/issues every 30 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=30min
+Unit=locale-track.service
+
+[Install]
+WantedBy=timers.target

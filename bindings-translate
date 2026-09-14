@@ -1,0 +1,320 @@
+#!/usr/bin/env python3
+"""Translate Omarchy Hyprland keybinding descriptions into Russian.
+
+Default binds live in the omarchy package and are overwritten on update,
+so user overrides must live in ~/.config/hypr/bindings.lua. This script
+regenerates a marked block there: for every default o.bind()/o.bind_toggle()
+whose description has a Russian entry in translations/bindings-ru.tsv it
+emits hl.unbind() + o.bind() with the Russian description and the original
+dispatcher copied verbatim (multi-line calls supported).
+
+Keys the user already unbound or rebound outside the block are skipped, so
+personal overrides (e.g. code: binds covering EN+RU layouts) always win.
+
+Usage: bindings-translate status
+       bindings-translate apply ru_RU
+       bindings-translate remove
+"""
+
+import glob
+import os
+import re
+import shutil
+import subprocess
+import sys
+
+OMARCHY = os.environ.get("OMARCHY_PATH", "/usr/share/omarchy")
+DEFAULT_HYPR = os.path.join(OMARCHY, "default", "hypr")
+USER_BINDS = os.path.join(os.environ["HOME"], ".config", "hypr", "bindings.lua")
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+TABLE = os.path.join(SCRIPT_DIR, "translations", "bindings-ru.tsv")
+
+BEGIN = "-- >>> locale-ru-bindings begin"
+END = "-- <<< locale-ru-bindings end"
+
+
+def fail(msg):
+    print(f"bindings-translate: {msg}", file=sys.stderr)
+    sys.exit(1)
+
+
+def load_table(path):
+    table = {}
+    with open(path, encoding="utf-8") as fh:
+        for line in fh:
+            line = line.rstrip("\n")
+            if not line or line.startswith("#") or "\t" not in line:
+                continue
+            en, ru = line.split("\t", 1)
+            if ru:
+                table[en] = ru
+    return table
+
+
+def parse_lua_string(src, i):
+    """Parse a double-quoted Lua string starting at src[i]=='"'. Returns (value, end_index)."""
+    assert src[i] == '"'
+    i += 1
+    out = []
+    while i < len(src):
+        c = src[i]
+        if c == "\\" and i + 1 < len(src):
+            out.append(c)
+            out.append(src[i + 1])
+            i += 2
+            continue
+        if c == '"':
+            return "".join(out), i + 1
+        out.append(c)
+        i += 1
+    fail("unterminated string literal while parsing default binds")
+
+
+def skip_balanced(src, i):
+    """Skip from just after 'o.bind(' to its matching close paren. Returns end index."""
+    depth = 1
+    instr = False
+    esc = False
+    while depth and i < len(src):
+        c = src[i]
+        if instr:
+            if esc:
+                esc = False
+            elif c == "\\":
+                esc = True
+            elif c == '"':
+                instr = False
+        else:
+            if c == '"':
+                instr = True
+            elif c == "(":
+                depth += 1
+            elif c == ")":
+                depth -= 1
+        i += 1
+    return i
+
+
+def find_calls(src):
+    """Yield (keys, desc, dispatcher_src) for o.bind()/o.bind_toggle() calls."""
+    for m in re.finditer(r"o\.bind(_toggle)?\(", src):
+        i = m.end()
+        while i < len(src) and src[i] in " \t\n":
+            i += 1
+        if i >= len(src) or src[i] != '"':
+            continue  # dynamic keys (e.g. built in a loop) — skip
+        keys, i = parse_lua_string(src, i)
+        while i < len(src) and (src[i] in " \t\n" or src[i] == ","):
+            i += 1
+        if i >= len(src) or src[i] != '"':
+            continue  # no string description (e.g. nil) — nothing to translate
+        desc, i = parse_lua_string(src, i)
+        while i < len(src) and (src[i] in " \t\n" or src[i] == ","):
+            i += 1
+        # dispatcher: everything up to the matching close paren
+        start = i
+        depth = 1
+        instr = False
+        esc = False
+        while depth and i < len(src):
+            c = src[i]
+            if instr:
+                if esc:
+                    esc = False
+                elif c == "\\":
+                    esc = True
+                elif c == '"':
+                    instr = False
+            else:
+                if c == '"':
+                    instr = True
+                elif c == "(":
+                    depth += 1
+                elif c == ")":
+                    depth -= 1
+            i += 1
+        yield keys, desc, src[start : i - 1].strip()
+
+
+def collect_defaults():
+    calls = []
+    for path in sorted(glob.glob(os.path.join(DEFAULT_HYPR, "**", "*.lua"), recursive=True)):
+        with open(path, encoding="utf-8") as fh:
+            src = fh.read()
+        # file-local helpers are out of scope in the user file: a copied
+        # dispatcher calling one would fail with "attempt to call a nil value"
+        locals_ = set(re.findall(r"local\s+function\s+(\w+)", src))
+        locals_.update(re.findall(r"local\s+(\w+)\s*=\s*function", src))
+        for keys, desc, disp in find_calls(src):
+            if any(re.search(r"\b" + re.escape(name) + r"\b", disp) for name in locals_):
+                continue
+            calls.append((keys, desc, disp))
+    # dedupe by (keys, desc), keep first
+    seen = set()
+    uniq = []
+    for keys, desc, disp in calls:
+        if (keys, desc) not in seen:
+            seen.add((keys, desc))
+            uniq.append((keys, desc, disp))
+    return uniq
+
+
+def lua_quote(s):
+    return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def user_managed_keys(body):
+    """Keys the user unbound or bound outside our block — never touch those."""
+    # strip full-line comments first: commented examples must not count
+    code = "\n".join(
+        line for line in body.split("\n") if not line.strip().startswith("--")
+    )
+    keys = set()
+    for m in re.finditer(r'hl\.unbind\(\s*"((?:[^"\\]|\\.)*)"\s*\)', code):
+        keys.add(m.group(1))
+    for m in re.finditer(r'o\.bind(?:_toggle)?\(\s*"((?:[^"\\]|\\.)*)"', code):
+        keys.add(m.group(1))
+    return keys
+
+
+def split_user_file():
+    if not os.path.exists(USER_BINDS):
+        return ""
+    with open(USER_BINDS, encoding="utf-8") as fh:
+        content = fh.read()
+    if BEGIN in content and END not in content:
+        fail("user file has a BEGIN marker without END — refusing to touch it, fix manually")
+    lines = content.split("\n")
+    out = []
+    skipping = False
+    for line in lines:
+        if line.strip().startswith(BEGIN):
+            skipping = True
+            continue
+        if line.strip().startswith(END):
+            skipping = False
+            continue
+        if not skipping:
+            out.append(line)
+    return "\n".join(out).rstrip("\n") + "\n" if out else ""
+
+
+def build_block(table):
+    rows = []
+    user_body = split_user_file()
+    protected = user_managed_keys(user_body)
+
+    def emit(keys, ru, disp):
+        if keys in protected:
+            return
+        rows.append(f'hl.unbind({lua_quote(keys)})')
+        rows.append(f'o.bind({lua_quote(keys)}, {lua_quote(ru)}, {disp})')
+
+    for keys, desc, disp in collect_defaults():
+        ru = table.get(desc)
+        if not ru or ru == desc:
+            continue
+        emit(keys, ru, disp)
+
+    # Workspace loop (tiling.lua): dynamic keys/descs the static parser
+    # skips. Keys are code:-based, layout-independent by construction.
+    for n in range(1, 11):
+        code = n + 9
+        emit(f"SUPER + code:{code}", f"Стол {n}",
+             f'hl.dsp.focus({{ workspace = "{n}" }})')
+        emit(f"SUPER + SHIFT + code:{code}", f"Окно на стол {n}",
+             f'hl.dsp.window.move({{ workspace = "{n}" }})')
+        emit(f"SUPER + SHIFT + ALT + code:{code}", f"Окно на стол {n} (без фокуса)",
+             f'hl.dsp.window.move({{ workspace = "{n}", follow = false }})')
+
+    # Group-window loop (tiling.lua) and bar-panel loop (utilities.lua):
+    # same dynamic pattern, same treatment.
+    for i in range(1, 6):
+        emit(f"SUPER + ALT + code:{i + 9}", f"Окно группы {i}",
+             f"hl.dsp.group.active({{ index = {i} }})")
+    for p in range(1, 10):
+        emit(f"SUPER + CTRL + code:{p + 9}", f"Панель бара {p}",
+             f'"omarchy-shell -q shell togglePanelAt right {p}"')
+
+    # Universal clipboard binds (SUPER+C/V/X) are intentionally left
+    # untouched: every override attempt destabilized copy/paste, and the
+    # user confirmed everything works without russifying these three.
+    # (Tried: inlined IIFE closures crashed the runtime; keep defaults.)
+    header = (
+        f"{BEGIN} keys={len(rows)//2}\n"
+        "-- Generated by bindings-translate. Edits here are overwritten;\n"
+        "-- put your own binds outside this block.\n"
+    )
+    return header + "\n".join(rows) + f"\n{END}\n", len(rows) // 2
+
+
+def cmd_status():
+    state, keys = "off", 0
+    if os.path.exists(USER_BINDS):
+        with open(USER_BINDS, encoding="utf-8") as fh:
+            for line in fh:
+                if line.strip().startswith(BEGIN):
+                    state = "on"
+                    m = re.search(r"keys=(\d+)", line)
+                    keys = int(m.group(1)) if m else 0
+    avail = []
+    if os.path.exists(TABLE):
+        avail.append("ru_RU")
+    print(f"state={state} keys={keys} available={','.join(avail)}")
+
+
+def backup():
+    import datetime
+    if not os.path.exists(USER_BINDS):
+        return
+    stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    shutil.copy2(USER_BINDS, f"{USER_BINDS}.bak.{stamp}")
+    shutil.copy2(USER_BINDS, USER_BINDS + ".bak")
+
+
+def cmd_apply(locale):
+    if locale != "ru_RU":
+        fail(f"no translation table for {locale}")
+    if not os.path.exists(TABLE):
+        fail(f"table not found: {TABLE}")
+    block, n = build_block(load_table(TABLE))
+    body = split_user_file()
+    if os.path.exists(USER_BINDS):
+        with open(USER_BINDS, encoding="utf-8") as fh:
+            old_lines = [l for l in fh.read().split("\n") if l.strip() and not l.strip().startswith("--")]
+        new_lines = [l for l in body.split("\n") if l.strip() and not l.strip().startswith("--")]
+        # Shrink guard: never silently drop the user's own binds.
+        if len(old_lines) > 20 and len(new_lines) < len(old_lines) // 2:
+            fail(f"user content would shrink {len(old_lines)} -> {len(new_lines)} lines — aborting, backup kept")
+    if not body.endswith("\n"):
+        body += "\n"
+    new_content = body + "\n" + block
+    backup()
+    os.makedirs(os.path.dirname(USER_BINDS), exist_ok=True)
+    with open(USER_BINDS, "w", encoding="utf-8") as fh:
+        fh.write(new_content)
+    print(f"applied {n} translated binds")
+
+
+def cmd_remove():
+    if not os.path.exists(USER_BINDS):
+        return
+    with open(USER_BINDS, encoding="utf-8") as fh:
+        if BEGIN not in fh.read():
+            return
+    backup()
+    with open(USER_BINDS, "w", encoding="utf-8") as fh:
+        fh.write(split_user_file())
+    print("removed")
+
+
+if __name__ == "__main__":
+    arg = sys.argv[1] if len(sys.argv) > 1 else "status"
+    if arg == "status":
+        cmd_status()
+    elif arg == "apply":
+        cmd_apply(sys.argv[2] if len(sys.argv) > 2 else "")
+    elif arg == "remove":
+        cmd_remove()
+    else:
+        fail(f"unknown command {arg!r}")

@@ -1,0 +1,6 @@
+[Unit]
+Description=Watch Russian locale PRs/issues for maintainer activity
+
+[Service]
+Type=oneshot
+ExecStart=%h/git/locale-ru/track.sh
