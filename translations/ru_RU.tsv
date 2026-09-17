@@ -112,7 +112,7 @@ Fingerprint	Отпечаток пальца
 Drive Encryption	Шифрование диска
 Passwordless Sudo	Sudo без пароля
 Sudoless Docker	Docker без sudo
-Direct Boot	Откл. мультизагрузки
+Direct Boot	Загрузка без меню
 Hybrid GPU	Гибридный GPU
 Hardware	Оборудование
 Firmware	Прошивка
