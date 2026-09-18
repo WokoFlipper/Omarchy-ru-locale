@@ -1,0 +1,16 @@
+# Russian labels for the Omarchy network (Wi-Fi) panel.
+#
+# English<TAB>Russian. Same table convention as ru_RU.tsv.
+# Scope (native-speaker decision): everyday stats + statuses only.
+# Do NOT translate the DNS area (provider pills, Custom) — protocol words
+# compared by code (see omacom/omarchy#12344). Forget network stays English.
+Ping	Пинг
+Packet Loss	Потери пакетов
+Receiving	Получено
+Sending	Отправлено
+Downloaded	Загружено
+Uploaded	Выгружено
+IP Address	IP-адрес
+Gateway	Шлюз
+AUTOMATIC	АВТОМАТИЧЕСКИ
+SCANNING WI-FI…	ПОИСК СЕТЕЙ WI-FI…
