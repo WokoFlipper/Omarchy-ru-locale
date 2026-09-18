@@ -1,0 +1,18 @@
+# Russian labels for the Omarchy monitor (display) panel.
+#
+# English<TAB>Russian. Brightness scale mirrors the audio volume scale.
+# Sun blast / FIXED BRIGHTNESS decided here, rest reused from ru.json batches.
+Display	Экран
+BRIGHTNESS	ЯРКОСТЬ
+TEXT SIZE	РАЗМЕР ТЕКСТА
+SCALE	МАСШТАБ
+DISPLAYS	ЭКРАНЫ
+FIXED BRIGHTNESS	Фиксированная яркость
+Sun blast	Ослепительно
+Solar flare	Максимальная яркость
+Golden hour	Золотой час
+Even day	Весь день
+Soft glow	мягкий свет
+Lamp light	Свет лампы
+Candlelit	При свечах
+Night owl	Ночная птица
