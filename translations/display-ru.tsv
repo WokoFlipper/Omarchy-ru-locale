@@ -8,11 +8,11 @@ TEXT SIZE	РАЗМЕР ТЕКСТА
 SCALE	МАСШТАБ
 DISPLAYS	ЭКРАНЫ
 FIXED BRIGHTNESS	Фиксированная яркость
-Sun blast	Ослепительно
-Solar flare	Максимальная яркость
-Golden hour	Золотой час
-Even day	Весь день
-Soft glow	мягкий свет
-Lamp light	Свет лампы
-Candlelit	При свечах
-Night owl	Ночная птица
+Sun blast	95%
+Solar flare	80%
+Golden hour	65%
+Even day	45%
+Soft glow	30%
+Lamp light	20%
+Candlelit	10%
+Night owl	5%
