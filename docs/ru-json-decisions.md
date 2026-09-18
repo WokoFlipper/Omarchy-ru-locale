@@ -21,3 +21,8 @@ Proofread by native speaker (ex-proofreader). Playful power/audio phrases locali
 - R43 Spending coulombs → Тратим кулоны (pun with купоны rejected: reviewer won't get it)
 - T75 ddd M/d → ddd, d.M
 - Numbers < 1M as digits; feed млн/млрд, article headlines full words.
+
+## Wi-Fi scope (native-speaker decision)
+Translate beginner trio only: Connect, enter password, select network.
+Do NOT touch: Forget network, DHCP, DNS, technical terms. Rationale: who understands
+these settings is fine with English; machine-translating them only confuses.
