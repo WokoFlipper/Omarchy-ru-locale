@@ -43,7 +43,7 @@ To submit:
    `source=<hash>` of the defaults file and `status` reports `stale`
    once upstream moves.
 6. Open a PR adding only `translations/ru_RU.tsv`, describing coverage
-   (e.g. 135 keys) and that untranslated product names (Steam, Docker,
+   (e.g. 136 keys) and that untranslated product names (Steam, Docker,
    Tailscale) intentionally stay English.
 
 ## 2. Shell + CLI catalogs (blocked on runtime choice)
