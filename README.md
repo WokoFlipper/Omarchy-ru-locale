@@ -12,7 +12,7 @@ Russian localization for [Omarchy](https://github.com/omacom/omarchy).
 - `po/omarchy-cli.po` — переводы для omarchy-cli (61 строка, превью)
 - `track.sh` — скрипт для отслеживания активности в связанных PR и issues (6 системных точек; сайт закрыт)
 - `bindings-translate` — генератор блока русских описаний биндов (статус/применение/откат)
-- `systemd/locale-track.*` — юниты таймера для track.sh (сейчас отключён, хватает почтовых уведомлений; запуск вручную: `systemctl --user start locale-track.service`)
+- `systemd/locale-track.*` — юниты таймера для track.sh (раз в час)
 - `SUBMITTING.md` — пошаговая инструкция по отправке
 - `docs/site-decisions.md` — решения по вычитке сайта (#251)
 
@@ -22,7 +22,7 @@ Russian localization for [Omarchy](https://github.com/omacom/omarchy).
 - `po/omarchy-cli.po` — translations for omarchy-cli (61 lines, preview)
 - `track.sh` — script for tracking activity in related PRs and issues (6 system endpoints; site closed)
 - `bindings-translate` — generator for the Russian bindings block (status/apply/remove)
-- `systemd/locale-track.*` — timer units for track.sh (currently disabled, mail notifications suffice; manual run: `systemctl --user start locale-track.service`)
+- `systemd/locale-track.*` — timer units for track.sh (hourly)
 - `SUBMITTING.md` — step-by-step submission guide
 - `docs/site-decisions.md` — site proofreading decisions (#251)
 
