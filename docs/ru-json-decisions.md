@@ -26,3 +26,6 @@ Proofread by native speaker (ex-proofreader). Playful power/audio phrases locali
 Translate beginner trio only: Connect, enter password, select network.
 Do NOT touch: Forget network, DHCP, DNS, technical terms. Rationale: who understands
 these settings is fine with English; machine-translating them only confuses.
+
+## Coverage verified
+- Battery widget: 17/17 strings in catalog (states, limit, time, profiles, BORN/LIFE) — 100%.
