@@ -8,6 +8,7 @@ Russian localization for [Omarchy](https://github.com/omacom/omarchy).
 
 - `translations/ru_RU.tsv` — переводы пунктов меню (137 строк, применяются через Language-плагин, 335 строк живо)
 - `translations/bindings-ru.tsv` — переводы описаний стандартных биндов Omarchy (204 записи, без личных; локально НЕ применяются — конфликтуют с биндами)
+- `translations/wifi-ru.tsv` — подписи панели сети/Wi-Fi (10 строк, без DNS-зоны — протокольные слова)
 - `po/omarchy-shell.po` — переводы для omarchy-shell (177 строк, превью)
 - `po/omarchy-cli.po` — переводы для omarchy-cli (61 строка, превью)
 - `track.sh` — скрипт для отслеживания активности в связанных PR и issues (6 системных точек; сайт закрыт)
@@ -18,6 +19,7 @@ Russian localization for [Omarchy](https://github.com/omacom/omarchy).
 
 - `translations/ru_RU.tsv` — menu item translations (137 lines, applied via Language plugin, 335 lines live)
 - `translations/bindings-ru.tsv` — translations of default Omarchy binding descriptions (204 entries, no personal ones; do NOT apply locally — they conflict with bindings)
+- `translations/wifi-ru.tsv` — network/Wi-Fi panel labels (10 lines, DNS area excluded — protocol words)
 - `po/omarchy-shell.po` — translations for omarchy-shell (177 lines, preview)
 - `po/omarchy-cli.po` — translations for omarchy-cli (61 lines, preview)
 - `track.sh` — script for tracking activity in related PRs and issues (6 system endpoints; site closed)
