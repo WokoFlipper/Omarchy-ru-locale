@@ -1,0 +1,33 @@
+# Russian labels for the Omarchy Bluetooth panel.
+#
+# English<TAB>Russian. Most keys already live in locales/ru.json (sbelcl catalog);
+# this table mirrors them for reference. PAIRED/AVAILABLE section headers,
+# playful scan phrases and statuses included. Nothing protocol-sensitive here.
+Bluetooth	Bluetooth
+CONNECTED	ПОДКЛЮЧЕНО
+PAIRED	СОПРЯЖЕНО
+AVAILABLE	ДОСТУПНО
+Untangling wires	Распутываем провода
+Streaming vikings	Стримим викингов
+Pairing mysteries	Загадки сопряжения
+Herding headsets	Сгоняем наушники
+Taming radios	Приручаем радио
+Summoning speakers	Призываем колонки
+Wrangling codecs	Запрягаем кодеки
+Polishing packets	Полируем пакеты
+No adapter	Нет адаптера
+Turned Off	Выключено
+Turn Bluetooth off	Выключить Bluetooth
+Turn Bluetooth on	Включить Bluetooth
+No Bluetooth adapter	Нет адаптера Bluetooth
+Turn Bluetooth on to scan	Включите Bluetooth для поиска
+Scanning for devices…	Ищем устройства…
+Disconnect	Отключить
+Pair	Сопрячь
+Connect	Подключить
+Forgetting…	Забываем…
+Disconnecting…	Отключаем…
+Connected	Подключено
+Connecting…	Подключение…
+Device	Устройство
+Forget	Забыть
