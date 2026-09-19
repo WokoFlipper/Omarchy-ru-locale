@@ -13,9 +13,18 @@
 - Клон для PR ему: ~/git/omarchy-language (переживает ребуты; /tmp чистят!).
 
 ## Открыто (ждём чужих рук)
-- sbelcl#3 (Direct Boot), sbelcl#7 (brightness %).
-- Апстрим: ветер #11139 (пнули 2 раза + наглый коммент), рантайм #8765, adjudication #12345, даты #10955, пикер #10949, DNS-guard #12395 (наш).
+- sbelcl#3 (Direct Boot), sbelcl#7 (brightness %), sbelcl#8 (audio %) — пинать.
+- weather#1 (m/s, с нашего форка) — записи в его weather-форк нет.
+- Апстрим: ветер #11139 (пнули 3 раза), рантайм #8765, adjudication #12345, даты #10955, пикер #10949, DNS-guard #12395 (наш), kbd #12400 (наш), bindings schema #12404 (вписались).
 - Маркетплейс #6661: Charge Limit опубликован ✅.
+- См. также docs/memo-unmerged.md (архив ~/backups/unmerged-*.tar.gz).
+
+## Новое с 18.09
+- Таблицы wifi/bt/display-ru.tsv; ru.json 179 (аудио/яркость шкалы в %).
+- Словенцу пишем по-словенски (dual bova-формы заходят).
+- Его форки: clock/power/audio/BT/weather/monitor/agents/tray/indicators/update.
+- Клоны держать в ~/git (не /tmp — чистят!).
+- DNS: dns0.eu вместо AdGuard в бэкапах; reapply.sh ждёт пароль из терминала.
 
 ## Правила работы (согласовано)
 - Русский черновик мне → "да" → постим английский. Стратегическое без "да" не постим.
