@@ -44,7 +44,7 @@ main() {
       key=$(echo "$line" | cut -d' ' -f1)
       val=$(echo "$line" | cut -d' ' -f2-)
       old["$key"]="$val"
-    done < <(jq -r 'to_entries[] | "\(.key) \(.value.updated) \(.value.comments)"' "$STATE_FILE" 2>/dev/null || true)
+    done < <(jq -r 'to_entries[] | "\(.key) \(.value.updated)"' "$STATE_FILE" 2>/dev/null || true)
   fi
 
   echo "{" > "$STATE_FILE.tmp"
