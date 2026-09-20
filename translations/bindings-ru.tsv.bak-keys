@@ -1,0 +1,204 @@
+SUPER + RETURN	Терминал
+SUPER + SHIFT + RETURN	Браузер
+SUPER + SHIFT + F	Файловый менеджер
+SUPER + ALT + SHIFT + F	Файловый менеджер (здесь)
+SUPER + SHIFT + B	Браузер
+SUPER + SHIFT + ALT + B	Браузер (приватно)
+SUPER + SHIFT + N	Редактор
+SUPER + SHIFT + M	Музыка
+SUPER + SHIFT + ALT + M	Терминальный плеер
+SUPER + SHIFT + SLASH	Пароли
+SUPER + SHIFT + C	Календарь
+SUPER + SHIFT + E	Почта
+SUPER + SHIFT + ALT + E	Новое письмо
+SUPER + SHIFT + CTRL + G	Google Сообщения
+SUPER + SHIFT + P	Google Фото
+SUPER + SHIFT + S	Google Карты
+SUPER + SHIFT + ALT + X	Пост в X
+SUPER + CTRL + V	Менеджер буфера обмена
+XF86AudioRaiseVolume	Громкость +
+XF86AudioLowerVolume	Громкость -
+XF86AudioMute	Выключить звук
+XF86AudioMicMute	Выключить микрофон
+XF86MonBrightnessUp	Яркость выше
+XF86MonBrightnessDown	Яркость ниже
+SHIFT + XF86MonBrightnessUp	Яркость максимум
+SHIFT + XF86MonBrightnessDown	Яркость минимум
+XF86KbdBrightnessUp	Подсветка клавиатуры +
+XF86KbdBrightnessDown	Подсветка клавиатуры -
+XF86KbdLightOnOff	Подсветка клавиатуры
+XF86TouchpadToggle	Тачпад
+XF86TouchpadOn	Включить тачпад
+XF86TouchpadOff	Выключить тачпад
+ALT + XF86AudioRaiseVolume	Громкость + (шаг)
+ALT + XF86AudioLowerVolume	Громкость - (шаг)
+ALT + XF86MonBrightnessUp	Яркость выше (шаг)
+ALT + XF86MonBrightnessDown	Яркость ниже (шаг)
+XF86AudioNext	Следующий трек
+ALT + XF86AudioPlay	Следующий трек
+XF86AudioPause	Пауза
+XF86AudioPlay	Играть
+XF86AudioPrev	Предыдущий трек
+ALT + SHIFT + XF86AudioPlay	Предыдущий трек
+XF86Eject	Извлечь диск
+SHIFT + XF86AudioMute	Аудиовыход
+SHIFT + XF86AudioPause	Источник медиа
+SHIFT + XF86AudioPlay	Источник медиа
+SUPER + W	Закрыть окно
+CTRL + ALT + DELETE	Закрыть все окна
+SUPER + J	Разделение окна
+SUPER + T	Тип окна
+SUPER + F	Весь экран
+SUPER + CTRL + F	Весь экран мозаикой
+SUPER + ALT + F	Вся ширина
+SUPER + O	Окно поверх (закрепить)
+SUPER + ALT + Home	Сохранить ширину окна
+SUPER + Home	Вернуть ширину окна
+SUPER + L	Раскладка окон
+SUPER + LEFT	Фокус на левое окно
+SUPER + RIGHT	Фокус на правое окно
+SUPER + UP	Фокус на верхнее окно
+SUPER + DOWN	Фокус на нижнее окно
+SUPER + S	Скрытый стол
+SUPER + ALT + S	Окно в скрытый стол
+SUPER + TAB	Следующий стол
+SUPER + SHIFT + TAB	Предыдущий стол
+SUPER + CTRL + TAB	Предыдущий стол
+SUPER + SHIFT + ALT + LEFT	Стол на левый монитор
+SUPER + SHIFT + ALT + RIGHT	Стол на правый монитор
+SUPER + SHIFT + ALT + UP	Стол на верхний монитор
+SUPER + SHIFT + ALT + DOWN	Стол на нижний монитор
+SUPER + SHIFT + LEFT	Сдвинуть окно влево
+SUPER + SHIFT + RIGHT	Сдвинуть окно вправо
+SUPER + SHIFT + UP	Сдвинуть окно вверх
+SUPER + SHIFT + DOWN	Переставить окно вниз
+ALT + TAB	Фокус на следующее окно
+ALT + SHIFT + TAB	Фокус на предыдущее окно
+CTRL + ALT + TAB	Фокус на следующий монитор
+CTRL + ALT + SHIFT + TAB	Фокус на предыдущий монитор
+SUPER + code:20	Большое окно влево
+SUPER + code:21	Маленькое окно влево
+SUPER + SHIFT + code:20	Маленькое окно вверх
+SUPER + SHIFT + code:21	Большое окно вниз
+SUPER + ALT + code:20	Большое окно влево (25 px)
+SUPER + ALT + code:21	Маленькое окно влево (25 px)
+SUPER + SHIFT + ALT + code:20	Маленькое окно вверх (25 px)
+SUPER + SHIFT + ALT + code:21	Большое окно вниз (25 px)
+SUPER + CTRL + code:20	Большое окно влево (300 px)
+SUPER + CTRL + code:21	Маленькое окно влево (300 px)
+SUPER + CTRL + SHIFT + code:20	Маленькое окно вверх (300 px)
+SUPER + CTRL + SHIFT + code:21	Большое окно вниз (300 px)
+SUPER + mouse_down	Стол вперёд
+SUPER + mouse_up	Стол назад
+SUPER + mouse:272	Переместить окно
+SUPER + mouse:273	Изменить размер окна
+SUPER + G	Группа окон
+SUPER + ALT + G	Убрать активное окно из группы
+SUPER + ALT + LEFT	Окно в группу слева
+SUPER + ALT + RIGHT	Окно в группу справа
+SUPER + ALT + UP	Окно в группу сверху
+SUPER + ALT + DOWN	Окно в группу снизу
+SUPER + ALT + TAB	Следующее окно в группе
+SUPER + ALT + SHIFT + TAB	Предыдущее окно в группе
+SUPER + CTRL + LEFT	Фокус группы влево
+SUPER + CTRL + RIGHT	Фокус группы вправо
+SUPER + ALT + mouse_down	Следующее окно в группе
+SUPER + ALT + mouse_up	Предыдущее окно в группе
+SUPER + SLASH	Масштаб монитора +
+SUPER + ALT + SLASH	Масштаб монитора -
+SUPER + SPACE	Меню Omarchy
+SUPER + ALT + SPACE	Меню приложений
+SUPER + CTRL + E	Эмодзи
+SUPER + CTRL + C	Меню захвата
+SUPER + CTRL + O	Меню
+SUPER + SHIFT + code:201	Меню Omarchy
+SUPER + ESCAPE	Системное меню
+XF86PowerOff	Меню питания
+SUPER + K	Горячие клавиши
+SUPER + ALT + K	Бинды Tmux
+SUPER + CTRL + K	Бинды Herdr
+SUPER + CTRL + Q	Калькулятор
+XF86Calculator	Калькулятор
+SUPER + SHIFT + SPACE	Верхняя панель
+SUPER + CTRL + SPACE	Смена обоев
+SUPER + SHIFT + CTRL + SPACE	Темы
+SUPER + BACKSPACE	Прозрачность окна
+SUPER + SHIFT + BACKSPACE	Отступы окон
+SUPER + CTRL + BACKSPACE	Квадратное окно
+SUPER + comma	Скрыть последнее уведомление
+SUPER + SHIFT + comma	Скрыть все уведомления
+SUPER + CTRL + comma	Тихий режим
+SUPER + ALT + comma	Вызвать последнее уведомление
+SUPER + SHIFT + ALT + comma	История уведомлений
+SUPER + CTRL + I	Блокировка в простое
+SUPER + CTRL + N	Ночной свет
+SUPER + CTRL + Delete	Экран ноутбука
+SUPER + CTRL + ALT + Delete	Дублирование экрана
+PRINT	Скриншот
+ALT + PRINT	Запись экрана
+SUPER + ALT + code:34	Оверлей камеры меньше
+SUPER + ALT + code:35	Оверлей камеры больше
+SUPER + PRINT	Выбор цвета
+SUPER + CTRL + PRINT	Распознать текст со скриншота
+SUPER + CTRL + S	Поделиться
+SUPER + CTRL + PERIOD	Изменить формат
+SUPER + CTRL + R	Создать напоминание
+SUPER + CTRL + ALT + R	Показать напоминания
+SUPER + SHIFT + CTRL + R	Очистить напоминания
+SUPER + CTRL + ALT + T	Показать время
+SUPER + CTRL + ALT + B	Заряд батареи
+SUPER + CTRL + ALT + W	Погода
+SUPER + SHIFT + CTRL + A	Агент
+SUPER + CTRL + A	Аудио
+SUPER + CTRL + D	Экран
+SUPER + CTRL + ALT + D	Календарь
+SUPER + CTRL + W	Сеть
+SUPER + CTRL + P	Питание
+SUPER + CTRL + Z	Приблизить
+SUPER + CTRL + ALT + Z	Сбросить масштаб
+SUPER + CTRL + L	Заблокировать систему
+SUPER + CTRL + X	Диктовка
+SUPER + code:10	Стол 1
+SUPER + SHIFT + code:10	Окно на стол 1
+SUPER + SHIFT + ALT + code:10	Окно на стол 1 (без фокуса)
+SUPER + code:11	Стол 2
+SUPER + SHIFT + code:11	Окно на стол 2
+SUPER + SHIFT + ALT + code:11	Окно на стол 2 (без фокуса)
+SUPER + code:12	Стол 3
+SUPER + SHIFT + code:12	Окно на стол 3
+SUPER + SHIFT + ALT + code:12	Окно на стол 3 (без фокуса)
+SUPER + code:13	Стол 4
+SUPER + SHIFT + code:13	Окно на стол 4
+SUPER + SHIFT + ALT + code:13	Окно на стол 4 (без фокуса)
+SUPER + code:14	Стол 5
+SUPER + SHIFT + code:14	Окно на стол 5
+SUPER + SHIFT + ALT + code:14	Окно на стол 5 (без фокуса)
+SUPER + code:15	Стол 6
+SUPER + SHIFT + code:15	Окно на стол 6
+SUPER + SHIFT + ALT + code:15	Окно на стол 6 (без фокуса)
+SUPER + code:16	Стол 7
+SUPER + SHIFT + code:16	Окно на стол 7
+SUPER + SHIFT + ALT + code:16	Окно на стол 7 (без фокуса)
+SUPER + code:17	Стол 8
+SUPER + SHIFT + code:17	Окно на стол 8
+SUPER + SHIFT + ALT + code:17	Окно на стол 8 (без фокуса)
+SUPER + code:18	Стол 9
+SUPER + SHIFT + code:18	Окно на стол 9
+SUPER + SHIFT + ALT + code:18	Окно на стол 9 (без фокуса)
+SUPER + code:19	Стол 10
+SUPER + SHIFT + code:19	Окно на стол 10
+SUPER + SHIFT + ALT + code:19	Окно на стол 10 (без фокуса)
+SUPER + ALT + code:10	Окно группы 1
+SUPER + ALT + code:11	Окно группы 2
+SUPER + ALT + code:12	Окно группы 3
+SUPER + ALT + code:13	Окно группы 4
+SUPER + ALT + code:14	Окно группы 5
+SUPER + CTRL + code:10	Панель бара 1
+SUPER + CTRL + code:11	Панель бара 2
+SUPER + CTRL + code:12	Панель бара 3
+SUPER + CTRL + code:13	Панель бара 4
+SUPER + CTRL + code:14	Панель бара 5
+SUPER + CTRL + code:15	Панель бара 6
+SUPER + CTRL + code:16	Панель бара 7
+SUPER + CTRL + code:17	Панель бара 8
+SUPER + CTRL + code:18	Панель бара 9

@@ -39,6 +39,33 @@ Russian localization for [Omarchy](https://github.com/omacom/omarchy).
 3. Для биндов: bindings-ru.tsv — только архив/справка, локально не применять / For bindings: bindings-ru.tsv is archive/reference only, do not apply locally
 4. Для shell/cli: превью до выбора рантайма (#8765); проверка — `msgfmt --check po/*.po` / For shell/cli: preview until runtime is chosen (#8765); check with `msgfmt --check po/*.po`
 
+## Опасные бинды: почему 4 описания переводить нельзя / Dangerous binds
+
+Четыре webapp-бинда с `focus = true` передают своё **описание** в
+`omarchy-launch-or-focus-webapp` как строку поиска окна:
+
+```
+SUPER+SHIFT+S → omarchy-launch-or-focus-webapp "Google Maps" "https://maps.google.com/"
+```
+
+Перевод `Google Maps → Google Карты` ломает не подпись, а **поведение**:
+вкладка браузера по-прежнему называется Google Maps, совпадение не находится,
+и вместо фокуса каждый раз открывается лишний дубль. Затронуты:
+`WhatsApp`, `Google Messages`, `Google Photos`, `Google Maps`.
+Остальные описания (Календарь, YouTube и т.д.) передают только URL — их
+перевод меняет лишь текст в шпаргалке. Детали и аудит — в
+`WEBAPP-BIND-AUDIT.md`; разблокировка — после ветки linyiru с `opts.id`
+(omacom/omarchy#12404).
+
+Four webapp binds with `focus = true` pass their **description** to
+`omarchy-launch-or-focus-webapp` as the window match string. Translating e.g.
+`Google Maps → Google Карты` breaks **behaviour**, not display: the browser
+tab is still called Google Maps, no match is found, and a duplicate opens
+instead of focusing. Affected: `WhatsApp`, `Google Messages`, `Google Photos`,
+`Google Maps`. Other descriptions only change cheatsheet text. Details in
+`WEBAPP-BIND-AUDIT.md`; unblocked once linyiru's `opts.id` branch lands
+(omacom/omarchy#12404).
+
 ## Отслеживание / Tracking
 
 Запусти `track.sh` или настрой systemd timer для уведомлений о новых комментариях мейнтейнеров.
