@@ -1,9 +1,10 @@
 # Russian labels for the Omarchy network (Wi-Fi) panel.
 #
 # English<TAB>Russian. Same table convention as ru_RU.tsv.
-# Scope (native-speaker decision): everyday stats + statuses only.
-# Do NOT translate the DNS area (provider pills, Custom) — protocol words
-# compared by code (see omacom/omarchy#12344). Forget network stays English.
+# Scope (native-speaker decision 2026-09-20: FULL panel).
+# Everything is translated EXCEPT the DNS pill values (DHCP, Quad9,
+# dns0.eu, OpenDNS, Custom) — those are code values written to config
+# (see omacom/omarchy#12344), not display labels. R/W are hotkeys, not strings.
 Ping	Пинг
 Packet Loss	Потери пакетов
 Receiving	Получено
@@ -22,3 +23,45 @@ Wrong password	Неверный пароль
 Connected	Подключено
 Connect	Подключить
 Forget network	Забыть сеть
+# --- Full-panel batch (2026-09-20, native review pending) ---
+Automatic	Автоматически
+Turn Wi-Fi off	Выключить Wi-Fi
+Turn Wi-Fi on	Включить Wi-Fi
+Hidden	Скрытая сеть
+Failed	Не удалось
+No connection	Нет соединения
+NOT CONNECTED	НЕ ПОДКЛЮЧЕНО
+Disconnected	Отключено
+Timed out connecting	Превышено время подключения
+Timed out disconnecting	Превышено время отключения
+Timed out forgetting	Превышено время удаления сети
+Copy IP	Копировать IP
+Copy gateway	Копировать шлюз
+Copy to clipboard	Копировать в буфер обмена
+Show QR code	Показать QR-код
+Run a speed test	Проверить скорость
+Let Wi-Fi pick the band	Выбирать диапазон автоматически
+Stay on 	Остаться на 
+Identity (user@domain)	Логин (пользователь@домен)
+Passphrase	Пароль
+DNS PROVIDER	DNS-ПРОВАЙДЕР
+Use DNS from DHCP	Использовать DNS от DHCP
+Set custom DNS servers	Задать свои DNS-серверы
+Wiring bits	Тянем провода
+Handling packets	Разбираем пакеты
+Sorting frames	Сортируем кадры
+Routing crumbs	Собираем крошки
+Counting collisions	Считаем коллизии
+Hauling bytes	Таскаем байты
+Bending light	Гнём свет
+# --- Model.js batch (section headers, failure reasons, band labels) ---
+Auto	Авто
+WI-FI BAND	ДИАПАЗОН WI-FI
+WI-FI BAND: 	ДИАПАЗОН WI-FI: 
+Timeout	Таймаут
+KNOWN NETWORKS	ИЗВЕСТНЫЕ СЕТИ
+OTHER NETWORKS	ДРУГИЕ СЕТИ
+Passphrase required	Требуется пароль
+Network lost	Соединение потеряно
+Connection failed	Не удалось подключиться
+Failed to connect	Ошибка подключения
