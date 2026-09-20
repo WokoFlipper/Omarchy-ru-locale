@@ -32,6 +32,18 @@ TABLE = os.path.join(SCRIPT_DIR, "translations", "bindings-ru.tsv")
 BEGIN = "-- >>> locale-ru-bindings begin"
 END = "-- <<< locale-ru-bindings end"
 
+# Descriptions passed as window match strings (helpers.lua o.launch_webapp_sole
+# -> omarchy-launch-or-focus-webapp <name> <url>). Translating these changes
+# BEHAVIOUR (which window gets focused), not display. Never emit them until
+# linyiru's opts.id branch lands (omacom/omarchy#12404).
+# See WEBAPP-BIND-AUDIT.md.
+DANGEROUS_DESCS = frozenset({
+    "WhatsApp",
+    "Google Messages",
+    "Google Photos",
+    "Google Maps",
+})
+
 
 def fail(msg):
     print(f"bindings-translate: {msg}", file=sys.stderr)
@@ -211,6 +223,10 @@ def build_block(table):
         rows.append(f'o.bind({lua_quote(keys)}, {lua_quote(ru)}, {disp})')
 
     for keys, desc, disp in collect_defaults():
+        if desc in DANGEROUS_DESCS:
+            print(f"bindings-translate: SKIPPING window-matcher bind {desc!r} "
+                  f"({keys}) — see WEBAPP-BIND-AUDIT.md", file=sys.stderr)
+            continue
         ru = table.get(desc)
         if not ru or ru == desc:
             continue
