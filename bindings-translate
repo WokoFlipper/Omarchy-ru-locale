@@ -11,6 +11,14 @@ dispatcher copied verbatim (multi-line calls supported).
 Keys the user already unbound or rebound outside the block are skipped, so
 personal overrides (e.g. code: binds covering EN+RU layouts) always win.
 
+Letter binds additionally get a code: duplicate (same description and
+dispatcher): Hyprland matches keysyms, so under a Cyrillic layout the Latin
+bind never fires. X11 keycodes are layout-independent, and Omarchy's hl.bind
+passes code:NN through (stock tiling.lua already relies on it). C/V/X are
+excluded — clipboard overrides once destabilized copy/paste, keep them as-is.
+Symbol finals SLASH/comma are duplicated too (different keys in RU);
+digits, special keys, XF86 and mouse binds are layout-independent already.
+
 Usage: bindings-translate status
        bindings-translate apply ru_RU
        bindings-translate remove
@@ -208,19 +216,101 @@ def split_user_file():
             continue
         if not skipping:
             out.append(line)
-    return "\n".join(out).rstrip("\n") + "\n" if out else ""
+    body = "\n".join(out).rstrip("\n") + "\n" if out else ""
+    # Truncation tripwire (2026-09-21 incident): markers present but the
+    # surviving user content is implausibly small next to the raw file.
+    # Never return a near-empty body in that case — fail loudly instead.
+    if BEGIN in content:
+        raw_n = len([l for l in lines if l.strip() and not l.strip().startswith("--")])
+        body_n = len([l for l in body.split("\n") if l.strip() and not l.strip().startswith("--")])
+        if raw_n > 50 and body_n < 5:
+            fail(f"split_user_file would drop user content ({raw_n} -> {body_n} lines) — refusing, fix manually")
+    return body
+
+
+# X11 keycodes for single-key finals that move between EN/RU layouts.
+# Letters: standard X11 set (evdev + 8). SLASH/COMMA: different keys in RU.
+# C/V/X excluded from auto-duplication (clipboard fragility, see below).
+X11_CODES = {
+    "Q": 24, "W": 25, "E": 26, "R": 27, "T": 28, "Y": 29, "U": 30,
+    "I": 31, "O": 32, "P": 33, "A": 38, "S": 39, "D": 40, "F": 41,
+    "G": 42, "H": 43, "J": 44, "K": 45, "L": 46, "Z": 52, "X": 53,
+    "C": 54, "V": 55, "B": 56, "N": 57, "M": 58,
+    "SLASH": 61, "COMMA": 59,
+}
+NO_DUP_FINALS = {"C", "V", "X"}
+
+
+def collect_clipboard():
+    """Clipboard binds + their file-local helpers, namespaced for our block.
+
+    Stock clipboard.lua defines its dispatchers via file-local Lua functions,
+    so a verbatim-copied call would die with "attempt to call a nil value" in
+    the user file. We extract the helpers fresh from stock at apply time and
+    re-emit them under ru_ names (zero interaction with stock internals).
+    Returns (helper_src, [(keys, desc, disp), ...]).
+    """
+    path = os.path.join(DEFAULT_HYPR, "bindings", "clipboard.lua")
+    try:
+        with open(path, encoding="utf-8") as fh:
+            lines = fh.read().split("\n")
+    except OSError:
+        return "", []
+    try:
+        start = next(i for i, l in enumerate(lines)
+                     if l.startswith("local function send_shortcut_once"))
+        stop = next(i for i, l in enumerate(lines) if l.startswith("o.bind("))
+    except StopIteration:
+        fail("clipboard.lua shape changed — refusing to emit clipboard binds")
+    helpers = "\n".join(lines[start:stop]).rstrip()
+    renames = {
+        "send_shortcut_once": "ru_send_shortcut_once",
+        "active_window_is_terminal": "ru_active_window_is_terminal",
+        "universal_clipboard_shortcut": "ru_universal_clipboard_shortcut",
+    }
+
+    def ns(s):
+        for old, new in renames.items():
+            s = re.sub(r"\b" + re.escape(old) + r"\b", new, s)
+        return s
+
+    helpers = ns(helpers)
+    calls = [(keys, desc, ns(disp))
+             for keys, desc, disp in find_calls("\n".join(lines[stop:]))]
+    return helpers, calls
 
 
 def build_block(table):
     rows = []
+    n_binds = 0
     user_body = split_user_file()
     protected = user_managed_keys(user_body)
 
     def emit(keys, ru, disp):
+        nonlocal n_binds
         if keys in protected:
             return
         rows.append(f'hl.unbind({lua_quote(keys)})')
         rows.append(f'o.bind({lua_quote(keys)}, {lua_quote(ru)}, {disp})')
+        n_binds += 1
+
+    def emit_layout_dup(keys, ru, disp):
+        """Duplicate a letter/symbol bind via X11 keycode (layout-independent).
+
+        Only the final key token is swapped; modifiers stay identical.
+        Skipped when the user already manages either spelling.
+        """
+        parts = [p.strip() for p in keys.split("+")]
+        if len(parts) < 2:
+            return
+        mods, last = parts[:-1], parts[-1]
+        code = X11_CODES.get(last.upper(), None) if len(last) == 1 else None
+        if last.upper() in ("SLASH", "COMMA"):
+            code = X11_CODES[last.upper()]
+        if code is None:
+            return
+        dup = " + ".join(mods + [f"code:{code}"])
+        emit(dup, ru, disp)
 
     for keys, desc, disp in collect_defaults():
         if desc in DANGEROUS_DESCS:
@@ -231,6 +321,21 @@ def build_block(table):
         if not ru or ru == desc:
             continue
         emit(keys, ru, disp)
+        final = keys.split("+")[-1].strip().upper()
+        if final not in NO_DUP_FINALS:
+            emit_layout_dup(keys, ru, disp)
+
+    # Universal clipboard binds (SUPER+C/V/X + manager): stock defines their
+    # dispatchers via file-local helpers, so plain verbatim copy would crash.
+    # Helpers are re-emitted above under ru_ names (fresh from stock).
+    helpers, clip_calls = collect_clipboard()
+    clip_ru = [(k, d, d2) for k, d, d2 in clip_calls
+               if table.get(d) and table.get(d) != d]
+    if clip_ru:
+        rows.append("-- Clipboard helpers (namespaced copy of stock clipboard.lua):")
+        rows.extend(helpers.split("\n"))
+        for keys, desc, disp in clip_ru:
+            emit(keys, table[desc], disp)
 
     # Workspace loop (tiling.lua): dynamic keys/descs the static parser
     # skips. Keys are code:-based, layout-independent by construction.
@@ -252,16 +357,14 @@ def build_block(table):
         emit(f"SUPER + CTRL + code:{p + 9}", f"Панель бара {p}",
              f'"omarchy-shell -q shell togglePanelAt right {p}"')
 
-    # Universal clipboard binds (SUPER+C/V/X) are intentionally left
-    # untouched: every override attempt destabilized copy/paste, and the
-    # user confirmed everything works without russifying these three.
-    # (Tried: inlined IIFE closures crashed the runtime; keep defaults.)
+    # C/V/X fire through namespaced helper copies (see collect_clipboard);
+    # their code: duplication stays off: clipboard must behave exactly tested.
     header = (
-        f"{BEGIN} keys={len(rows)//2}\n"
+        f"{BEGIN} keys={n_binds}\n"
         "-- Generated by bindings-translate. Edits here are overwritten;\n"
         "-- put your own binds outside this block.\n"
     )
-    return header + "\n".join(rows) + f"\n{END}\n", len(rows) // 2
+    return header + "\n".join(rows) + f"\n{END}\n", n_binds
 
 
 def cmd_status():
@@ -295,20 +398,22 @@ def cmd_apply(locale):
         fail(f"table not found: {TABLE}")
     block, n = build_block(load_table(TABLE))
     body = split_user_file()
-    if os.path.exists(USER_BINDS):
-        with open(USER_BINDS, encoding="utf-8") as fh:
-            old_lines = [l for l in fh.read().split("\n") if l.strip() and not l.strip().startswith("--")]
-        new_lines = [l for l in body.split("\n") if l.strip() and not l.strip().startswith("--")]
-        # Shrink guard: never silently drop the user's own binds.
-        if len(old_lines) > 20 and len(new_lines) < len(old_lines) // 2:
-            fail(f"user content would shrink {len(old_lines)} -> {len(new_lines)} lines — aborting, backup kept")
     if not body.endswith("\n"):
         body += "\n"
     new_content = body + "\n" + block
+    # Subset guard: every non-comment user line must survive into the new file.
+    if os.path.exists(USER_BINDS):
+        old_user = {l for l in body.split("\n") if l.strip() and not l.strip().startswith("--")}
+        new_all = set(new_content.split("\n"))
+        lost = old_user - new_all
+        if lost:
+            fail(f"apply would drop {len(lost)} user lines — aborting, backup kept")
     backup()
     os.makedirs(os.path.dirname(USER_BINDS), exist_ok=True)
-    with open(USER_BINDS, "w", encoding="utf-8") as fh:
+    tmp = USER_BINDS + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
         fh.write(new_content)
+    os.replace(tmp, USER_BINDS)
     print(f"applied {n} translated binds")
 
 
