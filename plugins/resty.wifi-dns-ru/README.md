@@ -1,4 +1,4 @@
-# resty.network — Wi-Fi виджет с рабочими DNS / Wi-Fi widget with working DNS
+# resty.wifi-dns-ru — Wi-Fi + DNS RU
 
 ## Зачем / Why
 

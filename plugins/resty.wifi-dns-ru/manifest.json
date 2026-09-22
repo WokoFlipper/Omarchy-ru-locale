@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "id": "resty.network",
-  "name": "Network (translated)",
+  "id": "resty.wifi-dns-ru",
+  "name": "Wi-Fi + DNS RU",
   "version": "1.0.0",
   "author": "Resty",
-  "description": "Omarchy network/Wi-Fi panel, fully translated (ru)",
+  "description": "Wi-Fi panel with working DNS presets for Russia (Quad9, DNS0.eu, OpenDNS)",
   "kinds": [
     "bar-widget"
   ],
@@ -12,8 +12,8 @@
     "barWidget": "Panel.qml"
   },
   "barWidget": {
-    "displayName": "Network",
-    "description": "Wi-Fi list and connection state",
+    "displayName": "Wi-Fi + DNS",
+    "description": "Wi-Fi list, connection state, RU DNS presets",
     "category": "Network",
     "allowMultiple": false
   },
