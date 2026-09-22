@@ -1,9 +1,0 @@
-# wifi-dns-ru: passwordless sudo for panel DNS switching (OPTIONAL).
-#
-# Without this file, every pill click prompts via polkit agent (safe default).
-# With it, switching is silent. Install ONLY deliberately, in a terminal:
-#   sudo install -m 0440 omarchy-dns.sudoers /etc/sudoers.d/omarchy-dns
-#   sudo visudo -c
-# Remove any time: sudo rm /etc/sudoers.d/omarchy-dns
-%wheel ALL=(root) NOPASSWD: /usr/bin/omarchy-dns
-Defaults!/usr/bin/omarchy-dns !authenticate
