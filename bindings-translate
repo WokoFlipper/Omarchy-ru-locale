@@ -6,7 +6,11 @@ so user overrides must live in ~/.config/hypr/bindings.lua. This script
 regenerates a marked block there: for every default o.bind()/o.bind_toggle()
 whose description has a Russian entry in translations/bindings-ru.tsv it
 emits hl.unbind() + o.bind() with the Russian description and the original
-dispatcher copied verbatim (multi-line calls supported).
+dispatcher copied verbatim (multi-line calls supported). Every emitted bind
+also carries { id = "<stock English description>" }: stable across our label
+edits and equal to the id stock defaults to under the opts.id schema
+(#12404/#12557); Hyprland ignores the unknown key, so it is a runtime no-op
+today and a working handle the day the schema lands.
 
 Keys the user already unbound or rebound outside the block are skipped, so
 personal overrides (e.g. code: binds covering EN+RU layouts) always win.
@@ -291,15 +295,23 @@ def build_block(table):
     user_body = split_user_file()
     protected = user_managed_keys(user_body)
 
-    def emit(keys, ru, disp):
+    def emit(keys, ru, disp, en):
+        """Emit hl.unbind + o.bind with Russian label and stable id.
+
+        The id is the stock English description: stable across our label
+        edits, and equal to the id stock will default to once the
+        opts.id schema (#12404/#12557) lands. Hyprland ignores unknown
+        option keys, so emitting ids today is a no-op at runtime.
+        """
         nonlocal n_binds
         if keys in protected:
             return
         rows.append(f'hl.unbind({lua_quote(keys)})')
-        rows.append(f'o.bind({lua_quote(keys)}, {lua_quote(ru)}, {disp})')
+        rows.append(f'o.bind({lua_quote(keys)}, {lua_quote(ru)}, {disp}, '
+                    f'{{ id = {lua_quote(en)} }})')
         n_binds += 1
 
-    def emit_layout_dup(keys, ru, disp):
+    def emit_layout_dup(keys, ru, disp, en):
         """Duplicate a letter/symbol bind via X11 keycode (layout-independent).
 
         Only the final key token is swapped; modifiers stay identical.
@@ -315,7 +327,7 @@ def build_block(table):
         if code is None:
             return
         dup = " + ".join(mods + [f"code:{code}"])
-        emit(dup, ru, disp)
+        emit(dup, ru, disp, en)
 
     for keys, desc, disp in collect_defaults():
         if desc in DANGEROUS_DESCS:
@@ -325,10 +337,10 @@ def build_block(table):
         ru = table.get(desc)
         if not ru or ru == desc:
             continue
-        emit(keys, ru, disp)
+        emit(keys, ru, disp, desc)
         final = keys.split("+")[-1].strip().upper()
         if final not in NO_DUP_FINALS:
-            emit_layout_dup(keys, ru, disp)
+            emit_layout_dup(keys, ru, disp, desc)
 
     # Universal clipboard binds (SUPER+C/V/X + manager): stock defines their
     # dispatchers via file-local helpers, so plain verbatim copy would crash.
@@ -348,30 +360,36 @@ def build_block(table):
         rows.append("-- Clipboard helpers (namespaced copy of stock clipboard.lua):")
         rows.extend(helpers.split("\n"))
         for keys, desc, disp in clip_ru:
-            emit(keys, table[desc], disp)
+            emit(keys, table[desc], disp, desc)
             final = keys.split("+")[-1].strip().upper()
             if final not in NO_DUP_FINALS:
-                emit_layout_dup(keys, table[desc], disp)
+                emit_layout_dup(keys, table[desc], disp, desc)
 
     # Workspace loop (tiling.lua): dynamic keys/descs the static parser
     # skips. Keys are code:-based, layout-independent by construction.
+    # EN ids mirror stock loop descriptions verbatim (tiling.lua:22-24).
     for n in range(1, 11):
         code = n + 9
         emit(f"SUPER + code:{code}", f"Стол {n}",
-             f'hl.dsp.focus({{ workspace = "{n}" }})')
+             f'hl.dsp.focus({{ workspace = "{n}" }})',
+             f"Switch to workspace {n}")
         emit(f"SUPER + SHIFT + code:{code}", f"Окно на стол {n}",
-             f'hl.dsp.window.move({{ workspace = "{n}" }})')
+             f'hl.dsp.window.move({{ workspace = "{n}" }})',
+             f"Move window to workspace {n}")
         emit(f"SUPER + SHIFT + ALT + code:{code}", f"Окно на стол {n} (без фокуса)",
-             f'hl.dsp.window.move({{ workspace = "{n}", follow = false }})')
+             f'hl.dsp.window.move({{ workspace = "{n}", follow = false }})',
+             f"Move window silently to workspace {n}")
 
     # Group-window loop (tiling.lua) and bar-panel loop (utilities.lua):
     # same dynamic pattern, same treatment.
     for i in range(1, 6):
         emit(f"SUPER + ALT + code:{i + 9}", f"Окно группы {i}",
-             f"hl.dsp.group.active({{ index = {i} }})")
+             f"hl.dsp.group.active({{ index = {i} }})",
+             f"Switch to group window {i}")
     for p in range(1, 10):
         emit(f"SUPER + CTRL + code:{p + 9}", f"Панель бара {p}",
-             f'"omarchy-shell -q shell togglePanelAt right {p}"')
+             f'"omarchy-shell -q shell togglePanelAt right {p}"',
+             f"Bar panel {p}")
 
     # C/V/X stay stock (see CLIP_SKIP above): their full Russian translation
     # lives in the table as an archive, never applied.
