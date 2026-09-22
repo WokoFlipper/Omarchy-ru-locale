@@ -1,4 +1,4 @@
-# resty.wifi-dns-ru — Wi-Fi + DNS RU
+# wifi-dns-ru — Wi-Fi + DNS RU
 
 ## Зачем / Why
 
