@@ -11,3 +11,4 @@ fi
 mkdir -p "$DST"
 install -m 644 "$SRC/manifest.json" "$SRC/Model.js" "$SRC/Panel.qml" "$DST/"
 echo "Installed wifi-dns-ru. Restart the shell: omarchy-restart-shell"
+echo "Optional silent switching (terminal): sudo install -m 0440 $SRC/omarchy-dns.sudoers /etc/sudoers.d/omarchy-dns"
