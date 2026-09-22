@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "resty.network",
+  "name": "Network (translated)",
+  "version": "1.0.0",
+  "author": "Resty",
+  "description": "Omarchy network/Wi-Fi panel, fully translated (ru)",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Network",
+    "description": "Wi-Fi list and connection state",
+    "category": "Network",
+    "allowMultiple": false
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.network"
+  }
+}
