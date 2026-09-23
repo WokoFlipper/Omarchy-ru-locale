@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "wifi-dns-ru",
+  "name": "Wi-Fi + DNS RU",
+  "version": "1.1.1",
+  "author": "Resty",
+  "description": "Wi-Fi panel with working DNS presets for Russia (NextDNS, DNS4EU, OpenDNS)",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Wi-Fi + DNS",
+    "description": "Wi-Fi list, connection state, RU DNS presets",
+    "category": "Network",
+    "allowMultiple": false
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.network"
+  }
+}
