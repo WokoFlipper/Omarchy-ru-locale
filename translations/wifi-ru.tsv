@@ -3,7 +3,7 @@
 # English<TAB>Russian. Same table convention as ru_RU.tsv.
 # Scope (native-speaker decision 2026-09-20: FULL panel).
 # Everything is translated EXCEPT the DNS pill values (DHCP, Quad9,
-# DNS0.eu, OpenDNS, Custom) — those are code values written to config
+# DNS4EU, OpenDNS, Custom) — those are code values written to config
 # (see omacom/omarchy#12344), not display labels. R/W are hotkeys, not strings.
 Ping	Пинг
 Packet Loss	Потери пакетов

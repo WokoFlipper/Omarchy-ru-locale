@@ -138,7 +138,7 @@ Panel {
   readonly property bool speedHeaderHasCursor: cursorActive && focusSection === "header" && headerIndex === speedHeaderIndex
   readonly property bool toggleHeaderHasCursor: cursorActive && focusSection === "header" && headerIndex === toggleHeaderIndex
   readonly property string toggleHint: Networking.wifiEnabled ? "Выключить Wi-Fi" : "Включить Wi-Fi"
-  readonly property var dnsProviders: ["DHCP", "Quad9", "DNS0.eu", "OpenDNS", "Custom"]
+  readonly property var dnsProviders: ["DHCP", "Quad9", "DNS4EU", "OpenDNS", "Custom"]
   property int dnsIndex: 0
   // ["2.4", "5", ...], or empty when there is nothing to choose between.
   // Wi-Fi only: on Ethernet the band of a secondary radio is not what the
@@ -1442,9 +1442,9 @@ Panel {
           }
 
           DnsProviderPill {
-            provider: "DNS0.eu"
+            provider: "DNS4EU"
             index: 2
-            tooltipText: "Set DNS to DNS0.eu (193.110.81.254)"
+            tooltipText: "Set DNS to DNS4EU (86.54.11.100)"
             width: dnsRow.cellWidth
             onClicked: root.setDns(provider)
           }

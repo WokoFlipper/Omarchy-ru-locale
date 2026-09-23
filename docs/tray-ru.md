@@ -32,7 +32,7 @@
 
 `~/.config/omarchy/locales/ru.json` — **179 ключей** (источник: `locales/ru.json`
 репо). 20.09 обновлён с 63 (старый `~/backups/ru.json-live-63keys-*`).
-Пилюли DNS (DHCP/Quad9/DNS0.eu/OpenDNS/Custom) и значения (`"auto"`,
+Пилюли DNS (DHCP/Quad9/DNS4EU/OpenDNS/Custom) и значения (`"auto"`,
 `provider === "Custom"`) — НЕ переводятся никогда (#12344).
 
 ## Восстановление

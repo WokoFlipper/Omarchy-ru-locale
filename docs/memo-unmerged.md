@@ -12,7 +12,7 @@ Archive: ~/backups/unmerged-2026-09-19.tar.gz (clones + local plugins).
 - resty.weather: rebased on current stock + m/s + 3 RU labels. Freeze fixed
   (was missing setCenterHoverRevealSuppressed branch).
 - resty.charge: published in marketplace ✅ (do not touch).
-- DNS DNS0.eu swap: backups ready, reapply.sh needs terminal password.
+- DNS DNS4EU swap: backups ready, reapply.sh needs terminal password.
 
 ## Open upstream threads
 - Wind #11139 (nudged ×2 + blunt), dates #10955, picker #10949, runtime #8765,

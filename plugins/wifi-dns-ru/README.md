@@ -2,13 +2,13 @@
 
 ## Зачем / Why
 
-**RU:** Стоковый виджет предлагает Cloudflare (1.1.1.1) и Google (8.8.8.8) — оба заблокированы/заглушены в России. Этот форк меняет пилюли на рабочие: Quad9 (9.9.9.9), DNS0.eu, OpenDNS + Custom. Плюс: виджет обновляет состояние после смены DNS (в стоке залипает «нет подключения»). Временное решение, пока мейнтейнеры не разрешат локальные пресеты (upstream issue: RU DNS presets).
+**RU:** Стоковый виджет предлагает Cloudflare (1.1.1.1) и Google (8.8.8.8) — оба заблокированы/заглушены в России. Этот форк меняет пилюли на рабочие: Quad9 (9.9.9.9), DNS4EU, OpenDNS + Custom. Плюс: виджет обновляет состояние после смены DNS (в стоке залипает «нет подключения»). Временное решение, пока мейнтейнеры не разрешат локальные пресеты (upstream issue: RU DNS presets).
 
-**EN:** Stock pills (Cloudflare, Google) are blocked/throttled in Russia. This fork ships working presets — Quad9 (9.9.9.9), DNS0.eu, OpenDNS + Custom — and refreshes widget state after a DNS switch (stock sticks on "no connection"). Temporary until maintainers allow locale DNS presets.
+**EN:** Stock pills (Cloudflare, Google) are blocked/throttled in Russia. This fork ships working presets — Quad9 (9.9.9.9), DNS4EU, OpenDNS + Custom — and refreshes widget state after a DNS switch (stock sticks on "no connection"). Temporary until maintainers allow locale DNS presets.
 
 ## Что изменено / Changes vs stock `omarchy.network`
 
-1. `dnsProviders`: `[DHCP, Quad9, DNS0.eu, OpenDNS, Custom]` (было: DHCP, Cloudflare, Google, Custom).
+1. `dnsProviders`: `[DHCP, Quad9, DNS4EU, OpenDNS, Custom]` (было: DHCP, Cloudflare, Google, Custom).
 2. Тултипы пилюль + `root.refresh()` после смены DNS (`onExited`).
 3. Остальное — сток.
 
