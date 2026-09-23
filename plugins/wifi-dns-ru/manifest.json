@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "id": "wifi-dns-ru",
   "name": "Wi-Fi + DNS RU",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Resty",
-  "description": "Wi-Fi panel with working DNS presets for Russia (Quad9, DNS0.eu, OpenDNS)",
+  "description": "Wi-Fi panel with working DNS presets for Russia (Quad9, DNS4EU, OpenDNS)",
   "kinds": [
     "bar-widget"
   ],
