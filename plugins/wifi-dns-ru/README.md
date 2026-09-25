@@ -2,9 +2,9 @@
 
 ## Зачем / Why
 
-**RU:** Стоковый виджет предлагает Cloudflare (1.1.1.1) и Google (8.8.8.8) — оба заблокированы/заглушены в России. Этот форк меняет пилюли на рабочие: NextDNS (45.90.28.0, DoT), DNS4EU (86.54.11.100), OpenDNS + Custom. DNS4EU заменил мёртвый dns0.eu (не отвечает больше года): для России это рабочий и быстрый вариант (~1 мс, замерено), плюс EU-юрисдикция. Плюс: виджет обновляет состояние после смены DNS (в стоке залипает «нет подключения»). Все варианты проверены методом испытаний в реальных условиях; на момент выбора они не блокировались. Временное решение, пока мейнтейнеры не разрешат локальные пресеты (upstream issue: RU DNS presets).
+**RU:** Стоковый виджет предлагает Cloudflare (1.1.1.1) и Google (8.8.8.8) — оба недоступны в России. Этот форк меняет пилюли на рабочие: NextDNS (45.90.28.0, DoT), DNS4EU (86.54.11.100), OpenDNS + Custom. DNS4EU заменил мёртвый dns0.eu (не отвечает больше года): для России это рабочий и быстрый вариант (~1 мс, замерено), плюс EU-юрисдикция. Плюс: виджет обновляет состояние после смены DNS (в стоке залипает «нет подключения»). Все варианты проверены методом испытаний в реальных условиях; на момент выбора они не блокировались. Временное решение, пока мейнтейнеры не разрешат локальные пресеты (upstream issue: RU DNS presets).
 
-**EN:** Stock pills (Cloudflare, Google) are blocked/throttled in Russia. This fork ships working presets — NextDNS (45.90.28.0, DoT), DNS4EU (86.54.11.100), OpenDNS + Custom. DNS4EU replaces dead dns0.eu (unresponsive for over a year): for Russia it is a working, fast option (~1 ms measured) under EU jurisdiction — and refreshes widget state after a DNS switch (stock sticks on "no connection"). Temporary until maintainers allow locale DNS presets.
+**EN:** Stock pills (Cloudflare, Google) are unavailable in Russia. This fork ships working presets — NextDNS (45.90.28.0, DoT), DNS4EU (86.54.11.100), OpenDNS + Custom. DNS4EU replaces dead dns0.eu (unresponsive for over a year): for Russia it is a working, fast option (~1 ms measured) under EU jurisdiction — and refreshes widget state after a DNS switch (stock sticks on "no connection"). Temporary until maintainers allow locale DNS presets.
 
 ## Что изменено / Changes vs stock `omarchy.network`
 
