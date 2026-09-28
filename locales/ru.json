@@ -16,14 +16,16 @@
  "Cranked up": "Громко",
  "Discharging": "Разряжается",
  "Draining watts": "Сливаем заряд",
- "Easy listening": "Тихо",
+  "Easy listening": "Тихо",
+  "Enter the number of minutes": "Введите количество минут",
  "Fully charged": "Полный бак",
  "Guzzling volts": "Глушим вольты",
  "Hoarding joules": "Заначиваем джоули",
  "Holding": "Держим бак",
  "INPUT": "Ввод",
  "Inhaling kilowatts": "Втягиваем киловатты",
- "Injecting electrons": "Впрыск электронов",
+  "Injecting electrons": "Впрыск электронов",
+  "Invalid reminder": "Недопустимое напоминание",
  "LIFE": "Срок службы",
  "LIVE TO": "Дожить до",
  "MMMM d": "d MMMM",
@@ -75,9 +77,15 @@
   "few": "%1 промпта",
   "many": "%1 промптов",
   "one": "%1 промпт",
-  "other": "%1 промптов"
- },
- "%1 session": {
+   "other": "%1 промптов"
+  },
+  "%1 reminder": {
+   "few": "%1 напоминания",
+   "many": "%1 напоминаний",
+   "one": "%1 напоминание",
+   "other": "%1 напоминаний"
+  },
+  "%1 session": {
   "few": "%1 сессии",
   "many": "%1 сессий",
   "one": "%1 сессия",
