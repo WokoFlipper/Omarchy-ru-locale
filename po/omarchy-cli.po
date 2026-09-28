@@ -165,6 +165,12 @@ msgstr "Не беспокоить"
 msgid "Toggle microphone mute. Drives the hardware mic-mute LED on laptops that expose one."
 msgstr "Выключить микрофон"
 
+msgid "Microphone muted"
+msgstr "Микрофон выключен"
+
+msgid "Microphone on"
+msgstr "Микрофон включён"
+
 msgid "Toggle idle behavior so the system either idles normally or stays awake"
 msgstr "Не гасить экран"
 
