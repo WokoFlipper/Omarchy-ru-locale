@@ -65,3 +65,12 @@ Passphrase required	Требуется пароль
 Network lost	Соединение потеряно
 Connection failed	Не удалось подключиться
 Failed to connect	Ошибка подключения
+# --- sbelcl #19 mirror (2026-09-29): %1-variants + DNS pills, standard and ours ---
+WI-FI BAND: %1	ДИАПАЗОН WI-FI: %1
+Stay on %1	Остаться на %1
+Set DNS to Cloudflare	Использовать Cloudflare
+Set DNS to Google	Использовать Google
+Set DNS to NextDNS	Использовать NextDNS
+Set DNS to DNS4EU	Использовать DNS4EU
+Set DNS to OpenDNS	Использовать OpenDNS
+Custom	Свои
