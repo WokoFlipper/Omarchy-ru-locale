@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+    "id": "wifi-dns",
+    "name": "Wi-Fi + DNS",
+    "version": "1.0.0",
+    "author": "Resty",
+    "description": "Wi-Fi panel with working DNS presets (NextDNS, DNS4EU, OpenDNS)",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Wi-Fi + DNS",
+        "description": "Wi-Fi list, connection state, DNS presets",
+    "category": "Network",
+    "allowMultiple": false
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.network"
+  }
+}
