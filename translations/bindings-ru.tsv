@@ -152,3 +152,10 @@ Volume up	Громкость +
 Volume up precise	Громкость + (шаг)
 X Post	Пост в X
 Zoom in	Приблизить
+# --- catch-up 30.09: новые стоковые бинды (имена собственные без перевода по дизайну) ---
+Activity	Активность
+Hardware menu	Меню оборудования
+Pseudo window	Псевдо-окно
+Reveal active window on top	Активное окно поверх
+Start dictation (push-to-talk)	Начать диктовку (нажми и говори)
+Stop dictation (push-to-talk)	Остановить диктовку
