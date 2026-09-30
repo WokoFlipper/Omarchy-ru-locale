@@ -1,50 +1,41 @@
-# wifi-dns-ru — handoff для отдельного чата (локально, НЕ пушить без спроса)
+# wifi-dns — handoff (обновлено 30.09.2026)
 
-## Что это
-Форк стокового `omarchy.network`: пилюли DHCP / NextDNS / DNS4EU / OpenDNS / Custom
-(сток: DHCP/Cloudflare/Google/Custom — CF и Google мертвы в РФ).
-Русские подписи, refresh виджета после смены DNS, install/remove/restore скрипты.
+Два плагина рядом, оба в `~/git/locale-ru/plugins/` (синхрон с origin):
 
-## История (сентябрь 2026)
-- Пилюли зашиты локально (`~/.config/omarchy/plugins/wifi-dns-ru/`, бывший resty.network).
-- dns0.eu мёртв год → заменён DNS4EU Unfiltered (86.54.11.100/.200, DoT unfiltered.joindns4.eu, замер ~1мс).
-- Quad9 → NextDNS (45.90.28.0/.30, DoT dns.nextdns.io, оба живы).
-- Переименования: resty.network → resty.wifi-dns-ru → wifi-dns-ru (без префикса).
-- Манифест: name «Wi-Fi + DNS RU», displayName «Wi-Fi + DNS».
+## wifi-dns-ru 1.1.1 (русский)
+Форк стокового `omarchy.network`: пилюли DHCP / NextDNS (45.90.28.0, DoT) /
+DNS4EU (86.54.11.100) / OpenDNS / Custom. Русские подписи, refresh виджета
+после смены DNS, install/remove/restore скрипты, SECURITY.md (prompt-only).
 
-## Как работает смена DNS
-Панель → `omarchy-dns <Provider>` без терминала → нужен root:
-- **Сейчас: ТОЛЬКО с запросом** (парольный грант удалён как дыра 22.09).
-  Auth-диалог через polkit-агента (gnome-агент в autostart + шелл регистрирует свой).
-- Скрипт: закреплённая копия `~/backups/network-dns/omarchy-dns` → live `/usr/bin/omarchy-dns`
-  через `~/backups/network-dns/reapply.sh` (sudo в терминале).
-- После смены: `root.refresh()` в QML (иначе залипает «нет подключения»); NM флэпит — норма.
-- Проверка живости: `omarchy dns <Name>` + `resolvectl query example.com`.
+История: dns0.eu мёртв год → DNS4EU; Quad9 заглушен → NextDNS; переименования
+resty.network → resty.wifi-dns-ru → wifi-dns-ru. Парольный грант удалён как
+дыра 22.09 — только auth-диалог polkit-агента (fail-closed).
 
-## Хуки и бэкапы (НЕ удалять до внедрения+проверки)
-- `~/.config/omarchy/hooks/post-update.d/network-dns-providers.hook` — дрейф пилюль (NextDNS/DNS4EU) + polkit-агент.
+## wifi-dns 1.0.0 (английский, мировой)
+Те же пилюли и механика, UI полностью английский, живое EN-превью.
+Ноль кириллицы, структура побайтово = RU-версии.
+
+## Смена DNS (оба)
+Панель → `omarchy-dns <Provider>` → root нужен → ТОЛЬКО auth-диалог.
+Скрипт: закреплённая копия `~/backups/network-dns/omarchy-dns` → live через
+`reapply.sh` (sudo в терминале). Проверка: `omarchy dns <Name>`.
+
+## Хуки и бэкапы (НЕ удалять)
+- `~/.config/omarchy/hooks/post-update.d/network-dns-providers.hook`
 - `~/backups/network-dns/`: omarchy-dns, reapply.sh, heal hook/sh, README.
-- Бэкапы `~/backups/*Panel.qml*`, `shell.json-*`, `*-pre-rename*`.
 
 ## Магазин
-- Отдельный репо: `WokoFlipper/omarchy-network-ru` (manifest, Panel, Model, README RU/EN, LICENSE MIT, install/remove/restore, preview.png, SECURITY.md).
-- Заявка #8078 (listing) — опубликовано + verified (maintainer-reviewed).
-- Верификация апдейта #8233 (f07a173) и #8337 (ed17bde, с DNS4EU) — baseline review-required, ждём мейнтейнеров.
-- Новая заявка на 1.1.1: #8542 (SHA 60c8dfa, NextDNS).
-- В текстах: sudo ТОЛЬКО с запросом, тихого режима нет (иначе не примут).
+- Отдельный репо `WokoFlipper/omarchy-network-ru` (клон: `~/git/omarchy-network-ru`).
+- #8078 listing — опубликован. #8233/#8337/#8542 — закрыты (старые verify).
+- #8616 (verify 1.1.1) — ЗАКРЫТА = verified + published (maintainer-reviewed).
+- Тексты: «заглушены», без РКН-триггеров. sudo только с запросом.
 
 ## Upstream
-- #12878 (RU DNS-пресеты) — без ответов. #12395 (гард + редактируемые пресеты) — фон.
-- #13035 (speedtest падает в РФ: api.fast.com отвечает Not Available) — создан 23.09.
+- #12878 (RU DNS-пресеты) — без ответов. #12395 — фон.
+- #13035 (speedtest Fast.com недоступен в РФ) — открыт 23.09.
+- #13746 (бандл wifi-dns-ru в RU-установку) — открыт 29.09, без ответов.
 
-## Версии (сейчас 1.1.1)
-- 1.0.0: первый пакет (пилюли Quad9/DNS4EU, скрипты, маркет).
-- 1.0.1: описание DNS0.eu→DNS4EU под уличные пилюли.
-- 1.1.1: Quad9→NextDNS, prompt-only, провайдеры проверены испытаниями, README смягчён.
-
-## Открытое (не двигать без «да»)
-- Пуши locale-ru и netpub ahead — ждут команды.
-- QUIC-серверы (DoQ): исследование дальше, нужен локальный прокси (resolved не говорит QUIC).
-- Вопрос sbelcl: краевно-зависимые пресеты в его рантайме.
-- Страховка `backup-pre-purge` — до русского в Omarchy.
-- Маркет: #8542 верификация 1.1.1 ждёт мейнтейнеров.
+## Открытое
+- Конкурс плагинов $10k — не анонсирован; как выйдет, подать wifi-dns-ru.
+- QUIC/DoQ — исследование (resolved не говорит QUIC, нужен локальный прокси).
+- Краевно-зависимые пресеты в рантайме sbelcl — вопрос открыт.
