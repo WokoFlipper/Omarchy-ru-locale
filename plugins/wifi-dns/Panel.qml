@@ -138,7 +138,7 @@ Panel {
   readonly property bool speedHeaderHasCursor: cursorActive && focusSection === "header" && headerIndex === speedHeaderIndex
   readonly property bool toggleHeaderHasCursor: cursorActive && focusSection === "header" && headerIndex === toggleHeaderIndex
   readonly property string toggleHint: Networking.wifiEnabled ? "Turn Wi-Fi off" : "Turn Wi-Fi on"
-  readonly property var dnsProviders: ["DHCP", "NextDNS", "DNS4EU", "OpenDNS", "Custom"]
+  readonly property var dnsProviders: ["DHCP", "Cloudflare", "Google", "NextDNS", "DNS4EU", "OpenDNS", "Custom"]
   property int dnsIndex: 0
   // ["2.4", "5", ...], or empty when there is nothing to choose between.
   // Wi-Fi only: on Ethernet the band of a secondary radio is not what the
@@ -1422,7 +1422,7 @@ Panel {
           width: parent.width
           spacing: Style.space(6)
 
-          readonly property int count: 5
+          readonly property int count: 7
           readonly property real cellWidth: (width - spacing * (count - 1)) / count
 
           DnsProviderPill {
@@ -1434,8 +1434,24 @@ Panel {
           }
 
           DnsProviderPill {
-            provider: "NextDNS"
+            provider: "Cloudflare"
             index: 1
+            tooltipText: "Set DNS to Cloudflare (1.1.1.1)"
+            width: dnsRow.cellWidth
+            onClicked: root.setDns(provider)
+          }
+
+          DnsProviderPill {
+            provider: "Google"
+            index: 2
+            tooltipText: "Set DNS to Google (8.8.8.8)"
+            width: dnsRow.cellWidth
+            onClicked: root.setDns(provider)
+          }
+
+          DnsProviderPill {
+            provider: "NextDNS"
+            index: 3
             tooltipText: "Set DNS to NextDNS (45.90.28.0)"
             width: dnsRow.cellWidth
             onClicked: root.setDns(provider)
@@ -1443,7 +1459,7 @@ Panel {
 
           DnsProviderPill {
             provider: "DNS4EU"
-            index: 2
+            index: 4
             tooltipText: "Set DNS to DNS4EU (86.54.11.100)"
             width: dnsRow.cellWidth
             onClicked: root.setDns(provider)
@@ -1451,7 +1467,7 @@ Panel {
 
           DnsProviderPill {
             provider: "OpenDNS"
-            index: 3
+            index: 5
             tooltipText: "Set DNS to OpenDNS (208.67.222.222)"
             width: dnsRow.cellWidth
             onClicked: root.setDns(provider)
@@ -1459,7 +1475,7 @@ Panel {
 
           DnsProviderPill {
             provider: "Custom"
-            index: 4
+            index: 6
             tooltipText: "Set custom DNS servers"
             width: dnsRow.cellWidth
             onClicked: root.setDns(provider)

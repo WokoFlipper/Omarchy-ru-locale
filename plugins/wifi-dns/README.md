@@ -2,11 +2,11 @@
 
 ## Why
 
-Stock pills (Cloudflare, Google) are throttled or unavailable in several regions. This fork ships working presets everywhere — NextDNS (45.90.28.0, DoT), DNS4EU (86.54.11.100), OpenDNS + Custom — and refreshes widget state after a DNS switch (stock sticks on "no connection").
+Stock pills (Cloudflare, Google) are throttled or unavailable in several regions. This fork ships working presets everywhere — Cloudflare, Google, NextDNS (45.90.28.0, DoT), DNS4EU (86.54.11.100), OpenDNS + Custom — and refreshes widget state after a DNS switch (stock sticks on "no connection").
 
 ## Changes vs stock `omarchy.network`
 
-1. `dnsProviders`: `[DHCP, NextDNS, DNS4EU, OpenDNS, Custom]` (was: DHCP, Cloudflare, Google, Custom).
+1. `dnsProviders`: `[DHCP, Cloudflare, Google, NextDNS, DNS4EU, OpenDNS, Custom]` (was: DHCP, Cloudflare, Google, Custom).
 2. Pill tooltips + `root.refresh()` after a DNS switch (`onExited`).
 3. Everything else is stock.
 
