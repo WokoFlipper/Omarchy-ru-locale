@@ -320,13 +320,26 @@ def build_block(table):
         edits, and equal to the id stock will default to once the
         opts.id schema (#12404/#12557) lands. Hyprland ignores unknown
         option keys, so emitting ids today is a no-op at runtime.
+
+        Stock calls may already carry a 4th-arg options table
+        (e.g. mouse binds: { mouse = true }). o.bind() takes exactly
+        4 args, so a trailing options table is merged instead of
+        appending a 5th arg (linyiru #12557: id dropped otherwise).
         """
         nonlocal n_binds
         if keys in protected:
             return
         rows.append(f'hl.unbind({lua_quote(keys)})')
-        rows.append(f'o.bind({lua_quote(keys)}, {lua_quote(ru)}, {disp}, '
-                    f'{{ id = {lua_quote(en)} }})')
+        m = re.search(r",\s*(\{[^}]*\})\s*$", disp)
+        if m:
+            opts = m.group(1)
+            merged = opts[:-1].rstrip() + f', id = {lua_quote(en)} }}'
+            base = disp[:m.start()].rstrip()
+            rows.append(f'o.bind({lua_quote(keys)}, {lua_quote(ru)}, {base}, '
+                        f'{merged})')
+        else:
+            rows.append(f'o.bind({lua_quote(keys)}, {lua_quote(ru)}, {disp}, '
+                        f'{{ id = {lua_quote(en)} }})')
         n_binds += 1
 
     def emit_layout_dup(keys, ru, disp, en):
