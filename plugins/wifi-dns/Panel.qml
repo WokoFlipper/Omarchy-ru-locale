@@ -706,6 +706,9 @@ Panel {
   function dnsCommand(provider) {
     var command = "omarchy-dns"
     if (provider) command += " " + Util.shellQuote(provider)
+    if (provider && provider !== "DHCP" && provider !== "Custom") {
+      command += " " + root.dnsProtocol
+    }
     return command
   }
 
