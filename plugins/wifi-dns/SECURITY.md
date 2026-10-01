@@ -12,6 +12,10 @@ explicit human confirmation.
 
 ## Honest risks (what remains and why it is acceptable)
 
+- **No enterprise (EAP) Wi-Fi**: the inherited PEAP/MSCHAPv2 profile path
+  skips CA validation (rogue-AP credential capture — flagged in marketplace
+  review). Removed entirely; enterprise networks show a notice pointing to
+  system settings. Consumer plugin by design.
 - **No agent — no switching** (fail-closed): nobody to show the dialog,
   the button silently does nothing. This is a safe failure; agent liveness is
   checked by a hook (`polkit-agent`). The reverse — a quiet "done" — would be worse.

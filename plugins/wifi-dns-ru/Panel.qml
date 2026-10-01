@@ -842,25 +842,9 @@ Panel {
     runNetworkAction("connect", networkForSsid(ssid), function(network) { network.connectWithPsk(passphrase) })
   }
 
-  function connectEnterprise(ssid, identity, passphrase) {
-    runNetworkAction("connect", networkForSsid(ssid), function(network) {
-      enterpriseConnect.secret = passphrase
-      enterpriseConnect.command = ["bash", "-c", Model.enterpriseConnectScript, "nmcli-eap", ssid, identity]
-      enterpriseConnect.running = true
-    })
-  }
-
-  // Creates and activates the 802.1X profile (see Model.enterpriseConnectScript).
-  // The password goes over stdin, never argv.
-  Process {
-    id: enterpriseConnect
-    property string secret: ""
-    stdinEnabled: true
-    onStarted: {
-      write(secret + "\n")
-      secret = ""
-    }
-  }
+  // ПРИМЕЧАНИЕ: поддержка enterprise (EAP) удалена (см. submitCredentials):
+  // унаследованный путь PEAP/MSCHAPv2 пропускает проверку CA.
+  // Корпоративные сети — через системные настройки.
 
   function disconnect(network) {
     runNetworkAction("disconnect", network || connectedWifiNetwork, function(net) { net.disconnect() })
@@ -1820,7 +1804,13 @@ Panel {
     function submitCredentials() {
       if (!net || root.busy || root.passwordText.length === 0) return
       if (!isEnterprise) return root.connectWithPassphrase(net.ssid, root.passwordText)
-      if (root.identityText.length > 0) root.connectEnterprise(net.ssid, root.identityText, root.passwordText)
+      // Корпоративный EAP отключён в этом форке: унаследованный путь создаёт
+      // профиль PEAP/MSCHAPv2 без проверки CA — чуждая точка с тем же SSID
+      // может перехватить ответ (ревью маркета по #9486). Для корпоративных
+      // сетей используйте системные настройки.
+      root.failureSsid = net.ssid
+      root.failureReason = "Корпоративному Wi-Fi нужна проверка CA — здесь не поддерживается, используйте системные настройки"
+      root.passwordSsid = ""
     }
 
     Connections {

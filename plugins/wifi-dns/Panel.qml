@@ -850,25 +850,9 @@ Panel {
     runNetworkAction("connect", networkForSsid(ssid), function(network) { network.connectWithPsk(passphrase) })
   }
 
-  function connectEnterprise(ssid, identity, passphrase) {
-    runNetworkAction("connect", networkForSsid(ssid), function(network) {
-      enterpriseConnect.secret = passphrase
-      enterpriseConnect.command = ["bash", "-c", Model.enterpriseConnectScript, "nmcli-eap", ssid, identity]
-      enterpriseConnect.running = true
-    })
-  }
-
-  // Creates and activates the 802.1X profile (see Model.enterpriseConnectScript).
-  // The password goes over stdin, never argv.
-  Process {
-    id: enterpriseConnect
-    property string secret: ""
-    stdinEnabled: true
-    onStarted: {
-      write(secret + "\n")
-      secret = ""
-    }
-  }
+  // NOTE: enterprise (EAP) support was removed here (see submitCredentials):
+  // the inherited PEAP/MSCHAPv2 profile path skips CA validation.
+  // Use system settings for enterprise networks.
 
   function disconnect(network) {
     runNetworkAction("disconnect", network || connectedWifiNetwork, function(net) { net.disconnect() })
@@ -1829,7 +1813,13 @@ Panel {
     function submitCredentials() {
       if (!net || root.busy || root.passwordText.length === 0) return
       if (!isEnterprise) return root.connectWithPassphrase(net.ssid, root.passwordText)
-      if (root.identityText.length > 0) root.connectEnterprise(net.ssid, root.identityText, root.passwordText)
+      // Enterprise (EAP) is disabled in this fork: the inherited profile path
+      // creates PEAP/MSCHAPv2 without CA validation, letting a rogue AP with
+      // the same SSID capture the response (marketplace review on #9486).
+      // Use system settings for enterprise networks instead.
+      root.failureSsid = net.ssid
+      root.failureReason = "Enterprise Wi-Fi needs CA validation — unsupported here, use system settings"
+      root.passwordSsid = ""
     }
 
     Connections {
