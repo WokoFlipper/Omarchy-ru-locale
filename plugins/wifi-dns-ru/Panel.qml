@@ -1645,7 +1645,7 @@ Panel {
             provider: "Yandex"
             index: 4
             text: "⚠Яндекс"
-            tooltipText: '<font color="red">Опасно: юрисдикция РФ (СОРМ)! Обычный UDP без шифрования!</font>'
+            tooltipText: "⛔ Опасно: юрисдикция РФ (СОРМ)! Обычный UDP без шифрования!"
             width: dnsRow.cellWidth
             onClicked: root.setDns(provider)
           }
