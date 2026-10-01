@@ -57,8 +57,16 @@ for p in NextDNS DNS4EU OpenDNS Quad9 AdGuard Mullvad CleanBrowsing Yandex; do
 done
 
 say "3. Protocols (NextDNS)"
-omarchy-dns NextDNS DoH >/dev/null 2>&1 && grep -q "http3 = false" /etc/dnscrypt-proxy/wifi-dns.toml && resolvectl query example.com >/dev/null 2>&1 && echo "DoH: OK" && PASS=$((PASS+1)) || { echo "DoH: FAIL"; FAIL=$((FAIL+1)); }
-omarchy-dns NextDNS DoQ >/dev/null 2>&1 && grep -q "http3 = true" /etc/dnscrypt-proxy/wifi-dns.toml && resolvectl query example.com >/dev/null 2>&1 && echo "DoQ: OK" && PASS=$((PASS+1)) || { echo "DoQ: FAIL"; FAIL=$((FAIL+1)); }
+check_resolve() {
+  local i
+  for i in 1 2 3; do
+    sleep 4
+    resolvectl query example.com >/dev/null 2>&1 && return 0
+  done
+  return 1
+}
+omarchy-dns NextDNS DoH >/dev/null 2>&1 && grep -q "http3 = false" /etc/dnscrypt-proxy/wifi-dns.toml && check_resolve && echo "DoH: OK" && PASS=$((PASS+1)) || { echo "DoH: FAIL"; FAIL=$((FAIL+1)); }
+omarchy-dns NextDNS DoQ >/dev/null 2>&1 && grep -q "http3 = true" /etc/dnscrypt-proxy/wifi-dns.toml && check_resolve && echo "DoQ: OK" && PASS=$((PASS+1)) || { echo "DoQ: FAIL"; FAIL=$((FAIL+1)); }
 
 say "4. Restore"
 omarchy-dns DHCP >/dev/null 2>&1; echo "dns now: $(omarchy dns 2>/dev/null | head -n 1)"
