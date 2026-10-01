@@ -1,0 +1,13 @@
+[Unit]
+Description=wifi-dns encrypted DNS proxy (dnscrypt-proxy, managed by omarchy-dns)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/dnscrypt-proxy -config /etc/dnscrypt-proxy/wifi-dns.toml
+Restart=on-failure
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target
