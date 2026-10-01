@@ -52,8 +52,6 @@ function headerDetail(info) {
   }
   return ""
 }
-  return ""
-}
 
 function bandLabel(band) {
   if (band === "auto") return "Auto"
