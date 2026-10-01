@@ -13,8 +13,9 @@ on tap (DoT default):
 - private: NextDNS (45.90.28.0) → DNS4EU (86.54.11.100)
 - alternates: OpenDNS (208.67.222.222) → Quad9 (9.9.9.9)
 
-A protocol toggle (DoT / DoH / DoQ) sits above the buttons: DoT is live,
-DoH/DoQ are UI-ready and land with the proxy engine next.
+A protocol toggle (DoT / DoH / DoQ) sits above the buttons: DoT is native,
+DoH runs through a local dnscrypt-proxy, DoQ rides DoH over QUIC
+(HTTP/3 — dnscrypt-proxy has no native DoQ).
 
 ## Changes vs stock `omarchy.network`
 

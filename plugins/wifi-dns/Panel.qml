@@ -185,6 +185,14 @@ Panel {
     dnsRingSet(b, at)
     setDns(ring[at])
   }
+  // Switch transport and re-apply the current provider through it.
+  // DHCP/Custom carry no provider: the toggle only flips the state.
+  function applyDnsProtocol(p) {
+    root.dnsProtocol = p
+    if (dnsProvider && dnsProvider !== "DHCP" && dnsProvider !== "Custom") {
+      setDns(dnsProvider)
+    }
+  }
   readonly property var dnsProviders: ["DHCP", dnsButtonProvider(1), dnsButtonProvider(2), dnsButtonProvider(3), "Custom"]
   property int dnsIndex: 0
   // ["2.4", "5", ...], or empty when there is nothing to choose between.
@@ -1499,10 +1507,10 @@ Panel {
             horizontalPadding: Style.spacing.controlPaddingX
             verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
             bordered: true
-            active: false
-            opacity: 0.45
+            active: root.dnsProtocol === "DoH"
             width: dnsProtoRow.cellWidth
-            tooltipText: "DNS over HTTPS — coming in v2.0"
+            tooltipText: "DNS over HTTPS (local proxy)"
+            onClicked: root.applyDnsProtocol("DoH")
           }
 
           Button {
@@ -1513,10 +1521,10 @@ Panel {
             horizontalPadding: Style.spacing.controlPaddingX
             verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
             bordered: true
-            active: false
-            opacity: 0.45
+            active: root.dnsProtocol === "DoQ"
             width: dnsProtoRow.cellWidth
-            tooltipText: "DNS over QUIC — coming in v2.0"
+            tooltipText: "DNS over QUIC transport (DoH via HTTP/3)"
+            onClicked: root.applyDnsProtocol("DoQ")
           }
         }
 
