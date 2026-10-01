@@ -5,7 +5,7 @@ listen_addresses = ['127.0.0.1:5300']
 # Filled by the switch script:
 server_names = ['nextdns']
 
-bootstrap_resolvers = ['9.9.9.9:53', '8.8.8.8:53']
+bootstrap_resolvers = ['45.90.28.0:53', '86.54.11.100:53', '9.9.9.9:53', '8.8.8.8:53']
 timeout = 5000
 cache = false
 
