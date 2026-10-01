@@ -193,6 +193,8 @@ Panel {
     var ring = dnsRings[b]
     return ring[(dnsRingPos(b) + 1) % ring.length]
   }
+  // Short display labels for overlong provider names (backend values stay exact).
+  function dnsShortLabel(p) { return p === "CleanBrowsing" ? "CleanB" : p }
   function dnsRingTooltip(b) {    var cur = dnsButtonProvider(b + 1)
     var nxt = dnsRingNext(b)
     return "Set DNS to " + cur + " (" + dnsRingIps[cur] + ") → " + nxt + " (tap to cycle)"
@@ -1742,7 +1744,7 @@ Panel {
     required property string provider
     required property int index
 
-    text: provider
+    text: root.dnsShortLabel(provider)
     fontSize: Style.font.bodySmall
     foreground: root.bar.foreground
     fontFamily: root.bar.fontFamily
