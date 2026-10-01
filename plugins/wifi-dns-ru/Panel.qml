@@ -89,11 +89,8 @@ Panel {
   }
   function measuredHeader() {
     if (measuringSpeed) return "…"
-    if (measuredDown === "" && measuredUp === "") return ""
-    var s = ""
-    if (measuredDown !== "") s += "↓" + roundSpeed(measuredDown)
-    if (measuredUp !== "") s += (s === "" ? "" : " ") + "↑" + roundSpeed(measuredUp)
-    return s
+    if (measuredDown === "") return ""
+    return roundSpeed(measuredDown) + "mbit"
   }
   function loadMeasured() {
     loadMeasuredProc.running = true
