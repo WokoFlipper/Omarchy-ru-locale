@@ -1539,7 +1539,7 @@ Panel {
           width: parent.width
           spacing: Style.space(6)
 
-          readonly property int count: 3
+          readonly property int count: 2
           readonly property real cellWidth: (width - spacing * (count - 1)) / count
 
           Button {
@@ -1568,20 +1568,6 @@ Panel {
             width: dnsProtoRow.cellWidth
             tooltipText: "DNS через HTTPS (локальный прокси)"
             onClicked: root.applyDnsProtocol("DoH")
-          }
-
-          Button {
-            text: "DoQ"
-            fontSize: Style.font.bodySmall
-            foreground: root.bar.foreground
-            fontFamily: root.bar.fontFamily
-            horizontalPadding: Style.spacing.controlPaddingX
-            verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
-            bordered: true
-            active: root.dnsProtocol === "DoQ"
-            width: dnsProtoRow.cellWidth
-            tooltipText: "DNS через QUIC-транспорт (DoH по HTTP/3)"
-            onClicked: root.applyDnsProtocol("DoQ")
           }
         }
 
