@@ -141,11 +141,14 @@ Panel {
   readonly property string toggleHint: Networking.wifiEnabled ? "Turn Wi-Fi off" : "Turn Wi-Fi on"
   // v1.5: five buttons; the middle three cycle providers on tap (DoT default).
   // Rings group providers by class: globals, private, alternates.
-  readonly property var dnsRings: [["Cloudflare", "Google"], ["NextDNS", "DNS4EU"], ["OpenDNS", "Quad9"]]
+  readonly property var dnsRings: [["Cloudflare", "Google"], ["NextDNS", "DNS4EU", "Mullvad", "AdGuard"], ["OpenDNS", "Quad9", "CleanBrowsing", "AliDNS", "ControlD", "DNSPod"]]
   readonly property var dnsRingIps: ({
     "Cloudflare": "1.1.1.1", "Google": "8.8.8.8",
     "NextDNS": "45.90.28.0", "DNS4EU": "86.54.11.100",
-    "OpenDNS": "208.67.222.222", "Quad9": "9.9.9.9"
+    "Mullvad": "194.242.2.2", "AdGuard": "94.140.14.14",
+    "OpenDNS": "208.67.222.222", "Quad9": "9.9.9.9",
+    "CleanBrowsing": "185.228.168.9", "AliDNS": "223.5.5.5",
+    "ControlD": "76.76.2.11", "DNSPod": "1.12.12.12"
   })
   property int dnsRing0: 0
   property int dnsRing1: 0

@@ -2,7 +2,7 @@
 
 ## Why
 
-Stock pills (Cloudflare, Google) are throttled or unavailable in several regions. This fork ships working presets everywhere — and refreshes widget state after a DNS switch (stock sticks on "no connection").
+Stock buttons (Cloudflare, Google) are throttled or unavailable in several regions. This fork ships working presets everywhere — and refreshes widget state after a DNS switch (stock sticks on "no connection").
 
 ## v2.0: buttons × protocols
 
@@ -19,7 +19,7 @@ DoH/DoQ are UI-ready and land with the proxy engine next.
 ## Changes vs stock `omarchy.network`
 
 1. `dnsProviders`: 5 buttons — `[DHCP, ring(globals), ring(private), ring(alternates), Custom]` (was: DHCP, Cloudflare, Google, Custom).
-2. Pill tooltips + `root.refresh()` after a DNS switch (`onExited`).
+2. Button tooltips + `root.refresh()` after a DNS switch (`onExited`).
 3. Everything else is stock.
 
 ## Install
@@ -31,7 +31,7 @@ DoH/DoQ are UI-ready and land with the proxy engine next.
 Restart the shell: `omarchy-restart-shell`. Every DNS switch goes through
 the polkit agent auth dialog (each click).
 
-**On sudo: prompt-only switching.** Each pill click shows an auth dialog via
+**On sudo: prompt-only switching.** Each button click shows an auth dialog via
 the polkit agent. There is deliberately no silent (password) mode: silent DNS
 switching by any local process is a hole. Details in `SECURITY.md`.
 

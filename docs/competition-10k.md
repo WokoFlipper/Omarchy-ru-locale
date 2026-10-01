@@ -6,12 +6,12 @@
 - **wifi-dns 1.0.0** (английский, мировой): `plugins/wifi-dns/` в locale-ru.
 
 ## Скриншоты (готовы)
-- RU: `plugins/wifi-dns-ru/preview.png` (510×300, пилюли NextDNS, живой скриншот)
+- RU: `plugins/wifi-dns-ru/preview.png` (510×300, кнопки NextDNS, живой скриншот)
 - EN: `plugins/wifi-dns/preview.png` (510×300, живой скриншот EN-панели)
-- netpub `preview.png` = RU, актуален (NextDNS-пилюли).
+- netpub `preview.png` = RU, актуален (NextDNS-кнопки).
 
 ## Питч (EN, для заявки)
-> Wi-Fi panel with DNS presets that actually work where stock pills don't:
+> Wi-Fi panel with DNS presets that actually work where stock buttons don't:
 > DHCP / NextDNS (DoT) / DNS4EU / OpenDNS / Custom, prompt-only auth
 > (no silent switching by design), plus a widget-state refresh fix stock
 > lacks. Verified live, listed and verified in the marketplace.

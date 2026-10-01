@@ -1,0 +1,26 @@
+# wifi-dns proxy engine (managed by omarchy-dns, do not hand-edit).
+# Regenerated on every DoH/DoQ switch: one stamp + transport flag.
+listen_addresses = ['127.0.0.1:5300']
+
+# Filled by the switch script:
+server_names = ['nextdns']
+
+bootstrap_resolvers = ['9.9.9.9:53', '8.8.8.8:53']
+timeout = 5000
+cache = false
+
+# DoQ position rides DoH over QUIC (dnscrypt-proxy has no native DoQ):
+# the switch script flips this to true for DoQ, false for DoH.
+http3 = false
+http3_probe = false
+
+[sources.public-resolvers]
+urls = [
+  'https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md',
+  'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md',
+  'https://cdn.jsdelivr.net/gh/DNSCrypt/dnscrypt-resolvers@master/v3/public-resolvers.md'
+]
+cache_file = '/var/cache/dnscrypt-proxy/public-resolvers.md'
+minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+refresh_delay = 73
+prefix = ''
