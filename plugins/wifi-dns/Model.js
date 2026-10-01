@@ -24,9 +24,7 @@ function formatHeaderSpeed(mbps) {
   var v = parseInt(mbps, 10)
   if (!v || v < 0) return ""
   if (v >= 1000) return (v / 1000).toFixed(v % 1000 === 0 ? 0 : 1) + "gbit"
-  // Round sub-gigabit readings to tens (95/98 → 100): speedtests fluctuate,
-  // the channel rate is the honest number.
-  return Math.round(v / 10) * 10 + "mbit"
+  return v + "mbit"
 }
 
 function formatHeaderFreq(mhz) {
@@ -44,15 +42,16 @@ function formatHeaderFreq(mhz) {
 
 // Wi-Fi band state belongs in the selector section, not beside the hero name.
 // Ethernet has no equivalent selector, so keep its negotiated link speed here.
-// Correction: virtual interfaces (tun/tap/wg/vpn) report a fake 10gbit link —
-// hide only that absurd case, show everything else as reported.
+// Honest display: virtual interfaces (tun/tap/wg/vpn) report a fabricated
+// link speed, so nothing is shown for them; physical links show exact numbers.
 function headerDetail(info) {
   var value = info || {}
   if (value.type === "ethernet") {
-    var v = parseInt(value.speed || "", 10)
-    if (v >= 10000 && /^(tun|tap|wg|vpn|ppp)/i.test(String(value.iface || ""))) return ""
+    if (/^(tun|tap|wg|vpn|ppp)/i.test(String(value.iface || ""))) return ""
     return formatHeaderSpeed(value.speed || "")
   }
+  return ""
+}
   return ""
 }
 
