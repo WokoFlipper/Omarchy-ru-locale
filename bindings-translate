@@ -321,27 +321,20 @@ def build_block(table):
         opts.id schema (#12404/#12557) lands. Hyprland ignores unknown
         option keys, so emitting ids today is a no-op at runtime.
 
-        Stock calls may already carry a 4th-arg options table
-        (e.g. mouse binds: { mouse = true }; bare-table dispatchers like
-        { omarchy = "terminal" }). o.bind() takes exactly 4 args, so an
-        options table is merged instead of appending a 5th arg
-        (linyiru #12557: id dropped otherwise).
+        Stock calls may carry a 4th-arg options table after a STRING dispatcher
+        (e.g. mouse binds: { mouse = true }). o.bind() takes exactly 4 args,
+        so only a table trailing a string dispatcher is merged; a TABLE
+        dispatcher followed by an options table is already the correct
+        4-arg shape (keys, desc, dispatcher-table, opts) and must be kept
+        as-is (linyiru #13888: merging those deletes the options argument
+        and the id falls back to the Russian description).
         """
         nonlocal n_binds
         if keys in protected:
             return
         rows.append(f'hl.unbind({lua_quote(keys)})')
         m = re.search(r",\s*(\{[^}]*\})\s*$", disp)
-        if not m:
-            m = re.search(r"^\s*(\{[^}]*\})\s*$", disp)
-            if m:
-                opts = m.group(1)
-                merged = opts[:-1].rstrip() + f', id = {lua_quote(en)} }}'
-                rows.append(f'o.bind({lua_quote(keys)}, {lua_quote(ru)}, '
-                            f'{merged})')
-                n_binds += 1
-                return
-        if m:
+        if m and not re.match(r"^\s*\{", disp):
             opts = m.group(1)
             merged = opts[:-1].rstrip() + f', id = {lua_quote(en)} }}'
             base = disp[:m.start()].rstrip()
