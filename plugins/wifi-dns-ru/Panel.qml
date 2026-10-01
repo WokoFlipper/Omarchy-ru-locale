@@ -162,7 +162,61 @@ Panel {
   readonly property bool speedHeaderHasCursor: cursorActive && focusSection === "header" && headerIndex === speedHeaderIndex
   readonly property bool toggleHeaderHasCursor: cursorActive && focusSection === "header" && headerIndex === toggleHeaderIndex
   readonly property string toggleHint: Networking.wifiEnabled ? "Выключить Wi-Fi" : "Включить Wi-Fi"
-  readonly property var dnsProviders: ["DHCP", "NextDNS", "DNS4EU", "OpenDNS", "Custom"]
+  // v2.0: пять кнопок; средние три циклируют провайдеров по тапу (DoT по умолчанию).
+  // Cloudflare и Google в русской версии отсутствуют (заглушены в РФ) —
+  // кольца только из рабочих: приватные, базовые, альтернаты.
+  readonly property var dnsRings: [["NextDNS", "DNS4EU"], ["OpenDNS", "AdGuard"], ["Mullvad", "CleanBrowsing"]]
+  readonly property var dnsRingIps: ({
+    "NextDNS": "45.90.28.0", "DNS4EU": "86.54.11.100",
+    "OpenDNS": "208.67.222.222", "AdGuard": "94.140.14.14",
+    "Mullvad": "194.242.2.2", "CleanBrowsing": "185.228.168.9"
+  })
+  property int dnsRing0: 0
+  property int dnsRing1: 0
+  property int dnsRing2: 0
+  function dnsRingPos(b) { return b === 0 ? dnsRing0 : (b === 1 ? dnsRing1 : dnsRing2) }
+  function dnsRingSet(b, i) {
+    if (b === 0) dnsRing0 = i
+    else if (b === 1) dnsRing1 = i
+    else dnsRing2 = i
+  }
+  function dnsButtonProvider(i) {
+    if (i === 0) return "DHCP"
+    if (i === 4) return "Yandex"
+    var ring = dnsRings[i - 1]
+    return ring[dnsRingPos(i - 1) % ring.length]
+  }
+  function dnsRingNext(b) {
+    var ring = dnsRings[b]
+    return ring[(dnsRingPos(b) + 1) % ring.length]
+  }
+  function dnsRingTooltip(b) {
+    var cur = dnsButtonProvider(b + 1)
+    var nxt = dnsRingNext(b)
+    return "Использовать " + cur + " (" + dnsRingIps[cur] + ") → " + nxt + " (нажми для смены)"
+  }
+  function dnsSyncRings() {
+    for (var b = 0; b < 3; b++) {
+      var at = dnsRings[b].indexOf(dnsProvider)
+      if (at >= 0) dnsRingSet(b, at)
+    }
+  }
+  function cycleDns(b) {
+    var ring = dnsRings[b]
+    var at = (dnsRingPos(b) + 1) % ring.length
+    dnsRingSet(b, at)
+    setDns(ring[at])
+  }
+  // Переключение транспорта с переприменением текущего провайдера.
+  // DHCP/Custom без провайдера: тогл только меняет состояние.
+  function applyDnsProtocol(p) {
+    root.dnsProtocol = p
+    if (dnsProvider && dnsProvider !== "DHCP" && dnsProvider !== "Custom") {
+      setDns(dnsProvider)
+    }
+  }
+  readonly property var dnsProviders: ["DHCP", dnsButtonProvider(1), dnsButtonProvider(2), dnsButtonProvider(3), "Yandex"]
+  property string dnsProtocol: "DoT"
   property int dnsIndex: 0
   // ["2.4", "5", ...], or empty when there is nothing to choose between.
   // Wi-Fi only: on Ethernet the band of a secondary radio is not what the
@@ -348,6 +402,7 @@ Panel {
       selectedIndex = wifiNetworks.length > 0 ? 0 : -1
       wifiActionFocused = false
       focusSection = wifiNetworks.length > 0 ? "wifi" : "dns"
+      root.dnsSyncRings()
       var idx = dnsProviders.indexOf(dnsProvider)
       dnsIndex = idx >= 0 ? idx : 0
       syncBandIndex()
@@ -688,18 +743,14 @@ Panel {
   function dnsCommand(provider) {
     var command = "omarchy-dns"
     if (provider) command += " " + Util.shellQuote(provider)
+    if (provider && provider !== "DHCP" && provider !== "Custom") {
+      command += " " + root.dnsProtocol
+    }
     return command
   }
 
   function setDns(provider) {
     if (!root.bar || !provider || actionProc.running) return
-
-    if (provider === "Custom") {
-      var launcher = "omarchy-launch-floating-terminal-with-presentation"
-      root.bar.run(launcher + " " + Util.shellQuote(root.dnsCommand(provider)))
-      root.close()
-      return
-    }
 
     root.pendingDnsProvider = provider
     actionProc.command = ["bash", "-c", root.dnsCommand(provider)]
@@ -902,6 +953,7 @@ Panel {
       if (root.pendingDnsProvider !== "") {
         if (exitCode === 0) root.dnsProvider = root.pendingDnsProvider
         root.pendingDnsProvider = ""
+        root.dnsSyncRings()
         // DNS switch reloads the NM stack, so the connection flaps: pull
         // fresh state now instead of leaving "no connection" on screen
         // (same pattern as the band branch below).
@@ -1499,6 +1551,57 @@ Panel {
         }
 
         Row {
+          id: dnsProtoRow
+          width: parent.width
+          spacing: Style.space(6)
+
+          readonly property int count: 3
+          readonly property real cellWidth: (width - spacing * (count - 1)) / count
+
+          Button {
+            text: "DoT"
+            fontSize: Style.font.bodySmall
+            foreground: root.bar.foreground
+            fontFamily: root.bar.fontFamily
+            horizontalPadding: Style.spacing.controlPaddingX
+            verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
+            bordered: true
+            active: root.dnsProtocol === "DoT"
+            width: dnsProtoRow.cellWidth
+            tooltipText: "DNS через TLS (активен)"
+            onClicked: root.dnsProtocol = "DoT"
+          }
+
+          Button {
+            text: "DoH"
+            fontSize: Style.font.bodySmall
+            foreground: root.bar.foreground
+            fontFamily: root.bar.fontFamily
+            horizontalPadding: Style.spacing.controlPaddingX
+            verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
+            bordered: true
+            active: root.dnsProtocol === "DoH"
+            width: dnsProtoRow.cellWidth
+            tooltipText: "DNS через HTTPS (локальный прокси)"
+            onClicked: root.applyDnsProtocol("DoH")
+          }
+
+          Button {
+            text: "DoQ"
+            fontSize: Style.font.bodySmall
+            foreground: root.bar.foreground
+            fontFamily: root.bar.fontFamily
+            horizontalPadding: Style.spacing.controlPaddingX
+            verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
+            bordered: true
+            active: root.dnsProtocol === "DoQ"
+            width: dnsProtoRow.cellWidth
+            tooltipText: "DNS через QUIC-транспорт (DoH по HTTP/3)"
+            onClicked: root.applyDnsProtocol("DoQ")
+          }
+        }
+
+        Row {
           id: dnsRow
           width: parent.width
           spacing: Style.space(6)
@@ -1515,33 +1618,34 @@ Panel {
           }
 
           DnsProviderPill {
-            provider: "NextDNS"
+            provider: root.dnsButtonProvider(1)
             index: 1
-            tooltipText: "Задать DNS NextDNS (45.90.28.0)"
+            tooltipText: root.dnsRingTooltip(0)
             width: dnsRow.cellWidth
-            onClicked: root.setDns(provider)
+            onClicked: root.cycleDns(0)
           }
 
           DnsProviderPill {
-            provider: "DNS4EU"
+            provider: root.dnsButtonProvider(2)
             index: 2
-            tooltipText: "Set DNS to DNS4EU (86.54.11.100)"
+            tooltipText: root.dnsRingTooltip(1)
             width: dnsRow.cellWidth
-            onClicked: root.setDns(provider)
+            onClicked: root.cycleDns(1)
           }
 
           DnsProviderPill {
-            provider: "OpenDNS"
+            provider: root.dnsButtonProvider(3)
             index: 3
-            tooltipText: "Set DNS to OpenDNS (208.67.222.222)"
+            tooltipText: root.dnsRingTooltip(2)
             width: dnsRow.cellWidth
-            onClicked: root.setDns(provider)
+            onClicked: root.cycleDns(2)
           }
 
           DnsProviderPill {
-            provider: "Custom"
+            provider: "Yandex"
             index: 4
-            tooltipText: "Задать свои DNS-серверы"
+            text: "⚠Яндекс"
+            tooltipText: '<font color="red">Опасно: юрисдикция РФ (СОРМ)! Обычный UDP без шифрования!</font>'
             width: dnsRow.cellWidth
             onClicked: root.setDns(provider)
           }
