@@ -165,11 +165,11 @@ Panel {
   // v2.0: пять кнопок; средние три циклируют провайдеров по тапу (DoT по умолчанию).
   // Cloudflare и Google в русской версии отсутствуют (заглушены в РФ) —
   // кольца только из рабочих: приватные, базовые, альтернаты.
-  readonly property var dnsRings: [["NextDNS", "DNS4EU"], ["OpenDNS", "AdGuard"], ["Mullvad", "CleanBrowsing"]]
+  readonly property var dnsRings: [["NextDNS", "DNS4EU"], ["OpenDNS", "AdGuard"], ["Mullvad", "ControlD"]]
   readonly property var dnsRingIps: ({
     "NextDNS": "45.90.28.0", "DNS4EU": "86.54.11.100",
     "OpenDNS": "208.67.222.222", "AdGuard": "94.140.14.14",
-    "Mullvad": "194.242.2.2", "CleanBrowsing": "185.228.168.9"
+    "Mullvad": "194.242.2.2", "ControlD": "76.76.2.11"
   })
   property int dnsRing0: 0
   property int dnsRing1: 0
