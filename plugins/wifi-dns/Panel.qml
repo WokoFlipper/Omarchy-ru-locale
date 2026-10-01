@@ -75,6 +75,7 @@ Panel {
   property bool wifiStationAvailable: false
   property string dnsProvider: ""
   property string pendingDnsProvider: ""
+  property string dnsProtocol: "DoT"
   // Wi-Fi band state from `omarchy-network-band`. `bandCurrent` is the band
   // the radio is actually on; `bandSelected` is the pinned choice ("auto" when
   // nothing is pinned), and the two differ whenever Auto is in effect.
@@ -138,7 +139,51 @@ Panel {
   readonly property bool speedHeaderHasCursor: cursorActive && focusSection === "header" && headerIndex === speedHeaderIndex
   readonly property bool toggleHeaderHasCursor: cursorActive && focusSection === "header" && headerIndex === toggleHeaderIndex
   readonly property string toggleHint: Networking.wifiEnabled ? "Turn Wi-Fi off" : "Turn Wi-Fi on"
-  readonly property var dnsProviders: ["DHCP", "Cloudflare", "Google", "NextDNS", "DNS4EU", "OpenDNS", "Custom"]
+  // v1.5: five buttons; the middle three cycle providers on tap (DoT default).
+  // Rings group providers by class: globals, private, alternates.
+  readonly property var dnsRings: [["Cloudflare", "Google"], ["NextDNS", "DNS4EU"], ["OpenDNS", "Quad9"]]
+  readonly property var dnsRingIps: ({
+    "Cloudflare": "1.1.1.1", "Google": "8.8.8.8",
+    "NextDNS": "45.90.28.0", "DNS4EU": "86.54.11.100",
+    "OpenDNS": "208.67.222.222", "Quad9": "9.9.9.9"
+  })
+  property int dnsRing0: 0
+  property int dnsRing1: 0
+  property int dnsRing2: 0
+  function dnsRingPos(b) { return b === 0 ? dnsRing0 : (b === 1 ? dnsRing1 : dnsRing2) }
+  function dnsRingSet(b, i) {
+    if (b === 0) dnsRing0 = i
+    else if (b === 1) dnsRing1 = i
+    else dnsRing2 = i
+  }
+  function dnsButtonProvider(i) {
+    if (i === 0) return "DHCP"
+    if (i === 4) return "Custom"
+    var ring = dnsRings[i - 1]
+    return ring[dnsRingPos(i - 1) % ring.length]
+  }
+  function dnsRingNext(b) {
+    var ring = dnsRings[b]
+    return ring[(dnsRingPos(b) + 1) % ring.length]
+  }
+  function dnsRingTooltip(b) {
+    var cur = dnsButtonProvider(b + 1)
+    var nxt = dnsRingNext(b)
+    return "Set DNS to " + cur + " (" + dnsRingIps[cur] + ") → " + nxt + " (tap to cycle)"
+  }
+  function dnsSyncRings() {
+    for (var b = 0; b < 3; b++) {
+      var at = dnsRings[b].indexOf(dnsProvider)
+      if (at >= 0) dnsRingSet(b, at)
+    }
+  }
+  function cycleDns(b) {
+    var ring = dnsRings[b]
+    var at = (dnsRingPos(b) + 1) % ring.length
+    dnsRingSet(b, at)
+    setDns(ring[at])
+  }
+  readonly property var dnsProviders: ["DHCP", dnsButtonProvider(1), dnsButtonProvider(2), dnsButtonProvider(3), "Custom"]
   property int dnsIndex: 0
   // ["2.4", "5", ...], or empty when there is nothing to choose between.
   // Wi-Fi only: on Ethernet the band of a secondary radio is not what the
@@ -323,6 +368,7 @@ Panel {
       selectedIndex = wifiNetworks.length > 0 ? 0 : -1
       wifiActionFocused = false
       focusSection = wifiNetworks.length > 0 ? "wifi" : "dns"
+      root.dnsSyncRings()
       var idx = dnsProviders.indexOf(dnsProvider)
       dnsIndex = idx >= 0 ? idx : 0
       syncBandIndex()
@@ -875,6 +921,7 @@ Panel {
       if (root.pendingDnsProvider !== "") {
         if (exitCode === 0) root.dnsProvider = root.pendingDnsProvider
         root.pendingDnsProvider = ""
+        root.dnsSyncRings()
         // DNS switch reloads the NM stack, so the connection flaps: pull
         // fresh state now instead of leaving "no connection" on screen
         // (same pattern as the band branch below).
@@ -1418,11 +1465,62 @@ Panel {
         }
 
         Row {
+          id: dnsProtoRow
+          width: parent.width
+          spacing: Style.space(6)
+
+          readonly property int count: 3
+          readonly property real cellWidth: (width - spacing * (count - 1)) / count
+
+          Button {
+            text: "DoT"
+            fontSize: Style.font.bodySmall
+            foreground: root.bar.foreground
+            fontFamily: root.bar.fontFamily
+            horizontalPadding: Style.spacing.controlPaddingX
+            verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
+            bordered: true
+            active: root.dnsProtocol === "DoT"
+            width: dnsProtoRow.cellWidth
+            tooltipText: "DNS over TLS (active)"
+            onClicked: root.dnsProtocol = "DoT"
+          }
+
+          Button {
+            text: "DoH"
+            fontSize: Style.font.bodySmall
+            foreground: root.bar.foreground
+            fontFamily: root.bar.fontFamily
+            horizontalPadding: Style.spacing.controlPaddingX
+            verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
+            bordered: true
+            active: false
+            opacity: 0.45
+            width: dnsProtoRow.cellWidth
+            tooltipText: "DNS over HTTPS — coming in v2.0"
+          }
+
+          Button {
+            text: "DoQ"
+            fontSize: Style.font.bodySmall
+            foreground: root.bar.foreground
+            fontFamily: root.bar.fontFamily
+            horizontalPadding: Style.spacing.controlPaddingX
+            verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
+            bordered: true
+            active: false
+            opacity: 0.45
+            width: dnsProtoRow.cellWidth
+            tooltipText: "DNS over QUIC — coming in v2.0"
+          }
+        }
+
+        Row {
           id: dnsRow
           width: parent.width
           spacing: Style.space(6)
 
-          readonly property int count: 7
+          readonly property int count: 5
           readonly property real cellWidth: (width - spacing * (count - 1)) / count
 
           DnsProviderPill {
@@ -1434,48 +1532,32 @@ Panel {
           }
 
           DnsProviderPill {
-            provider: "Cloudflare"
+            provider: root.dnsButtonProvider(1)
             index: 1
-            tooltipText: "Set DNS to Cloudflare (1.1.1.1)"
+            tooltipText: root.dnsRingTooltip(0)
             width: dnsRow.cellWidth
-            onClicked: root.setDns(provider)
+            onClicked: root.cycleDns(0)
           }
 
           DnsProviderPill {
-            provider: "Google"
+            provider: root.dnsButtonProvider(2)
             index: 2
-            tooltipText: "Set DNS to Google (8.8.8.8)"
+            tooltipText: root.dnsRingTooltip(1)
             width: dnsRow.cellWidth
-            onClicked: root.setDns(provider)
+            onClicked: root.cycleDns(1)
           }
 
           DnsProviderPill {
-            provider: "NextDNS"
+            provider: root.dnsButtonProvider(3)
             index: 3
-            tooltipText: "Set DNS to NextDNS (45.90.28.0)"
+            tooltipText: root.dnsRingTooltip(2)
             width: dnsRow.cellWidth
-            onClicked: root.setDns(provider)
-          }
-
-          DnsProviderPill {
-            provider: "DNS4EU"
-            index: 4
-            tooltipText: "Set DNS to DNS4EU (86.54.11.100)"
-            width: dnsRow.cellWidth
-            onClicked: root.setDns(provider)
-          }
-
-          DnsProviderPill {
-            provider: "OpenDNS"
-            index: 5
-            tooltipText: "Set DNS to OpenDNS (208.67.222.222)"
-            width: dnsRow.cellWidth
-            onClicked: root.setDns(provider)
+            onClicked: root.cycleDns(2)
           }
 
           DnsProviderPill {
             provider: "Custom"
-            index: 6
+            index: 4
             tooltipText: "Set custom DNS servers"
             width: dnsRow.cellWidth
             onClicked: root.setDns(provider)
@@ -1599,7 +1681,8 @@ Panel {
     fontSize: Style.font.bodySmall
     foreground: root.bar.foreground
     fontFamily: root.bar.fontFamily
-    horizontalPadding: Style.spacing.controlPaddingX
+    // Tight padding: five equal cells must fit "Cloudflare" without overflow.
+    horizontalPadding: Style.space(6)
     verticalPadding: Style.spacing.controlPaddingY + Style.space(2)
     bordered: true
 
