@@ -4,8 +4,11 @@ set -u
 SRC="$(cd "$(dirname "$0")" && pwd)"
 DST="$HOME/.config/omarchy/plugins/wifi-dns"
 if [[ -d $DST ]]; then
-  BK="$DST.bak.$(date +%Y%m%d-%H%M%S)"
+  # Backups must live OUTSIDE plugins/: the shell loads every subdir,
+  # and a .bak copy registers a conflicting handler for the same target.
+  BK="$HOME/.cache/omarchy-plugin-backups/wifi-dns.bak.$(date +%Y%m%d-%H%M%S)"
   echo "Backing up existing plugin -> $BK"
+  mkdir -p "$(dirname "$BK")"
   mv "$DST" "$BK"
 fi
 mkdir -p "$DST"

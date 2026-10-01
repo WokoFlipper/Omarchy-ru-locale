@@ -166,8 +166,7 @@ Panel {
     var ring = dnsRings[b]
     return ring[(dnsRingPos(b) + 1) % ring.length]
   }
-  function dnsRingTooltip(b) {
-    var cur = dnsButtonProvider(b + 1)
+  function dnsRingTooltip(b) {    var cur = dnsButtonProvider(b + 1)
     var nxt = dnsRingNext(b)
     return "Set DNS to " + cur + " (" + dnsRingIps[cur] + ") → " + nxt + " (tap to cycle)"
   }
