@@ -42,9 +42,14 @@ function formatHeaderFreq(mhz) {
 
 // Wi-Fi band state belongs in the selector section, not beside the hero name.
 // Ethernet has no equivalent selector, so keep its negotiated link speed here.
+// Virtual interfaces (tun/tap/wg/vpn) report fake link speeds (e.g. 10gbit
+// on a tunnel) — show nothing rather than a lie.
 function headerDetail(info) {
   var value = info || {}
-  if (value.type === "ethernet") return formatHeaderSpeed(value.speed || "")
+  if (value.type === "ethernet") {
+    if (/^(tun|tap|wg|vpn|ppp)/i.test(String(value.iface || ""))) return ""
+    return formatHeaderSpeed(value.speed || "")
+  }
   return ""
 }
 
