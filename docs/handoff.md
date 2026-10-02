@@ -68,5 +68,6 @@
 - Приватность: личные бинды (Alt+буква лаунчеры, личные тулы) НЕ публикуем нигде: ни в комменты, ни в gist, ни в отчёты. Только сток/сгенерированные строки.
 - EAP: выпилен из обоих форков; портировать CA-фикс из апстрима #13947 после мержа (EAP вернётся безопасным). Не торопимся с 2.0.
 - Арсенал скиллов (~/.config/opencode/skills/, ~25 шт): кодовые (tdd, ревью, дебаг, рефактор, api-design, security, perf...), процессные (spec-driven, incremental, planning, interview-me, using-agent-skills), infra (ci-cd, docs, git-workflow...). Переключать по одному под задачу, skill({name}).
+- 25 кодовых скиллов — ТОЛЬКО в начале БОЛЬШОГО проекта. При открытии проекта СПРОСИТЬ у юзера: применяем скиллы или обычная схема написания кода.
 - Браузер: browser-testing-with-devtools (Chrome DevTools MCP) — сверх стандартного webfetch. Для DOM/консоли/сети/перфа в живом браузере.
 - Системные (~/.agents/skills/): kadr, karing, omarchy, huawei-charge, network-dns, diagnose-crash, gemini-*. Локальные: memory-simple, sleep-resume-debug, agent-reach (интернет).
