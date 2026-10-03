@@ -1,6 +1,6 @@
 # wifi-dns — handoff (обновлено 30.09.2026)
 
-Два плагина рядом, оба в `~/git/locale-ru/plugins/` (синхрон с origin):
+Два плагина рядом, оба в `~/GitHub/locale-ru/plugins/` (синхрон с origin):
 
 ## wifi-dns-ru 1.1.1 (русский)
 Форк стокового `omarchy.network`: пилюли DHCP / NextDNS (45.90.28.0, DoT) /
@@ -25,7 +25,7 @@ resty.network → resty.wifi-dns-ru → wifi-dns-ru. Парольный гран
 - `~/backups/network-dns/`: omarchy-dns, reapply.sh, heal hook/sh, README.
 
 ## Магазин
-- Отдельный репо `WokoFlipper/omarchy-network-ru` (клон: `~/git/omarchy-network-ru`).
+- Отдельный репо `WokoFlipper/omarchy-network-ru` (клон: `~/GitHub/omarchy-network-ru`).
 - #8078 listing — опубликован. #8233/#8337/#8542 — закрыты (старые verify).
 - #8616 (verify 1.1.1) — ЗАКРЫТА = verified + published (maintainer-reviewed).
 - Тексты: «заглушены», без РКН-триггеров. sudo только с запросом.

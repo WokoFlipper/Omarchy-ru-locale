@@ -10,7 +10,7 @@
 ## Репозитории
 - Наш: WokoFlipper/Omarchy-ru-locale, ветка master. Меню 137, shell 177, cli 61, бинды 204 (архив!), wifi 18, bt 28, display 15, ru.json 179, archive/ не удалять.
 - Общий дом: sbelcl/omarchy-language (write-доступ есть). ru_RU.tsv вмержен, ru.json вмержен (#2, #6).
-- Клон для PR ему: ~/git/omarchy-language (переживает ребуты; /tmp чистят!).
+- Клон для PR ему: ~/GitHub/omarchy-language (переживает ребуты; /tmp чистят!).
 
 ## Открыто (ждём чужих рук)
 - sbelcl#3 (Direct Boot), sbelcl#7 (brightness %), sbelcl#8 (audio %) — пинать.
