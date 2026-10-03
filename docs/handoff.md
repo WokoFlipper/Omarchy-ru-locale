@@ -26,11 +26,11 @@
 
 ## Репозитории и состояние (всё в синхроне)
 - WokoFlipper/Omarchy-ru-locale (master): меню, shell/CLI po, бинды (tsv + генератор bindings-translate), wifi/bt/display tsv, locales/ru.json (242 ключа), archive/ НЕ удалять.
-- sbelcl/omarchy-language (наш клон ~/git/omarchy-language): каталоги ru/sl/ka. Наши PR: #12+#13 вмержены, #17 открыт (трио #14), #21 открыт (54 Wi-Fi, #19).
-- WokoFlipper/omarchy-network-ru (клон ~/git/omarchy-network-ru): плагин wifi-dns-ru 1.1.1 (NextDNS/DNS4EU/OpenDNS, prompt-only). В маркете listing жив, verify 1.1.1 опубликован (#8616 закрыта).
+- sbelcl/omarchy-language (наш клон ~/GitHub/omarchy-language): каталоги ru/sl/ka. Наши PR: #12+#13 вмержены, #17 открыт (трио #14), #21 открыт (54 Wi-Fi, #19).
+- WokoFlipper/omarchy-network-ru (клон ~/GitHub/omarchy-network-ru): плагин wifi-dns-ru 1.1.1 (NextDNS/DNS4EU/OpenDNS, prompt-only). В маркете listing жив, verify 1.1.1 опубликован (#8616 закрыта).
 - plugins/wifi-dns/ (в locale-ru): АНГЛИЙСКАЯ версия 1.0.0, те же пилюли, живое EN-превью. Мировой рынок.
-- WokoFlipper/omarchy, ветка fix-sleep-lock-layout-reset (клон ~/git/omarchy-fix-sleep): наш PR #13227 (ресет раскладки перед сном + таймаут-фикс по ревью llstrk).
-- ~/git/omarchy-menu-test: тестовый клон апстрима (стек #12557+#13276+id для живых замеров).
+- WokoFlipper/omarchy, ветка fix-sleep-lock-layout-reset (клон ~/GitHub/omarchy-fix-sleep): наш PR #13227 (ресет раскладки перед сном + таймаут-фикс по ревью llstrk).
+- ~/GitHub/omarchy-menu-test: тестовый клон апстрима (стек #12557+#13276+id для живых замеров).
 
 ## Треды — состояния на 30.09 (кто что должен)
 - linyiru: получил наш живой отчёт по стеку + gist чистого конфига (коммент 03:47 в #12557). Ждём его реакцию. #12404 отвечать нечего.
