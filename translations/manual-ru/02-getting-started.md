@@ -4,7 +4,7 @@ Omarchy устанавливается с ISO. Можно выбрать уст�
 
 Сначала [скачай ISO Omarchy](https://omarchy.org/), запиши его на флешку (через [balenaEtcher](https://etcher.balena.io/) на Mac/Windows или [caligula](https://github.com/ifd3f/caligula) на Linux) и загрузись с неё.
 
-_Выключи Secure Boot и/или TPM в BIOS. Без этого Omarchy не встанет. Это майкрософтовские схемы безопасности под Windows и аффилированные с Microsoft дистрибутивы Linux._
+_Выключи Secure Boot и/или TPM в BIOS. Без этого Omarchy не встанет. Это майкрософтовские схемы безопасности под Окна и аффилированные с Microsoft дистрибутивы Linux._
 
 Затем ответь на вопросы конфигурации и подтверди их вот так:
 
