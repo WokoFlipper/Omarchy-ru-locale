@@ -59,4 +59,4 @@ Capture commands — Screenshots and screen recording:
 
 ### Открыть меню из терминала
 
-Меню Omarchy ещё и скриптуется — удобно для своих биндов. `omarchy menu` открывает в корне, а прыгнуть сразу в точку дерева можно по имени: `omarchy menu summon style.theme` ведёт прямиком в выбор темы, `omarchy menu toggle system` открывает системное меню и закрывает обратно, если уже открыто, а `omarchy menu close` убирает его.
+Меню Omarchy ещё и скриптуется — удобно для своих хоткеев. `omarchy menu` открывает в корне, а прыгнуть сразу в точку дерева можно по имени: `omarchy menu summon style.theme` ведёт прямиком в выбор темы, `omarchy menu toggle system` открывает системное меню и закрывает обратно, если уже открыто, а `omarchy menu close` убирает его.

@@ -1,6 +1,6 @@
 # Хоткеи
 
-Все главные бинды видны по `Super + K` (бинды Tmux — по `Super + Alt + K`, бинды Herdr — по `Super + Ctrl + K`).
+Все главные хоткеи видны по `Super + K` (хоткеи Tmux — по `Super + Alt + K`, хоткеи Herdr — по `Super + Ctrl + K`).
 
 ## Навигация
 
@@ -69,7 +69,7 @@
 | `Super + Ctrl + P`           | Панель питания    |
 | `Super + Ctrl + Alt + D`           | Панель календаря    |
 | `Super + Ctrl + Alt + E`           | Панель мировых часов    |
-| `Super + Ctrl + 1-9`           | Панель бара по позиции    |
+| `Super + Ctrl + 1-9`           | Панель по позиции    |
 | `Super + Ctrl + S` | Меню шаринга (через LocalSend) |
 | `Super + Ctrl + T`           | Активность (btop)    |
 | `Super + Ctrl + C` | Контролы захвата (скриншот/запись/пипетка) |
@@ -125,7 +125,7 @@
 | `Super + Shift + Alt + X`           | X Compose |
 | `Super + Shift + Y`           | YouTube |
 
-Бинды меняются/добавляются в `~/.config/hypr/bindings.lua`.
+Хоткеи меняются/добавляются в `~/.config/hypr/bindings.lua`.
 
 ## Единый буфер
 
@@ -194,7 +194,7 @@
 | `Shift + Mute` | Следующий аудиовыход |
 | `Shift + Play` | Следующий медиа-источник |
 | `Super + Shift + Backspace` | Отступы окон |
-| `Super + Ctrl + Alt + F` | Весь экран десктопа (бар + отступы) |
+| `Super + Ctrl + Alt + F` | Весь экран десктопа (панель + отступы) |
 
 ## Напоминания
 
@@ -214,7 +214,7 @@
 
 ## Tmux
 
-Префикс — `Ctrl + Space` (работает и `Ctrl + B`). Бинды меняются в `~/.config/tmux/tmux.conf`.
+Префикс — `Ctrl + Space` (работает и `Ctrl + B`). Хоткеи меняются в `~/.config/tmux/tmux.conf`.
 
 ### Панели
 
@@ -267,7 +267,7 @@
 | Хоткей                  | Функция              |
 | ----------------------- | --------------------- |
 | `Prefix + q` | Перечитать конфиг |
-| `Prefix + ?` | Показать бинды Tmux |
+| `Prefix + ?` | Показать хоткеи Tmux |
 | `Prefix + :` | Командная строка |
 
 ### Layout-функции Tmux
