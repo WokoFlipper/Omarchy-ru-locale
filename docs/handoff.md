@@ -72,3 +72,4 @@
 - Браузер: browser-testing-with-devtools (Chrome DevTools MCP) — сверх стандартного webfetch. Для DOM/консоли/сети/перфа в живом браузере.
 - Системные (~/.agents/skills/): kadr, karing, omarchy, huawei-charge, network-dns, diagnose-crash, gemini-*. Локальные: memory-simple, sleep-resume-debug, agent-reach (интернет).
 - Игры (Gaming): не удалять нигде — ни раздел мануала, ни пункты меню, ни переводы.
+- AI только латиницей (не ИИ). TUI/AUR/пакеты — латиницей.
