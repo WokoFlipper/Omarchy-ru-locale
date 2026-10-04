@@ -2,7 +2,7 @@
 
 ## Другие редакторы
 
-В Omarchy из коробки [Neovim](https://neovim.io/), но если хочется помейнстримнее и попривычнее — открой меню Omarchy (`Super + Space`) и глянь опции в _Install > Editor_. Там VSCode, Cursor, Zed, Sublime Text, Helix, Vim и Emacs. Не нашёл своё — глянь _Install > Package_, вдруг оно в арч-пакете (а нет — попробуй _Install > AUR_ на предмет AUR).
+В Omarchy из коробки [Neovim](https://neovim.io/), но если хочется помейнстримнее и попривычнее — открой меню Omarchy (`Super + Space`) и глянь опции в _Установить > Редактор_. Там VSCode, Cursor, Zed, Sublime Text, Helix, Vim и Emacs. Не нашёл своё — глянь _Установить > Пакет_, вдруг оно в арч-пакете (а нет — попробуй _Установить > AUR_ на предмет AUR).
 
 Оригинальный редактор `vi` тоже есть из коробки. Правишь файл в терминале через `vi filename`.
 
@@ -12,7 +12,7 @@
 
 ## Окружение
 
-Omarchy умеет поднимать целую россыпь девелоперских окружений через секцию _Install > Development_ в меню Omarchy (`Super + Space`). Там, конечно, _Ruby on Rails_, но и все три главных рантайма под JavaScript (Node.js, Bun, Deno), и популярные PHP-фреймворки вроде Laravel и Symfony. О, а ещё Go, Rust, Python, Java, Elixir (с Phoenix), .NET, OCaml, Zig, Clojure и Scala. Выбор — широчайший!
+Omarchy умеет поднимать целую россыпь девелоперских окружений через секцию _Установить > Разработка_ в меню Omarchy (`Super + Space`). Там, конечно, _Ruby on Rails_, но и все три главных рантайма под JavaScript (Node.js, Bun, Deno), и популярные PHP-фреймворки вроде Laravel и Symfony. О, а ещё Go, Rust, Python, Java, Elixir (с Phoenix), .NET, OCaml, Zig, Clojure и Scala. Выбор — широчайший!
 
 Большинство окружений рулится через [Mise](https://mise.jdx.dev/). Это тула, которая ставит и гоняет несколько версий языка на одной машине. Вроде rbenv или rvm под Ruby или virtualenv под Python, но работает под кучу разных окружений.
 
@@ -26,7 +26,7 @@ Omarchy умеет поднимать целую россыпь девелопе
 
 Не забудь про команду Lazydocker — рулить контейнерами в клёвом TUI через `Super + Shift + D`; в первый раз спросит авторизацию, если sudoless Docker не включён.
 
-Ходовые базы под локальную разработку поднимаются в Docker через _Install > Development > Docker DB_ в меню Omarchy.
+Ходовые базы под локальную разработку поднимаются в Docker через _Установить > Разработка > База данных Docker_ в меню Omarchy.
 
 ## GitHub CLI
 
