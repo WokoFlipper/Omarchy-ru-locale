@@ -317,9 +317,60 @@ function canForgetNetwork(network) {
   return !!(network && network.known && !network.connected)
 }
 
-// ПРИМЕЧАНИЕ: стоковый скрипт PEAP/MSCHAPv2-профиля удалён — он создавал
-// корпоративные подключения без проверки CA (перехват учёток чужой точкой).
-// Корпоративные сети этим форком не поддерживаются (см. submitCredentials).
+// CA и точное имя сервера — только от администратора сети,
+// никогда из широковещательного SSID или логина.
+// Порт фикса апстрима #13947.
+function enterpriseTrustValid(caCert, serverName) {
+  if (typeof caCert !== "string" || caCert.charAt(0) !== "/") return false
+  if (typeof serverName !== "string" || serverName.length === 0 || serverName.length > 253) return false
+  var labels = serverName.split(".")
+  return labels.every(function(label) {
+    return label.length > 0 && label.length <= 63 && /^[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?$/.test(label)
+  })
+}
+
+// Пароль приходит в stdin и уходит в nmcli через скриптуемый редактор
+// `connection edit` — argv виден всем в /proc, так что секрету там не место
+// (printf — встроенная команда bash, отдельный процесс с ним не spawнится).
+// LC_ALL=C в начале: в UTF-8-локали glibc кладёт не-ASCII буквы (напр. â)
+// внутрь диапазона [A-Za-z], и перепроверка на границе процесса пропустила бы
+// то, что отклонил UI-гейт выше (найдено живым прогоном trust-теста #13947).
+var enterpriseConnectWorkerScript =
+  "export LC_ALL=C;" +
+  " IFS= read -r pw || exit 1;" +
+  // Держим лидера группы, пока фоновый потомок игнорирует TERM, чтобы
+  // эскалация KILL от timeout достала каждого члена группы.
+  " trap 'exit 124' TERM INT;" +
+  " nmcli connection add type wifi con-name \"$1\" ssid \"$1\" connection.uuid \"$5\"" +
+  " wifi-sec.key-mgmt wpa-eap 802-1x.eap peap 802-1x.phase2-auth mschapv2" +
+  " 802-1x.identity \"$2\" 802-1x.auth-timeout 0" +
+  " 802-1x.ca-cert \"$3\" 802-1x.domain-match \"$4\" 802-1x.system-ca-certs no >/dev/null" +
+  " && printf 'set 802-1x.password %s\\nsave\\nquit\\n' \"$pw\" | nmcli connection edit uuid \"$5\" >/dev/null" +
+  " && nmcli connection up uuid \"$5\""
+
+var enterpriseConnectScript =
+  // Перепроверка на границе процесса: вызывающий не обойдёт UI-гейт.
+  "export LC_ALL=C;" +
+  "[[ $3 == /* && -f $3 && -r $3 ]] || exit 64;" +
+  " [[ $4 =~ ^[A-Za-z0-9.-]+$ && $4 != .* && $4 != *. && $4 != *..* ]] && (( ${#4} <= 253 )) || exit 65;" +
+  " IFS=. read -r -a labels <<<\"$4\";" +
+  " for label in \"${labels[@]}\"; do" +
+  " (( ${#label} <= 63 )) && [[ $label =~ ^[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?$ ]] || exit 65; done;" +
+  " u=$(uuidgen) || exit 1; IFS= read -r pw || exit 1; cancelled=0; attempt_pid=;" +
+  // Супервизор переживает KILL группы воркера и владеет своим UUID. Даём
+  // nmcli штатные 90 секунд ожидания активации плюс время на сетап; явный
+  // ретрай отменяет раньше. Чистка — вне убиваемой группы.
+  " cancel_attempt() { cancelled=1; if [[ -n $attempt_pid ]]; then kill -TERM \"$attempt_pid\" 2>/dev/null; wait \"$attempt_pid\" 2>/dev/null; fi; };" +
+  " trap cancel_attempt TERM INT;" +
+  " printf '%s\\n' \"$pw\" | timeout --kill-after=1s 150s bash -c '" +
+  enterpriseConnectWorkerScript.replace(/'/g, "'\\''") +
+  "' nmcli-eap \"$1\" \"$2\" \"$3\" \"$4\" \"$u\" & attempt_pid=$!;" +
+  " (( cancelled == 0 )) || cancel_attempt;" +
+  " wait \"$attempt_pid\"; status=$?; trap '' TERM INT;" +
+  " (( cancelled == 0 )) || status=124;" +
+  // Удалению профиля даём штатные десять секунд до эскалации.
+  " if (( status != 0 )); then timeout --kill-after=1s 12s nmcli connection delete uuid \"$u\" >/dev/null 2>&1; fi;" +
+  " exit \"$status\""
 
 function networkFailureReason(reason, needsCredentials, reasons) {
   var r = reasons || {}
@@ -369,6 +420,8 @@ if (typeof module !== "undefined") {
     wifiSectionTitle: wifiSectionTitle,
     requiresCredentials: requiresCredentials,
     canForgetNetwork: canForgetNetwork,
+    enterpriseTrustValid: enterpriseTrustValid,
+    enterpriseConnectScript: enterpriseConnectScript,
     networkFailureReason: networkFailureReason,
     shouldRepromptPassphrase: shouldRepromptPassphrase
   }

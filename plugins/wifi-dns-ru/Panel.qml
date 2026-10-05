@@ -26,6 +26,8 @@ Panel {
     passwordSsid = ""
     passwordText = ""
     identityText = ""
+    caCertText = ""
+    serverNameText = ""
   }
 
   // Live connection details from `ip` / /sys / iw.
@@ -121,6 +123,10 @@ Panel {
   property string passwordSsid: ""
   property string passwordText: ""
   property string identityText: ""
+  property string caCertText: ""
+  property string serverNameText: ""
+  property var enterpriseRetry: null
+  property int actionRevision: 0
 
   // ConnectionFailReason values as a plain object, so Model.js helpers stay
   // pure JS and Node-testable.
@@ -766,6 +772,8 @@ Panel {
     if (passwordSsid !== ssid) {
       passwordText = ""
       identityText = ""
+      caCertText = ""
+      serverNameText = ""
     }
     passwordSsid = ssid
   }
@@ -801,7 +809,7 @@ Panel {
 
   function clearNetworkAction() {
     actionTimeout.stop()
-    if (actionKind === "connect") passwordSsid = ""
+    if (actionKind === "connect" && passwordSsid === actionSsid) passwordSsid = ""
     failureSsid = ""
     failureReason = ""
     actionSsid = ""
@@ -842,9 +850,73 @@ Panel {
     runNetworkAction("connect", networkForSsid(ssid), function(network) { network.connectWithPsk(passphrase) })
   }
 
-  // ПРИМЕЧАНИЕ: поддержка enterprise (EAP) удалена (см. submitCredentials):
-  // унаследованный путь PEAP/MSCHAPv2 пропускает проверку CA.
-  // Корпоративные сети — через системные настройки.
+  function connectEnterprise(ssid, identity, passphrase, caCert, serverName) {
+    if (!Model.enterpriseTrustValid(caCert, serverName)) return
+    // Свойства Process принадлежат уже бегущей попытке. Их переиспользование
+    // до выхода позволило бы приписать её позднее падение ретраю.
+    if (enterpriseConnect.running) {
+      if (actionKind === "") {
+        enterpriseRetry = {ssid: ssid, identity: identity, passphrase: passphrase, caCert: caCert, serverName: serverName, actionRevision: actionRevision}
+        if (!enterpriseConnect.cancelling) {
+          enterpriseConnect.cancelling = true
+          enterpriseConnect.signal(15)
+        }
+      }
+      return
+    }
+    runNetworkAction("connect", networkForSsid(ssid), function(network) {
+      enterpriseConnect.secret = passphrase
+      enterpriseConnect.ssid = ssid
+      enterpriseConnect.actionRevision = actionRevision
+      enterpriseConnect.command = ["bash", "-c", Model.enterpriseConnectScript, "nmcli-eap", ssid, identity, caCert, serverName]
+      enterpriseConnect.running = true
+    })
+  }
+
+  Process {
+    id: enterpriseConnect
+    property string secret: ""
+    property string ssid: ""
+    property int actionRevision: 0
+    property bool cancelling: false
+    stdinEnabled: true
+    onStarted: {
+      write(secret + "\n")
+      secret = ""
+    }
+    onExited: function(exitCode, exitStatus) {
+      secret = ""
+      cancelling = false
+      var retry = root.enterpriseRetry
+      root.enterpriseRetry = null
+      if (retry) {
+        Qt.callLater(function() {
+          if (root.actionRevision === retry.actionRevision && root.actionKind === "")
+            root.connectEnterprise(retry.ssid, retry.identity, retry.passphrase, retry.caCert, retry.serverName)
+        })
+      }
+      if (root.actionRevision !== actionRevision) return
+      var active = root.actionKind === "connect" && root.actionSsid === ssid
+      var timedOut = root.actionKind === "" && root.failureSsid === ssid
+      if (!active && !timedOut) return
+      if (exitCode === 0 && exitStatus === 0) {
+        if (root.passwordSsid === ssid) root.passwordSsid = ""
+        root.clearNetworkAction()
+        return
+      }
+      actionTimeout.stop()
+      root.failureSsid = ssid
+      root.failureReason = exitCode === 64 ? "CA-сертификат: нужен читаемый файл"
+        : (exitCode === 65 ? "Неверное имя сервера аутентификации"
+          : (exitCode === 124 || exitCode === 137 || exitStatus !== 0 ? "Таймаут подключения" : "Проверьте учётку или сертификаты"))
+      root.actionSsid = ""
+      root.actionKind = ""
+    }
+  }
+
+  // Enterprise (EAP): путь PEAP/MSCHAPv2 с проверкой CA (порт фикса
+  // апстрима #13947 + LC_ALL=C). Без валидного CA и имени сервера кнопка
+  // не активна, скрипт перепроверяет на границе процесса (exit 64/65).
 
   function disconnect(network) {
     runNetworkAction("disconnect", network || connectedWifiNetwork, function(net) { net.disconnect() })
@@ -1790,13 +1862,12 @@ Panel {
     function submitCredentials() {
       if (!net || root.busy || root.passwordText.length === 0) return
       if (!isEnterprise) return root.connectWithPassphrase(net.ssid, root.passwordText)
-      // Корпоративный EAP отключён в этом форке: унаследованный путь создаёт
-      // профиль PEAP/MSCHAPv2 без проверки CA — чуждая точка с тем же SSID
-      // может перехватить ответ (ревью маркета по #9486). Для корпоративных
-      // сетей используйте системные настройки.
-      root.failureSsid = net.ssid
-      root.failureReason = "Корпоративному Wi-Fi нужна проверка CA — здесь не поддерживается, используйте системные настройки"
-      root.passwordSsid = ""
+      if (!Model.enterpriseTrustValid(root.caCertText, root.serverNameText)) {
+        root.failureSsid = net.ssid
+        root.failureReason = root.caCertText === "" || root.caCertText.charAt(0) !== "/" ? "CA-сертификат: нужен читаемый файл" : "Неверное имя сервера аутентификации"
+        return
+      }
+      if (root.identityText.length > 0) root.connectEnterprise(net.ssid, root.identityText, root.passwordText, root.caCertText, root.serverNameText)
     }
 
     Connections {
@@ -2008,7 +2079,7 @@ Panel {
       anchors.leftMargin: Style.space(10)
       anchors.rightMargin: Style.space(10)
       anchors.topMargin: Style.space(4)
-      implicitHeight: (idField.visible ? idField.implicitHeight + Style.space(4) : 0) + pwField.implicitHeight + Style.spacing.rowGap
+      implicitHeight: (idField.visible ? idField.implicitHeight + caField.implicitHeight + serverField.implicitHeight + Style.space(12) : 0) + pwField.implicitHeight + Style.spacing.rowGap
       height: implicitHeight
 
       TextField {
@@ -2027,12 +2098,54 @@ Panel {
         enabled: !row.isBusy
         text: row.isPasswordOpen ? root.identityText : ""
 
-        onAccepted: pwField.forceActiveFocus()
+        onAccepted: caField.forceActiveFocus()
         onTextChanged: if (row.isPasswordOpen && text !== root.identityText) root.identityText = text
         Keys.onEscapePressed: root.cancelPasswordPrompt()
 
         onVisibleChanged: if (visible) Qt.callLater(forceActiveFocus)
         Component.onCompleted: if (visible) Qt.callLater(forceActiveFocus)
+      }
+
+      TextField {
+        id: caField
+        visible: idField.visible
+        anchors.left: parent.left
+        anchors.right: connectPwBtn.left
+        anchors.top: idField.bottom
+        anchors.topMargin: Style.space(4)
+        anchors.rightMargin: Style.space(6)
+        placeholderText: "Путь к CA-сертификату"
+        font.family: Style.font.family
+        font.pixelSize: Style.font.body
+        foreground: root.bar.foreground
+        horizontalPadding: Style.spacing.controlGap
+        verticalPadding: Style.spacing.controlPaddingY
+        enabled: !row.isBusy
+        text: row.isPasswordOpen ? root.caCertText : ""
+        onAccepted: serverField.forceActiveFocus()
+        onTextChanged: if (row.isPasswordOpen && text !== root.caCertText) root.caCertText = text
+        Keys.onEscapePressed: root.cancelPasswordPrompt()
+      }
+
+      TextField {
+        id: serverField
+        visible: idField.visible
+        anchors.left: parent.left
+        anchors.right: connectPwBtn.left
+        anchors.top: caField.bottom
+        anchors.topMargin: Style.space(4)
+        anchors.rightMargin: Style.space(6)
+        placeholderText: "Имя сервера аутентификации"
+        font.family: Style.font.family
+        font.pixelSize: Style.font.body
+        foreground: root.bar.foreground
+        horizontalPadding: Style.spacing.controlGap
+        verticalPadding: Style.spacing.controlPaddingY
+        enabled: !row.isBusy
+        text: row.isPasswordOpen ? root.serverNameText : ""
+        onAccepted: pwField.forceActiveFocus()
+        onTextChanged: if (row.isPasswordOpen && text !== root.serverNameText) root.serverNameText = text
+        Keys.onEscapePressed: root.cancelPasswordPrompt()
       }
 
       TextField {
@@ -2077,7 +2190,7 @@ Panel {
           anchors.fill: parent
           horizontalAlignment: Text.AlignHCenter
           verticalAlignment: Text.AlignVCenter
-          text: row.isFailed ? "Неверный пароль" : "Подключение..."
+          text: row.isFailed ? root.failureReason : "Подключение..."
           color: row.isFailed ? root.bar.urgent : root.bar.foreground
           font.family: root.bar.fontFamily
           font.pixelSize: Style.font.bodySmall
@@ -2092,7 +2205,7 @@ Panel {
         visible: !row.isBusy && !row.isFailed
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        enabled: row.net && pwField.text.length > 0 && (!row.isEnterprise || idField.text.length > 0)
+        enabled: row.net && pwField.text.length > 0 && (!row.isEnterprise || (idField.text.length > 0 && Model.enterpriseTrustValid(caField.text, serverField.text)))
         iconText: "󰄬"
         tooltipText: "Подключить"
         foreground: root.bar.foreground
