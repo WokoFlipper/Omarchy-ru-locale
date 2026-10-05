@@ -1,48 +1,46 @@
-# IMAGES — русские скрины manual-ru
+# Инструкция по русским скриншотам (manual-ru, 23 шт.)
 
-44 UI-снимка (images/*.webp). Превью тем (../themes/*) не переснимаем.
+## Подготовка (разово)
+1. Применить локаль: `python3 bindings-translate apply ru_RU`, панели sbelcl стоят, `~/.config/omarchy/locales/ru.json` свежий (242 ключа).
+2. Система на русском: раскладка, меню и панели показывают RU-строки. Проверить: `SUPER+K` — описания по-русски.
+3. Чистый стол: обои нейтральные, лишние окна закрыты, бар сверху, масштаб 1x (чтобы размеры совпали со стоком).
 
-- [ ] `images/bootloader.webp` ← 30-updates.md
-- [ ] `images/branding-about.webp` ← 41-branding.md
-- [ ] `images/branding-plymouth-shopify.webp` ← 41-branding.md
-- [ ] `images/branding-screensaver.webp` ← 41-branding.md
-- [ ] `images/clipboard-history-search.webp` ← 08-unified-clipboard-history.md
-- [ ] `images/clipboard-history.webp` ← 08-unified-clipboard-history.md
-- [ ] `images/dual-boot-1.webp` ← 50-dual-boot-install.md
-- [ ] `images/dual-boot-2.webp` ← 50-dual-boot-install.md
-- [ ] `images/dual-boot-3.webp` ← 50-dual-boot-install.md
-- [ ] `images/dual-boot-4.webp` ← 50-dual-boot-install.md
-- [ ] `images/dual-boot-5.webp` ← 50-dual-boot-install.md
-- [ ] `images/dual-boot-6.webp` ← 50-dual-boot-install.md
-- [ ] `images/dual-boot-7.webp` ← 50-dual-boot-install.md
-- [ ] `images/fonts-jetbrainsmono.webp` ← 38-fonts.md
-- [ ] `images/gaming-geforce-now.webp` ← 26-gaming.md
-- [ ] `images/gaming-minecraft.webp` ← 26-gaming.md
-- [ ] `images/gaming-retroarch.webp` ← 26-gaming.md
-- [ ] `images/gaming-starcraft.webp` ← 26-gaming.md
-- [ ] `images/gaming-steam.webp` ← 26-gaming.md
-- [ ] `images/gaming-xbox-cloud.webp` ← 26-gaming.md
-- [ ] `images/install-config.webp` ← 02-getting-started.md
-- [ ] `images/install-done.webp` ← 02-getting-started.md
-- [ ] `images/macbook-omarchy.webp` ← 44-mac-support.md
-- [ ] `images/navigation-browser-terminal.webp` ← 04-navigation.md
-- [ ] `images/navigation-dwindle-layout.webp` ← 04-navigation.md
-- [ ] `images/navigation-fourway-tiling.webp` ← 04-navigation.md
-- [ ] `images/navigation-popped-window.webp` ← 04-navigation.md
-- [ ] `images/navigation-scrolling-layout.webp` ← 04-navigation.md
-- [ ] `images/navigation-stacked.webp` ← 04-navigation.md
-- [ ] `images/notice-battery.webp` ← 10-notices.md
-- [ ] `images/notice-datetime.webp` ← 10-notices.md
-- [ ] `images/notice-weather.webp` ← 10-notices.md
-- [ ] `images/prompt.webp` ← 40-prompt.md
-- [ ] `images/reminders.webp` ← 09-reminders.md
-- [ ] `images/snapshots-bootloader.webp` ← 47-system-snapshots.md
-- [ ] `images/snapshots-restore.webp` ← 47-system-snapshots.md
-- [ ] `images/text-extraction.webp` ← 11-text-extraction-dictation.md
-- [ ] `images/tmux-tdl.webp` ← 15-terminal.md
-- [ ] `images/tmux-tdl2.webp` ← 15-terminal.md
-- [ ] `images/tmux-tdlm.webp` ← 15-terminal.md
-- [ ] `images/tmux-tsl.webp` ← 15-terminal.md
-- [ ] `images/troubleshooting-1password.webp` ← 45-troubleshooting.md
-- [ ] `images/update-available.webp` ← 30-updates.md
-- [ ] `images/windows-vm.webp` ← 28-windows-vm.md
+## Чем снимать
+- Регион: `grim -g "$(slurp)" /tmp/shot.png` (slurp — выделить мышью).
+- Окно/монитор: `omarchy capture screenshot region|windows|fullscreen`.
+- Формат: PNG → WebP: `cwebp -q 85 /tmp/shot.png -o <имя>.webp` (или `ffmpeg -i /tmp/shot.png -quality 85 <имя>.webp`).
+- Имена и размеры — как в стоке (см. таблицу ниже). Класть в `translations/manual-ru/images/`.
+
+## Карта (что снимать, 44 шт.)
+| Файл | Как снять |
+|---|---|
+| install-config.webp, install-done.webp | ISO в VM (не переснять живьём!): QEMU + RU-установщик, скрины мастера установки |
+| install-done — см. выше | |
+| navigation-*.webp (6 шт) | Открыть терминал+браузер (`SUPER+Return`, `SUPER+SHIFT+Return`), `SUPER+J` стаканит; fourway: +`SUPER+CTRL+T` +`SUPER+SHIFT+F`; dwindle/scrolling: `SUPER+L` тогл; popped: `SUPER+O` |
+| clipboard-history*.webp (2) | `SUPER+CTRL+V` с парой записей в истории |
+| text-extraction.webp | `SUPER+CTRL+PrtScr`, выделить текст |
+| tmux-tdl*.webp (4) | `tdl c`, `tdl c cx`, `tdlm`, `tsl 4 c` в терминале |
+| reminders.webp | `SUPER+CTRL+R` диалог |
+| notice-datetime/weather/battery.webp (3) | `SUPER+CTRL+ALT+T/W/B` |
+| gaming-*.webp (6) | Steam/RetroArch/Minecraft/Xbox/GeForce/Starcraft — окна приложений (RU UI где есть) |
+| fonts-jetbrainsmono.webp | Терминал с текстом |
+| prompt.webp | Терминал со starship-промптом |
+| branding-*.webp (3) | plymouth preview, скринсейвер ASCII, about-окно |
+| snapshots-bootloader/restore.webp (2) | Limine-меню + нотификация рестор (VM!) |
+| dual-boot-*.webp (7) | Windows diskmgmt + Limine — только VM/пересказ, живьём не снимать |
+| update-available.webp | Бейдж обновления у часов (симулировать? пропустить если нет апдейта) |
+| macbook-omarchy.webp | чужое фото — НЕ переснимать, оставить сток |
+| troubleshooting-1password.webp | диалог 1Password (пропустить если нет аккаунта) |
+| windows-vm.webp | окно Windows VM |
+| install-config/done — см. выше | |
+
+## Правила
+- UI на скриншоте — русский (панели, меню, диалоги). Английскими остаются только непереводимые имена (бренды, команды).
+- Без личных данных: терминалы с `~/Work`, вкладки браузера, IP, имена машин — замазать/обрезать.
+- Размер ≈ стоку (±20%). Проверить: `ls -la` рядом со стоковым файлом.
+- После замены: `grep` имя файла в md — путь `images/<имя>.webp` совпадает.
+
+## Проверка
+```
+ls translations/manual-ru/images/ | wc -l   # = 23
+```
