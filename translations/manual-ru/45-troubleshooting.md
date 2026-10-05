@@ -12,7 +12,7 @@ Omarchy считает 2x hi-res дисплей — под него в `~/.confi
 
 ### Чего не работает Caps Lock?
 
-В Omarchy Caps Lock назначен xcompose-клавишей. Так делаются [быстрые эмодзи](07-hotkeys.md#quick-emojis) и [прочие автоподстановки](07-hotkeys.md#quick-completions). Реально скучаешь по Caps Lock — перевесь xcompose-клавишу в другое место правкой `~/.config/hypr/input.lua`: скажем, на правый альт:
+В Omarchy Caps Lock назначен xcompose-клавишей. Так делаются [быстрые эмодзи](07-hotkeys.md#быстрые-эмодзи) и [прочие автоподстановки](07-hotkeys.md#быстрые-подстановки). Реально скучаешь по Caps Lock — перевесь xcompose-клавишу в другое место правкой `~/.config/hypr/input.lua`: скажем, на правый альт:
 
 ```
 hl.config({

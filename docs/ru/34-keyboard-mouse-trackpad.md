@@ -39,7 +39,7 @@ o.window("(Alacritty|kitty|foot)", { scroll_touchpad = 1.5 })
 
 Все опции вводов смотри на [вики Hyprland про вводы](https://wiki.hypr.land/Configuring/Basics/Variables/#input).
 
-По умолчанию Omarchy вешает compose-клавишу на CapsLock — под [быстрые эмодзи](07-hotkeys.md#quick-emojis) и [прочие подстановки](07-hotkeys.md#quick-completions). Хочешь CapsLock как Caps Lock — уведи compose-клавишу в другое место правкой `compose:caps` в `kb_options`. Например, так compose-клавиша переедет на правый Alt:
+По умолчанию Omarchy вешает compose-клавишу на CapsLock — под [быстрые эмодзи](07-hotkeys.md#быстрые-эмодзи) и [прочие подстановки](07-hotkeys.md#быстрые-подстановки). Хочешь CapsLock как Caps Lock — уведи compose-клавишу в другое место правкой `compose:caps` в `kb_options`. Например, так compose-клавиша переедет на правый Alt:
 
 ```lua
 hl.config({
