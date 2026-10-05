@@ -11,7 +11,7 @@
 - [07 — Хоткеи](ru/07-hotkeys.md)
 - [08 — Единый буфер и история](ru/08-unified-clipboard-history.md)
 - [09 — Напоминания](ru/09-reminders.md)
-- [10 — Нотисы](ru/10-notices.md)
+- [10 — Заметки](ru/10-notices.md)
 - [11 — Извлечение текста и диктовка](ru/11-text-extraction-dictation.md)
 - [12 — Скриншоты и запись](ru/12-screenshots-recording.md)
 - [13 — Тоглы, простой и скринсейвер](ru/13-toggles-idle-screensaver.md)
@@ -19,7 +19,7 @@
 - [15 — Терминал](ru/15-terminal.md)
 - [16 — Neovim](ru/16-neovim.md)
 - [17 — AI](ru/17-ai.md)
-- [18 — Девтулы](ru/18-development-tools.md)
+- [18 — Инструменты разработчика](ru/18-development-tools.md)
 - [19 — Шелл-тулы](ru/19-shell-tools.md)
 - [20 — Шелл-функции](ru/20-shell-functions.md)
 - [21 — TUI-приложения](ru/21-tuis.md)
@@ -52,6 +52,6 @@
 - [48 — Безопасность](ru/48-security.md)
 - [49 — Omarchy на…](ru/49-omarchy-on.md)
 - [50 — Дуалбут-установка](ru/50-dual-boot-install.md)
-- [51 — Установки без присмотра](ru/51-unattended-installs.md)
+- [51 — Автоматическая установка](ru/51-unattended-installs.md)
 
 Источник: [Omarchy-ru-locale](https://github.com/WokoFlipper/Omarchy-ru-locale) (`translations/manual-ru/`).
