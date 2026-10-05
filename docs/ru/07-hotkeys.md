@@ -118,7 +118,6 @@
 | `Super + Shift + S`           | Google Maps  |
 | `Super + Shift + Alt + G`           | Мессенджер (WhatsApp)  |
 | `Super + Shift + Ctrl + G`           | Мессенджер (Google)  |
-| `Super + Shift + D`           | Docker (LazyDocker)  |
 | `Super + Shift + O`           | Obsidian  |
 | `Super + Shift + W`           | Писанина (Omawrite)  |
 | `Super + Shift + X`           | X |
