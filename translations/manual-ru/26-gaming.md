@@ -28,7 +28,7 @@ RetroArch полностью преднастроен с красивущим CR
 2. Запусти RetroArch с `Super + Space`, напечатав `retro`.
 3. Проскань каталог `~/Games/roms` — можно играть.
 
-Любимой игре можно дать свою запись в лаунчере через _Установить > Игры > RetroArch Game Launcher_: выбираешь ядро и ROM — и прыгаешь straight в игру из `Super + Space`.
+Любимой игре можно дать свою запись в лаунчере через _Установить > Игры > RetroArch Game Launcher_: выбираешь ядро и ROM — и попадаешь прямо в игру из `Super + Space`.
 
  ![gaming-retroarch](images/gaming-retroarch.webp)
 

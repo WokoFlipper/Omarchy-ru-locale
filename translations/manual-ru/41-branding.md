@@ -42,7 +42,7 @@ omarchy plymouth preview '#1d2021' '#ebdbb2' logo.png preview.png
 omarchy transcode ascii ~/logo.svg ~/.config/omarchy/branding/screensaver.txt --width 100
 ```
 
-Берёт `--width` и `--height` в терминальных колонках и строках, `--mode` либо `braille` (дефолт, сильно тоньше), либо `block`, `--threshold`-процент, решающий какие пиксели зачесть за лого, и `--invert` под светлое лого на тёмном фоне. Вылезла конверсия blob'ом — крути threshold обычно.
+Берёт `--width` и `--height` в терминальных колонках и строках, `--mode` либо `braille` (дефолт, сильно тоньше), либо `block`, `--threshold`-процент, решающий какие пиксели зачесть за лого, и `--invert` под светлое лого на тёмном фоне. Если конверсия вылезла пятном — первым делом крути порог.
 
 ### Слова вместо лого
 
