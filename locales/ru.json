@@ -100,7 +100,7 @@
  "%1h %2m": "%1ч %2мин",
  "%1m": "%1 мин",
  "AVAILABLE": "ДОСТУПНО",
- "Allow Idle Lock & Screensaver": "Блокировка экрана вкл/выкл",
+ "Allow Idle Lock & Screensaver": "Блокировка сна",
  "Applying... a language that has never been generated takes a moment.": "Применяем... язык, который ещё не создан, требует времени.",
  "BALANCE": "БАЛАНС",
  "BRIGHTNESS": "ЯРКОСТЬ",
