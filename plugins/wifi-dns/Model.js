@@ -317,9 +317,60 @@ function canForgetNetwork(network) {
   return !!(network && network.known && !network.connected)
 }
 
-// NOTE: the stock PEAP/MSCHAPv2 profile script was removed here — it created
-// enterprise connections without CA validation (rogue-AP credential capture).
-// Enterprise networks are unsupported by this fork; see submitCredentials.
+// CA and exact server name come only from the network administrator,
+// never from a broadcast SSID or login.
+// Port of the upstream #13947 fix.
+function enterpriseTrustValid(caCert, serverName) {
+  if (typeof caCert !== "string" || caCert.charAt(0) !== "/") return false
+  if (typeof serverName !== "string" || serverName.length === 0 || serverName.length > 253) return false
+  var labels = serverName.split(".")
+  return labels.every(function(label) {
+    return label.length > 0 && label.length <= 63 && /^[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?$/.test(label)
+  })
+}
+
+// The passphrase arrives on stdin and goes to nmcli through the scriptable
+// `connection edit` editor — argv is visible to all in /proc, so the secret
+// has no place there (printf is a bash builtin, no separate process spawns).
+// LC_ALL=C first: in UTF-8 locales glibc puts non-ASCII letters (e.g. â)
+// inside the [A-Za-z] range, and the process-boundary recheck would admit
+// what the UI gate above rejected (found by a live run of the #13947 trust test).
+var enterpriseConnectWorkerScript =
+  "export LC_ALL=C;" +
+  " IFS= read -r pw || exit 1;" +
+  // Hold the group leader while the background child ignores TERM, so the
+  // KILL escalation from timeout reaches every group member.
+  " trap 'exit 124' TERM INT;" +
+  " nmcli connection add type wifi con-name \"$1\" ssid \"$1\" connection.uuid \"$5\"" +
+  " wifi-sec.key-mgmt wpa-eap 802-1x.eap peap 802-1x.phase2-auth mschapv2" +
+  " 802-1x.identity \"$2\" 802-1x.auth-timeout 0" +
+  " 802-1x.ca-cert \"$3\" 802-1x.domain-match \"$4\" 802-1x.system-ca-certs no >/dev/null" +
+  " && printf 'set 802-1x.password %s\\nsave\\nquit\\n' \"$pw\" | nmcli connection edit uuid \"$5\" >/dev/null" +
+  " && nmcli connection up uuid \"$5\""
+
+var enterpriseConnectScript =
+  // Process-boundary recheck: the caller cannot bypass the UI gate.
+  "export LC_ALL=C;" +
+  "[[ $3 == /* && -f $3 && -r $3 ]] || exit 64;" +
+  " [[ $4 =~ ^[A-Za-z0-9.-]+$ && $4 != .* && $4 != *. && $4 != *..* ]] && (( ${#4} <= 253 )) || exit 65;" +
+  " IFS=. read -r -a labels <<<\"$4\";" +
+  " for label in \"${labels[@]}\"; do" +
+  " (( ${#label} <= 63 )) && [[ $label =~ ^[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?$ ]] || exit 65; done;" +
+  " u=$(uuidgen) || exit 1; IFS= read -r pw || exit 1; cancelled=0; attempt_pid=;" +
+  // The supervisor outlives the worker group's KILL and owns its UUID. Give
+  // nmcli the stock 90 seconds of activation wait plus setup time; an explicit
+  // retry cancels earlier. Cleanup runs outside the killed group.
+  " cancel_attempt() { cancelled=1; if [[ -n $attempt_pid ]]; then kill -TERM \"$attempt_pid\" 2>/dev/null; wait \"$attempt_pid\" 2>/dev/null; fi;};" +
+  " trap cancel_attempt TERM INT;" +
+  " printf '%s\\n' \"$pw\" | timeout --kill-after=1s 150s bash -c '" +
+  enterpriseConnectWorkerScript.replace(/'/g, "'\\''") +
+  "' nmcli-eap \"$1\" \"$2\" \"$3\" \"$4\" \"$u\" & attempt_pid=$!;" +
+  " (( cancelled == 0 )) || cancel_attempt;" +
+  " wait \"$attempt_pid\"; status=$?; trap '' TERM INT;" +
+  " (( cancelled == 0 )) || status=124;" +
+  // The profile delete gets the stock ten seconds before escalation.
+  " if (( status != 0 )); then timeout --kill-after=1s 12s nmcli connection delete uuid \"$u\" >/dev/null 2>&1; fi;" +
+  " exit \"$status\""
 
 function networkFailureReason(reason, needsCredentials, reasons) {
   var r = reasons || {}
@@ -369,6 +420,8 @@ if (typeof module !== "undefined") {
     wifiSectionTitle: wifiSectionTitle,
     requiresCredentials: requiresCredentials,
     canForgetNetwork: canForgetNetwork,
+    enterpriseTrustValid: enterpriseTrustValid,
+    enterpriseConnectScript: enterpriseConnectScript,
     networkFailureReason: networkFailureReason,
     shouldRepromptPassphrase: shouldRepromptPassphrase
   }
