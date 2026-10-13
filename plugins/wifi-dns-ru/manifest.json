@@ -3,7 +3,7 @@
   "id": "wifi-dns-ru",
   "name": "Wi-Fi + DNS RU",
     "version": "2.0.0",
-  "author": "Resty",
+  "author": "WokoFlipper",
   "description": "Wi-Fi panel with working DNS presets for Russia (NextDNS, DNS4EU, OpenDNS)",
   "kinds": [
     "bar-widget"
