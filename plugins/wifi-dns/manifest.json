@@ -3,7 +3,7 @@
     "id": "wifi-dns",
     "name": "Wi-Fi + DNS",
     "version": "2.0.0",
-    "author": "Resty",
+    "author": "WokoFlipper",
     "description": "Wi-Fi panel with working DNS presets (NextDNS, DNS4EU, OpenDNS)",
   "kinds": [
     "bar-widget"
